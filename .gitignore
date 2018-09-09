@@ -1,0 +1,6 @@
+./server/initial/build/
+./server/initial/build/**
+./server/initial/bin/
+./server/initial/bin/**
+
+
