@@ -84,12 +84,12 @@ Google er betri ad utskyra en eg.
 #### . (root dir)
 
 `npm install`
-	
-	Setja upp allt front-end
+  
+  Setja upp allt front-end
 
 `npm start`
 
-	Keyrir upp dev server
+  Keyrir upp dev server
 
 ---
 
@@ -97,23 +97,23 @@ Google er betri ad utskyra en eg.
 
 `./gradlew build`   
 
-	Nota gradle wrapper til ad byggja serverinn 
+  Nota gradle wrapper til ad byggja serverinn 
 
 `./gradlew bootRun`   
 
-	Nota gradle wrapper til ad byggja OG keyra serverinn 
+  Nota gradle wrapper til ad byggja OG keyra serverinn 
 
 ---
 
 # Filesystem
 
-		./                          web-app home dir
-		  server/                   spring server home dir
-			       gradle/            --  auto  --
+    ./                          web-app home dir
+      server/                   spring server home dir
+             gradle/            --  auto  --
              test/              --  auto  --
-						 setup/             install files
-						 initial/           --  auto fyrir utan... --
-						         src/       *Source code*
+             setup/             install files
+             initial/           --  auto fyrir utan... --
+                     src/       *Source code*
                  
 
-							
+              
