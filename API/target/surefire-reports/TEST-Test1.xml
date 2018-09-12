@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="Test1" time="0.518" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="Test1" time="0.388" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit"/>
     <property name="file.encoding.pkg" value="sun.io"/>
@@ -16,7 +16,7 @@
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64"/>
-    <property name="sun.java.command" value="/home/bitchhunter3000/projects/workout-tracker/API/target/surefire/surefirebooter1541628386116044800.jar /home/bitchhunter3000/projects/workout-tracker/API/target/surefire 2018-09-12T20-06-48_702-jvmRun1 surefire4952504726312556830tmp surefire_07471320538031996099tmp"/>
+    <property name="sun.java.command" value="/home/bitchhunter3000/projects/workout-tracker/API/target/surefire/surefirebooter1633657977650840376.jar /home/bitchhunter3000/projects/workout-tracker/API/target/surefire 2018-09-12T20-17-40_380-jvmRun1 surefire5953310205681096141tmp surefire_07853623745494164800tmp"/>
     <property name="surefire.test.class.path" value="/home/bitchhunter3000/projects/workout-tracker/API/target/test-classes:/home/bitchhunter3000/projects/workout-tracker/API/target/classes:/home/bitchhunter3000/.m2/repository/junit/junit/4.12/junit-4.12.jar:/home/bitchhunter3000/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar:/home/bitchhunter3000/.m2/repository/org/json/json/20180130/json-20180130.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="/home/bitchhunter3000"/>
@@ -29,7 +29,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
-    <property name="surefire.real.class.path" value="/home/bitchhunter3000/projects/workout-tracker/API/target/surefire/surefirebooter1541628386116044800.jar"/>
+    <property name="surefire.real.class.path" value="/home/bitchhunter3000/projects/workout-tracker/API/target/surefire/surefirebooter1633657977650840376.jar"/>
     <property name="sun.boot.class.path" value="/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/resources.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/jsse.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/jce.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/charsets.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/jfr.jar:/usr/lib/jvm/java-8-openjdk-amd64/jre/classes"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="1.8.0_181-8u181-b13-0ubuntu0.16.04.1-b13"/>
@@ -57,5 +57,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="52.0"/>
   </properties>
-  <testcase name="test" classname="Test1" time="0.378"/>
+  <testcase name="test" classname="Test1" time="0.319"/>
 </testsuite>
