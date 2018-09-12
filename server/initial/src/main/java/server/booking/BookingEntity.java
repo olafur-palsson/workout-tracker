@@ -17,11 +17,10 @@ public class BookingEntity {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
-	private Long id, hotelId, userId, roomId, dateFrom, dateTo;
+	private Long id;
+	private Long hotelId, userId, roomId, dateFrom, dateTo;
 	private Boolean isPaid, isCancelled;
 	private String cc;
-
-	public BookingEntity() {}
 
 	public Long getId() {
 		return id;
@@ -96,4 +95,3 @@ public class BookingEntity {
 		isCancelled = cancelled;
 	}
 }
-
