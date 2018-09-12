@@ -13,6 +13,9 @@ import server.hotel.HotelEntity;
 import server.hotel.HotelRepository;
 
 
+
+@RestController    // This means that this class is a Controller
+@RequestMapping(path="/database") // This means URL's start with /demo (after Application path)
 public class HotelController {
 
 	/*********************************
@@ -64,5 +67,14 @@ public class HotelController {
 	)
 	{
 		return hotelRepository.findOne(id);
+	}
+
+	@CrossOrigin
+	@GetMapping(path = "/removeHotel")
+	public @ResponseBody String removeHotel(
+		 @RequestParam Long id
+	) {
+		hotelRepository.delete(id);
+		return "Deleted";
 	}
 }
