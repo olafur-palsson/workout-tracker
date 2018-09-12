@@ -117,3 +117,12 @@ Google er betri ad utskyra en eg.
                  
 
               
+---
+
+# Todo listinn
+
+## API build tool
+
+1. Bua til eitthvad shellscript sem auto-buildar nyjan klasa 
+
+2. Og sidan update API sem smidar API-inn og byr til test

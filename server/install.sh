@@ -3,7 +3,7 @@
 while true; do
   read -p "Install java 8?" yn
 	if [$yn & [["$yn" == [Yy]*]]]; then
-		sudo apt-get install sudo apt-get install openjdk-8-jdk
+		sudo apt-get install openjdk-8-jdk
 	fi
 done
 
