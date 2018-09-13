@@ -28,6 +28,16 @@
 
 ## Want to have
 
+#### Aldrei hitta sjukro?
+
+#### Boka tima hja sjukro
+
+#### Gera aefingar rett
+
+#### Sjukrathjalfara access
+
+#### Prevention aefingar (physio verified)
+
 #### Sja rutinur hja odrum
 
 #### Social Feed
