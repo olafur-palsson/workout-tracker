@@ -5,8 +5,8 @@
  * Heiti verkefnis: server
  */
 
-package server.availability;
+package server.setList;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface AvailabilityRepository extends CrudRepository<AvailabilityEntity, Long> { }
+public interface SetListRepository extends CrudRepository<SetListEntity, Long> { }

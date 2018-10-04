@@ -7,12 +7,12 @@
 
 package server;
 
-import server.availability.AvailabilityRepository;
+import server.setList.AvailabilityRepository;
 import server.booking.BookingRepository;
 import server.hotel.HotelEntity;
 import server.hotel.HotelRepository;
-import server.room.RoomEntity;
-import server.room.RoomRepository;
+import server.exercise.RoomEntity;
+import server.exercise.RoomRepository;
 import server.user.UserEntity;
 import server.user.UserRepository;
 

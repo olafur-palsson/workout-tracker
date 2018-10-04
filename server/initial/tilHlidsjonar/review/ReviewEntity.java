@@ -1,4 +1,4 @@
-package server.review;
+package server.routine;
 
 import javax.persistence.*;
 import java.util.List;

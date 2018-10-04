@@ -28,14 +28,14 @@ public class UserController {
 	String addNewUser(
 		 @RequestParam(required = false) Long id,
 		 @RequestParam(required = false) ArrayList<Long> bookingIds,
-		 @RequestParam(required = false) ArrayList<Long> reviewIds,
+		 @RequestParam(required = false) ArrayList<Long> routineIds,
 		 @RequestParam String name,
 		 @RequestParam String email
 	) {
 		UserEntity u = new UserEntity();
 		if(id != null) 		  u.setId(id);
 		if(bookingIds != null) u.setBookingIds((Map<Integer, Long>) Converter.arrayListToMap(bookingIds));
-		if(reviewIds != null) u.setReviewIds((Map<Integer, Long>) Converter.arrayListToMap(bookingIds));
+		if(routineIds != null) u.setRoutineIds((Map<Integer, Long>) Converter.arrayListToMap(bookingIds));
 		u.setName(name);
 		u.setEmail(email);
 		u = userRepository.save(u);

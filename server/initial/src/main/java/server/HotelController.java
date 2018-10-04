@@ -31,7 +31,7 @@ public class HotelController {
 		 @RequestParam(required = false) Long id,
 		 @RequestParam(required = false) ArrayList<String> amenities,
 		 @RequestParam(required = false) ArrayList<Long> roomIds,
-		 @RequestParam(required = false) ArrayList<Long> reviewIds,
+		 @RequestParam(required = false) ArrayList<Long> routineIds,
 		 @RequestParam (required = false) ArrayList<String> description,
 
 		 @RequestParam String name,
@@ -51,7 +51,7 @@ public class HotelController {
 		h.setImageUrl(imageUrl);
 		h.setStars(stars);
 		if(roomIds != null) 	 h.setRoomIds  ((Map<Integer, Long>)   Converter.arrayListToMap(roomIds));
-		if(reviewIds != null) 	 h.setReviewIds  ((Map<Integer, Long>)   Converter.arrayListToMap(reviewIds));
+		if(routineIds != null) 	 h.setRoutineIds  ((Map<Integer, Long>)   Converter.arrayListToMap(routineIds));
 		if(amenities != null) h.setAmenities((Map<Integer, String>) Converter.arrayListToMap(amenities));
 		if(description != null) h.setDescription((Map<Integer, String>) Converter.arrayListToMap(description));
 		if(id != null)        h.setId(id);

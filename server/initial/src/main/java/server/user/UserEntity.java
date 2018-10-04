@@ -13,7 +13,7 @@ public class UserEntity {
 	private String name;
 	private String email;
 	@ElementCollection
-	private Map<Integer, Long> reviewIds = new HashMap<>();
+	private Map<Integer, Long> routineIds = new HashMap<>();
 	@ElementCollection
 	private Map<Integer, Long> bookingIds = new HashMap<>();
 
@@ -24,7 +24,7 @@ public class UserEntity {
 		u.setId(id);
 		u.setName(name);
 		u.setEmail(email);
-		u.setReviewIds(reviewIds);
+		u.setRoutineIds(routineIds);
 		u.setBookingIds(bookingIds);
 		return u;
 	}
@@ -58,11 +58,11 @@ public class UserEntity {
 		this.bookingIds.put(bookingNumber, bookingId);
 	}
 
-	public Map<Integer, Long> getReviewIds() {
-		return reviewIds;
+	public Map<Integer, Long> getRoutineIds() {
+		return routineIds;
 	}
 
-	public void setReviewIds(Map<Integer, Long> reviewIds) {
-		this.reviewIds = reviewIds;
+	public void setRoutineIds(Map<Integer, Long> routineIds) {
+		this.routineIds = routineIds;
 	}
 }

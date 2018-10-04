@@ -9,16 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
-import server.availability.AvailabilityEntity;
-import server.availability.AvailabilityRepository;
+import server.setList.AvailabilityEntity;
+import server.setList.AvailabilityRepository;
 import server.booking.BookingEntity;
 import server.booking.BookingRepository;
 import server.hotel.HotelEntity;
 import server.hotel.HotelRepository;
-import server.review.ReviewEntity;
-import server.review.ReviewRepository;
-import server.room.RoomEntity;
-import server.room.RoomRepository;
+import server.routine.ReviewEntity;
+import server.routine.ReviewRepository;
+import server.exercise.RoomEntity;
+import server.exercise.RoomRepository;
 import server.user.UserEntity;
 import server.user.UserRepository;
 

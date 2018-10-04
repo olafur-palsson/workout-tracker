@@ -26,7 +26,7 @@ public class HotelEntity {
 	@ElementCollection
 	private Map<Integer, String> amenities;
 	@ElementCollection
-	private Map<Integer, Long> reviewIds;
+	private Map<Integer, Long> routineIds;
 	//private Date[] closedDates;
 	@ElementCollection
 	private Map<Integer, String> description;
@@ -47,7 +47,7 @@ public class HotelEntity {
 		h.setDescription(description);
 		h.setRoomIds(roomIds);
 		h.setAmenities(amenities);
-		h.setReviewIds(reviewIds);
+		h.setRoutineIds(routineIds);
 		return h;
 	}
 
@@ -104,12 +104,12 @@ public class HotelEntity {
 		this.stars = stars;
 	}
 
-	public Map<Integer, Long> getReviewIds() {
-		return reviewIds;
+	public Map<Integer, Long> getRoutineIds() {
+		return routineIds;
 	}
 
-	public void setReviewIds(Map<Integer, Long> reviewIds) {
-		this.reviewIds = reviewIds;
+	public void setRoutineIds(Map<Integer, Long> routineIds) {
+		this.routineIds = routineIds;
 	}
 
 	public Map<Integer, String> getDescription() {

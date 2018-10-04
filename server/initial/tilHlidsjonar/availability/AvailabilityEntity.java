@@ -5,7 +5,7 @@
  * Heiti verkefnis: server
  */
 
-package server.availability;
+package server.setList;
 
 
 

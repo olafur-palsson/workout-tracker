@@ -2,12 +2,12 @@
  * Author: Olafur Palsson
  * HImail: olp6@gmail.com
  * Actual: olafur.palsson
- * Heiti verkefnis: server.room
+ * Heiti verkefnis: server.exercise
  */
 
-package server.room;
+package server.exercise;
 
-import server.availability.AvailabilityEntity;
+import server.setList.AvailabilityEntity;
 
 public class Room extends RoomEntity {
 	private AvailabilityEntity availability;

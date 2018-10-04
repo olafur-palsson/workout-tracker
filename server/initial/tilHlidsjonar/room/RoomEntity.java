@@ -5,7 +5,7 @@
  * Heiti verkefnis: server
  */
 
-package server.room;
+package server.exercise;
 
 import javax.persistence.*;
 

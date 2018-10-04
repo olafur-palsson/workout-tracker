@@ -7,18 +7,7 @@
 
 package server;
 
-import server.availability.AvailabilityRepository;
-import server.booking.BookingRepository;
-import server.hotel.HotelEntity;
-import server.hotel.HotelRepository;
-import server.room.RoomEntity;
-import server.room.RoomRepository;
-import server.user.UserEntity;
-import server.user.UserRepository;
-
 import java.util.*;
-
-import static java.util.Arrays.*;
 
 public class Converter {
 
@@ -40,5 +29,4 @@ public class Converter {
 		);
 		return c.getTime().getTime();
 	}
-
 }

@@ -5,8 +5,8 @@
  * Heiti verkefnis: server
  */
 
-package server.room;
+package server.exercise;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface RoomRepository extends CrudRepository<RoomEntity, Long>{ }
+public interface ExerciseRepository extends CrudRepository<ExerciseEntity, Long>{ }
