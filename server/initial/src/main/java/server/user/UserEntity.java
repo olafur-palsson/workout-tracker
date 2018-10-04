@@ -1,8 +1,6 @@
 package server.user;
 
 import javax.persistence.*;
-import java.util.HashMap;
-import java.util.Map;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class UserEntity {
@@ -12,22 +10,9 @@ public class UserEntity {
 	private Long id;
 	private String name;
 	private String email;
-	@ElementCollection
-	private Map<Integer, Long> routineIds = new HashMap<>();
-	@ElementCollection
-	private Map<Integer, Long> bookingIds = new HashMap<>();
+	private Long historyId;
 
 	public UserEntity() {}
-
-	public UserEntity extractEntity() {
-		UserEntity u = new UserEntity();
-		u.setId(id);
-		u.setName(name);
-		u.setEmail(email);
-		u.setRoutineIds(routineIds);
-		u.setBookingIds(bookingIds);
-		return u;
-	}
 
 	public Long getId() {
 		return id;
@@ -50,19 +35,6 @@ public class UserEntity {
 		this.email = email;
 	}
 
-	public Map<Integer, Long> getBookingIds() { return bookingIds; }
-	public void setBookingIds(Map<Integer, Long> bookings) {this.bookingIds = bookings; }
-
-	public void addBookingId(Long bookingId) {
-		int bookingNumber = bookingIds.size();
-		this.bookingIds.put(bookingNumber, bookingId);
-	}
-
-	public Map<Integer, Long> getRoutineIds() {
-		return routineIds;
-	}
-
-	public void setRoutineIds(Map<Integer, Long> routineIds) {
-		this.routineIds = routineIds;
-	}
+    public Long getHistoryId() { return historyId; }
+    public void setHistoryId(Long historyId) { this.historyId = historyId; }
 }

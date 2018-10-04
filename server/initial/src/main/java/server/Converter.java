@@ -18,6 +18,13 @@ public class Converter {
 		return map;
 	}
 
+	public static Map<?, ?> twoArrayListsToMap(ArrayList<?> one, ArrayList<?> two) {
+	    HashMap<Object, Object> map = new HashMap<>();
+	    for(int i = 0; i < one.size(); i++)
+	        map.put(one.get(i), two.get(i));
+	    return map;
+    }
+
 	//assume format yyyy-mm-dd as the input for simplcity of use
 	public static Long yyyymmdd_toLong(String dateString) {
 		String[] yearMonthDay = dateString.split("-");
