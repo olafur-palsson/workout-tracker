@@ -8,6 +8,7 @@
 package server.exercise;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class ExerciseEntity {
@@ -16,10 +17,12 @@ public class ExerciseEntity {
     long id;
 	private String name;
 	private String description;
-	//String link
 
     public ExerciseEntity(String name) {
 	    this.name = name;
+    }
+    public ExerciseEntity() {
+        this.name = "No name";
     }
 
 	public Long getId() {
@@ -34,5 +37,12 @@ public class ExerciseEntity {
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+
+    public void setDescription(ArrayList<String> description) {
+        String desc = "";
+        for(String s : description)
+            desc += s;
+        this.description = desc;
+    }
 }
 

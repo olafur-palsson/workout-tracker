@@ -3,24 +3,21 @@ package server;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import server.routine.RoutineEntity;
 import server.routine.RoutineRepository;
 import server.setList.SetListRepository;
 
-
 @RestController    // This means that this class is a Controller
 @RequestMapping(path="/database") // This means URL's start with /demo (after Application path)
 public class RoutineController {
 
+    @Autowired
     private RoutineRepository routineRepository;
+    @Autowired
     private SetListRepository setListRepository;
-
-    public RoutineController() {
-        this.routineRepository = MainController.routineRepository;
-        this.setListRepository = MainController.setListRepository;
-    }
 
 	@CrossOrigin
 	@GetMapping(path = "/allRoutines")
@@ -60,8 +57,8 @@ public class RoutineController {
 	public @ResponseBody
 	Long addRoutine(
 		 @RequestParam (required = false) Long id,
-		 @RequestParam ArrayList<Long> exerciseIds,
-         @RequestParam ArrayList<Long> setListIds
+		 @RequestParam (required = false) ArrayList<Long> exerciseIds,
+         @RequestParam (required = false) ArrayList<Long> setListIds
 	) {
 		RoutineEntity routine = new RoutineEntity();
 		if(id != null)         routine.setId(id);

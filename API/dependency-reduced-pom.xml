@@ -21,33 +21,9 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>search.API</mainClass>
+              <mainClass>trackerApi.API</mainClass>
             </manifest>
           </archive>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>make-assembly</id>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <archive>
-            <manifest>
-              <mainClass>search.API</mainClass>
-              <addClasspath>true</addClasspath>
-              <classpathPrefix>libs</classpathPrefix>
-            </manifest>
-          </archive>
-          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs>
         </configuration>
       </plugin>
       <plugin>
@@ -62,35 +38,9 @@
             <configuration>
               <transformers>
                 <transformer>
-                  <mainClass>search.API</mainClass>
+                  <mainClass>trackerApi.API</mainClass>
                 </transformer>
               </transformers>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <version>3.1.0</version>
-        <executions>
-          <execution>
-            <id>copy</id>
-            <phase>package</phase>
-            <goals>
-              <goal>copy</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>search</groupId>
-                  <artifactId>api</artifactId>
-                  <version>1</version>
-                  <type>jar</type>
-                  <overWrite>true</overWrite>
-                  <outputDirectory>./jar/</outputDirectory>
-                  <destFileName>api.jar</destFileName>
-                </artifactItem>
-              </artifactItems>
             </configuration>
           </execution>
         </executions>

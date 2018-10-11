@@ -22,6 +22,20 @@ public class SetListEntity {
 		this.id = id;
 	}
 
+	public void setListOfWeights(List<Double> listOfWeights) {
+	    this.listOfWeights = listOfWeights;
+    }
+    public List<Double> getListOfWeights() {
+	    return listOfWeights;
+    }
+
+    public void setListOfReps(List<Integer> listOfReps) {
+	    this.listOfReps = listOfReps;
+    }
+    public List<Integer> getListOfReps() {
+	    return listOfReps;
+    }
+
 	public void addSet(double weight, int reps) {
 	    listOfWeights.add(weight);
 	    listOfReps.add(reps);

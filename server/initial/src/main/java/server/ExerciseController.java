@@ -6,17 +6,15 @@ import org.springframework.web.bind.annotation.*;
 import server.exercise.ExerciseEntity;
 import server.exercise.ExerciseRepository;
 
+import java.util.ArrayList;
 
 
 @RestController    // This means that this class is a Controller
 @RequestMapping(path="/database") // This means URL's start with /demo (after Application path)
 public class ExerciseController {
 
+    @Autowired
 	private ExerciseRepository exerciseRepository;
-
-	public ExerciseController() {
-	    this.exerciseRepository = MainController.exerciseRepository;
-    }
 
 	@CrossOrigin
 	@GetMapping(path = "/addExercise")
@@ -24,11 +22,12 @@ public class ExerciseController {
 	String addNewExercise(
 		 @RequestParam(required = false) Long id,
          @RequestParam String name,
-         @RequestParam(required = false) String description
+         @RequestParam(required = false) ArrayList<String> description
 	) {
 		ExerciseEntity ee = new ExerciseEntity(name);
 		if(id != null) ee.setId(id);
 		if(description != null) ee.setDescription(description);
+		System.out.println("Exerciserepo is ...." + exerciseRepository);
 		ee = exerciseRepository.save(ee);
 		return "" + ee.getId();
 	}

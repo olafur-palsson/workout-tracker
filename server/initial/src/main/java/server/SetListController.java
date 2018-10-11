@@ -1,5 +1,6 @@
 package server;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,20 +22,17 @@ public class SetListController {
 	@GetMapping(path = "/addSetList")
 	public @ResponseBody
 	Long addSetList(
-		 @RequestParam Map<String, Long> allParams
+	        @RequestParam(required = false) Long id,
+	        @RequestParam ArrayList<Double> listOfWeights,
+            @RequestParam ArrayList<Integer> reps
 	) {
 		SetListEntity setList = new SetListEntity();
-		Map<Integer, Integer> sets = new HashMap<>();
-		for(Map.Entry<String, Long> e : allParams.entrySet()) {
-			if(e.getKey().equals("id")) {
-				setList.setId(e.getValue());
-				continue;
-			}
-			double weight = Double.parseDouble(e.getKey());
-			int reps = Math.toIntExact(e.getValue());
-			setList.addSet(weight, reps);
-		}
-		SetListEntity s =  setListRepository.save(setList);
+		if(id != null) setList.setId(id);
+        if(listOfWeights != null)
+            for(int i = 0; i < listOfWeights.size(); i++)
+                setList.addSet(listOfWeights.get(i), reps.get(i));
+        System.out.println(listOfWeights.size());
+		SetListEntity s = setListRepository.save(setList);
 		return s.getId();
 	}
 

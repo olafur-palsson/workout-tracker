@@ -18,17 +18,20 @@ import server.history.HistoryRepository;
 @RequestMapping(path="/database") // This means URL's start with /demo (after Application path)
 public class HistoryController {
 
-	@Autowired
+    @Autowired
 	private HistoryRepository historyRepository;
 
 	@CrossOrigin
 	@GetMapping(path = "/addHistory")
 	public @ResponseBody
 	Long addNewHistory(
-		 @RequestParam(required = false) Long id
+		 @RequestParam(required = false) Long id,
+         @RequestParam(required = false) ArrayList<Long> routineIds,
+         @RequestParam(required = false) ArrayList<Long> timeStamps
 	) {
 		HistoryEntity h = new HistoryEntity();
         if(id != null)        h.setId(id);
+
 		h = historyRepository.save(h);
 		return h.getId();
 	}

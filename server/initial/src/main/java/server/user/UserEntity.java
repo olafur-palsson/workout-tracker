@@ -10,7 +10,6 @@ public class UserEntity {
 	private Long id;
 	private String name;
 	private String email;
-	private Long historyId;
 
 	public UserEntity() {}
 
@@ -35,6 +34,4 @@ public class UserEntity {
 		this.email = email;
 	}
 
-    public Long getHistoryId() { return historyId; }
-    public void setHistoryId(Long historyId) { this.historyId = historyId; }
 }

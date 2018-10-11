@@ -1,5 +1,5 @@
 
-package server.hotel;
+package server.history;
 
 import org.springframework.data.repository.CrudRepository;
 

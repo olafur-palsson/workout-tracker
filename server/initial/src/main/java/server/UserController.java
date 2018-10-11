@@ -1,5 +1,6 @@
 package server;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import server.history.HistoryEntity;
@@ -11,32 +12,27 @@ import server.user.UserRepository;
 @RequestMapping(path="/database") // This means URL's start with /demo (after Application path)
 public class UserController {
 
+    @Autowired
     private UserRepository userRepository;
+    @Autowired
     private HistoryRepository historyRepository;
 
-    public UserController() {
-        this.userRepository = MainController.userRepository;
-        this.historyRepository = MainController.historyRepository;
-    }
 
-	@CrossOrigin
-	@GetMapping(path = "/addUser") // Map ONLY GET Requests
-	public @ResponseBody
-	String addNewUser(
-		 @RequestParam(required = false) Long id,
-		 @RequestParam String name,
-		 @RequestParam String email
-	) {
-		UserEntity u = new UserEntity();
-		if(id != null) 		  u.setId(id);
-        HistoryEntity h = new HistoryEntity();
-        h = historyRepository.save(h);
-        u.setHistoryId(h.getId());
-		u.setName(name);
-		u.setEmail(email);
-		u = userRepository.save(u);
-		return u.getId().toString();
-	}
+    @CrossOrigin
+    @GetMapping(path = "/addUser") // Map ONLY GET Requests
+    public @ResponseBody
+    String addNewUser(
+            @RequestParam(required = false) Long id,
+            @RequestParam String name,
+            @RequestParam String email
+    ) {
+        UserEntity u = new UserEntity();
+        if(id != null) 		  u.setId(id);
+        u.setName(name);
+        u.setEmail(email);
+        u = userRepository.save(u);
+        return u.getId().toString();
+    }
 
 	@CrossOrigin
 	@GetMapping(path = "/oneUser")
@@ -61,9 +57,7 @@ public class UserController {
 		 @RequestParam Long id
 	) {
         UserEntity u = userRepository.findOne(id);
-        Long historyId = u.getHistoryId();
 		userRepository.delete(id);
-		historyRepository.delete(historyId);
 		return "Deleted";
 	}
 }

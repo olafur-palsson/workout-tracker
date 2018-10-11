@@ -1,5 +1,5 @@
 
-package server.hotel;
+package server.history;
 
 import java.util.HashMap;
 import java.util.Map;

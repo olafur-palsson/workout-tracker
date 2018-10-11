@@ -9,8 +9,8 @@ package server;
 
 import server.setList.AvailabilityRepository;
 import server.booking.BookingRepository;
-import server.hotel.HotelEntity;
-import server.hotel.HotelRepository;
+import server.history.HotelEntity;
+import server.history.HotelRepository;
 import server.exercise.RoomEntity;
 import server.exercise.RoomRepository;
 import server.user.UserEntity;
