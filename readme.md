@@ -141,10 +141,10 @@ Google er betri ad utskyra en eg.
              setup/             install files
              initial/           --  auto fyrir utan... --
                      src/       *Source code*
-			API/                      API/test home dir
-			    jar/classname.jar     output af 'mvn package'
-					src/                  *Source code*
-					pom.xml               setup file
+      API/                      API/test home dir
+          jar/classname.jar     output af 'mvn package'
+          src/                  *Source code*
+          pom.xml               setup file
                  
 
               
