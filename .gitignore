@@ -3,13 +3,13 @@
 ./server/initial/bin/
 ./server/initial/bin/**
 
-./server/API/jar/
-./server/API/jar/**
-./server/API/target/
-./server/API/target/**
+./API/jar/
+./API/jar/**
+./API/target/
+./API/target/**
 
-./server/API/.idea/
-./server/API/.idea/**
+./API/.idea/
+./API/.idea/**
 
 ./server/
 
