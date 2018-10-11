@@ -12,9 +12,10 @@
 ./API/.idea/*
 ./API/.idea/**
 
-./server/.idea/
-./server/.idea/*
-./server/.idea/**
+*\.idea*
+
+*\.gradle*
+!*build.gradle
 
 ./server/
 
