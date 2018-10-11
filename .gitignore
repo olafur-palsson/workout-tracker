@@ -11,6 +11,9 @@
 ./API/.idea/
 ./API/.idea/**
 
+./server/.idea/
+./server/.idea/**
+
 ./server/
 
 
