@@ -8,4 +8,10 @@
 ./server/API/target/
 ./server/API/target/**
 
+./server/API/.idea/
+./server/API/.idea/**
+
+./server/
+
+
 *\.class
