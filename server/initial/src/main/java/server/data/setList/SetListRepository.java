@@ -5,8 +5,8 @@
  * Heiti verkefnis: server
  */
 
-package server.exercise;
+package server.data.setList;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface ExerciseRepository extends CrudRepository<ExerciseEntity, Long>{ }
+public interface SetListRepository extends CrudRepository<SetListEntity, Long> { }

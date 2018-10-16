@@ -1,5 +1,5 @@
 
-package server.routine;
+package server.data.routine;
 
 import org.springframework.data.repository.CrudRepository;
 

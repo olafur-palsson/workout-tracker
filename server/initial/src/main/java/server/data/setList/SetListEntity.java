@@ -1,4 +1,4 @@
-package server.setList;
+package server.data.setList;
 
 	 import javax.persistence.*;
      import java.util.ArrayList;

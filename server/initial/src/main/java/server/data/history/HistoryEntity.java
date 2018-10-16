@@ -1,10 +1,8 @@
 
-package server.history;
+package server.data.history;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.persistence.*;
 

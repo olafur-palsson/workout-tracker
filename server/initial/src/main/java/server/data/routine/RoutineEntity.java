@@ -1,9 +1,8 @@
-package server.routine;
+package server.data.routine;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import server.setList.SetListRepository;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class RoutineEntity {

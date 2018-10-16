@@ -1,14 +1,12 @@
-package server;
+package server.data.setList;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import server.setList.SetListEntity;
-import server.setList.SetListRepository;
+import server.data.setList.SetListEntity;
+import server.data.setList.SetListRepository;
 
 
 @RestController    // This means that this class is a Controller
@@ -19,7 +17,7 @@ public class SetListController {
 	private SetListRepository setListRepository;
 
 	@CrossOrigin
-	@GetMapping(path = "/addSetList")
+	@GetMapping(path = {"/addSetList", "/userEnabled/addSetList"})
 	public @ResponseBody
 	Long addSetList(
 	        @RequestParam(required = false) Long id,
@@ -37,7 +35,7 @@ public class SetListController {
 	}
 
 	@CrossOrigin
-	@GetMapping(path = "/removeSetList")
+	@GetMapping(path = {"/removeSetList", "/userEnabled/removeSetList"})
 	public @ResponseBody String removeSetList(
 		 @RequestParam Long id
 	) {
@@ -46,7 +44,7 @@ public class SetListController {
 	}
 
 	@CrossOrigin
-	@GetMapping(path = "/oneSetList")
+	@GetMapping(path = {"/oneSetList", "/userEnabled/oneSetList"})
 	public @ResponseBody
 	SetListEntity getOneSetList(
 		 @RequestParam Long id

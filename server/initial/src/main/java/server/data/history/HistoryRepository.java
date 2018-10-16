@@ -1,5 +1,5 @@
 
-package server.history;
+package server.data.history;
 
 import org.springframework.data.repository.CrudRepository;
 

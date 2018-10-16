@@ -1,10 +1,10 @@
-package server;
+package server.data.exercise;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import server.exercise.ExerciseEntity;
-import server.exercise.ExerciseRepository;
+import server.data.exercise.ExerciseEntity;
+import server.data.exercise.ExerciseRepository;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ public class ExerciseController {
 	private ExerciseRepository exerciseRepository;
 
 	@CrossOrigin
-	@GetMapping(path = "/addExercise")
+	@GetMapping(path = {"/addExercise", "/userEnabled/addExercise"})
 	public @ResponseBody
 	String addNewExercise(
 		 @RequestParam(required = false) Long id,
@@ -27,13 +27,12 @@ public class ExerciseController {
 		ExerciseEntity ee = new ExerciseEntity(name);
 		if(id != null) ee.setId(id);
 		if(description != null) ee.setDescription(description);
-		System.out.println("Exerciserepo is ...." + exerciseRepository);
 		ee = exerciseRepository.save(ee);
 		return "" + ee.getId();
 	}
 
 	@CrossOrigin
-	@GetMapping(path = "/oneExercise")
+	@GetMapping(path = {"/oneExercise", "/userEnabled/oneExercise"})
 	public @ResponseBody
 	ExerciseEntity getOneExercise(
 		@RequestParam Long id
@@ -42,7 +41,7 @@ public class ExerciseController {
 	}
 
 	@CrossOrigin
-	@GetMapping(path = "/removeExercise")
+	@GetMapping(path = {"/removeExercise", "/userEnabled/removeExercise"})
 	public @ResponseBody String removeExercise(
 		 @RequestParam Long id
 	) {

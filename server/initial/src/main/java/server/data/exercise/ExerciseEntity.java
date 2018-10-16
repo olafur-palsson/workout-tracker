@@ -5,7 +5,7 @@
  * Heiti verkefnis: server
  */
 
-package server.exercise;
+package server.data.exercise;
 
 import javax.persistence.*;
 import java.util.ArrayList;

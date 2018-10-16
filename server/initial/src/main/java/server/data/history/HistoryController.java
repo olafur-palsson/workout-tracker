@@ -1,16 +1,12 @@
-package server;
+package server.data.history;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
-import server.history.HistoryEntity;
-import server.history.HistoryRepository;
+import server.data.history.HistoryEntity;
+import server.data.history.HistoryRepository;
 
 
 
@@ -37,7 +33,7 @@ public class HistoryController {
 	}
 
 	@CrossOrigin
-	@GetMapping(path = "/oneHistory")
+	@GetMapping(path = {"/oneHistory", "/userEnabled/oneHistory"})
 	public @ResponseBody
 	HistoryEntity getOneHistory(
 		 @RequestParam Long id

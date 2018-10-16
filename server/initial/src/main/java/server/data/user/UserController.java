@@ -1,12 +1,11 @@
-package server;
+package server.data.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import server.history.HistoryEntity;
-import server.history.HistoryRepository;
-import server.user.UserEntity;
-import server.user.UserRepository;
+import server.data.history.HistoryRepository;
+import server.data.user.UserEntity;
+import server.data.user.UserRepository;
 
 @RestController    // This means that this class is a Controller
 @RequestMapping(path="/database") // This means URL's start with /demo (after Application path)
@@ -19,28 +18,42 @@ public class UserController {
 
 
     @CrossOrigin
+    @GetMapping(path = "/newUser")
+    public @ResponseBody
+    String addNewUser(
+            @RequestParam String name,
+            @RequestParam String email,
+            @RequestParam String password
+    ) {
+        UserEntity u = new UserEntity();
+        u.setEmail(email);
+        u.setName(name);
+        u.setPassword(password);
+        u = userRepository.save(u);
+        return u.getEmail();
+    }
+
+    @CrossOrigin
     @GetMapping(path = "/addUser") // Map ONLY GET Requests
     public @ResponseBody
     String addNewUser(
-            @RequestParam(required = false) Long id,
             @RequestParam String name,
             @RequestParam String email
     ) {
         UserEntity u = new UserEntity();
-        if(id != null) 		  u.setId(id);
         u.setName(name);
         u.setEmail(email);
         u = userRepository.save(u);
-        return u.getId().toString();
+        return u.getEmail();
     }
 
 	@CrossOrigin
-	@GetMapping(path = "/oneUser")
+	@GetMapping(path = {"/oneUser", "userAccessible/oneUser"})
 	public @ResponseBody
 	UserEntity getOneUser(
-		 @RequestParam Long id
+		 @RequestParam String email
 	) {
-		return userRepository.findOne(id);
+		return userRepository.findOne(email);
 	}
 
 	@CrossOrigin
@@ -54,10 +67,9 @@ public class UserController {
 	@CrossOrigin
 	@GetMapping(path = "/removeUser")
 	public @ResponseBody String removeUser(
-		 @RequestParam Long id
+		 @RequestParam String email
 	) {
-        UserEntity u = userRepository.findOne(id);
-		userRepository.delete(id);
+		userRepository.delete(email);
 		return "Deleted";
 	}
 }

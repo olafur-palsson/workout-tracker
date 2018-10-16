@@ -1,4 +1,4 @@
-package server;
+package server.data.routine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import server.routine.RoutineEntity;
-import server.routine.RoutineRepository;
-import server.setList.SetListRepository;
+import server.data.routine.RoutineEntity;
+import server.data.routine.RoutineRepository;
+import server.data.setList.SetListRepository;
 
 @RestController    // This means that this class is a Controller
 @RequestMapping(path="/database") // This means URL's start with /demo (after Application path)
@@ -20,14 +20,14 @@ public class RoutineController {
     private SetListRepository setListRepository;
 
 	@CrossOrigin
-	@GetMapping(path = "/allRoutines")
+	@GetMapping(path = {"/allRoutines", "/userEnabled/allRoutines"})
 	public @ResponseBody
 	Iterable<RoutineEntity> getAllRoutines() {
 		return routineRepository.findAll();
 	}
 
 	@CrossOrigin
-	@GetMapping(path = "/oneRoutine")
+	@GetMapping(path = {"/oneRoutine", "/userEnabled/oneRoutine"})
 	public @ResponseBody
 	RoutineEntity getOneRoutine(
 		 @RequestParam Long id
@@ -42,7 +42,7 @@ public class RoutineController {
     }
 
 	@CrossOrigin
-	@GetMapping(path = "/removeRoutine")
+	@GetMapping(path = {"/removeRoutine", "/userEnabled/removeRoutine"})
 	public @ResponseBody String removeRoutine(
 		 @RequestParam Long id
 	) {
@@ -53,7 +53,7 @@ public class RoutineController {
 	}
 
 	@CrossOrigin
-	@GetMapping(path = "/addRoutine")
+	@GetMapping(path = {"/addRoutine", "/userEnabled/addRoutine"})
 	public @ResponseBody
 	Long addRoutine(
 		 @RequestParam (required = false) Long id,
