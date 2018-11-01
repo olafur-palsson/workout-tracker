@@ -146,14 +146,10 @@ Google er betri ad utskyra en eg.
           src/                  *Source code*
           pom.xml               setup file
                  
+--- 
 
-              
----
+# API 
 
-# Todo listinn
-
-## API build tool
-
-1. Bua til eitthvad shellscript sem auto-buildar nyjan klasa 
-
-2. Og sidan update API sem smidar API-inn og byr til test
+Basically drasl sem generate-ar database. Verdur sidan mjog hentugt a naestu
+onn thegar vid forum ad gera Android, thad er nebbla haegt ad importa thessu
+sem pakka sem ser um ad tala vid database-inn med requests a IP tolu.

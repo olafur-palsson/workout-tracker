@@ -7,6 +7,7 @@ import server.data.history.HistoryRepository;
 import server.data.user.UserEntity;
 import server.data.user.UserRepository;
 
+@CrossOrigin
 @RestController    // This means that this class is a Controller
 @RequestMapping(path="/database") // This means URL's start with /demo (after Application path)
 public class UserController {
@@ -17,8 +18,7 @@ public class UserController {
     private HistoryRepository historyRepository;
 
 
-    @CrossOrigin
-    @GetMapping(path = "/newUser")
+    @GetMapping(path = {"/newUser", "userEnabled/newUser"})
     public @ResponseBody
     String addNewUser(
             @RequestParam String name,
@@ -33,7 +33,6 @@ public class UserController {
         return u.getEmail();
     }
 
-    @CrossOrigin
     @GetMapping(path = "/addUser") // Map ONLY GET Requests
     public @ResponseBody
     String addNewUser(
@@ -47,8 +46,8 @@ public class UserController {
         return u.getEmail();
     }
 
-	@CrossOrigin
-	@GetMapping(path = {"/oneUser", "userAccessible/oneUser"})
+    @CrossOrigin
+	@GetMapping(path = {"/oneUser", "userEnabled/oneUser"})
 	public @ResponseBody
 	UserEntity getOneUser(
 		 @RequestParam String email
@@ -56,7 +55,6 @@ public class UserController {
 		return userRepository.findOne(email);
 	}
 
-	@CrossOrigin
 	@GetMapping(path = "/allUsers")
 	public @ResponseBody
 	Iterable<UserEntity> getAllUsers() {
@@ -64,7 +62,6 @@ public class UserController {
 		return userRepository.findAll();
 	}
 
-	@CrossOrigin
 	@GetMapping(path = "/removeUser")
 	public @ResponseBody String removeUser(
 		 @RequestParam String email

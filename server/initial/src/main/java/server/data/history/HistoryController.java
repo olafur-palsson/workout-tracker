@@ -27,7 +27,6 @@ public class HistoryController {
 	) {
 		HistoryEntity h = new HistoryEntity();
         if(id != null)        h.setId(id);
-
 		h = historyRepository.save(h);
 		return h.getId();
 	}
@@ -37,8 +36,7 @@ public class HistoryController {
 	public @ResponseBody
 	HistoryEntity getOneHistory(
 		 @RequestParam Long id
-	)
-	{
+	) {
 		return historyRepository.findOne(id);
 	}
 

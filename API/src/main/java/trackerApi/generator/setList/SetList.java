@@ -22,7 +22,7 @@ public class SetList extends Entity {
         if(this.id != null)
             params.add(new Pair<>("id", "" + this.id));
         for(Double weight : listOfWeights)
-            params.add(pair("weight", weight));
+            params.add(pair("listOfWeights", weight));
         for(Integer reps : listOfReps)
             params.add(pair("reps", reps));
         return params;

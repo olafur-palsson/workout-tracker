@@ -1,8 +1,12 @@
+
+
+# Ignore files build by spring & gradle
 ./server/initial/build/
 ./server/initial/build/**
 ./server/initial/bin/
 ./server/initial/bin/**
 
+# Ignore files built by API
 ./API/jar/
 ./API/jar/**
 ./API/target/
@@ -12,12 +16,26 @@
 ./API/.idea/*
 ./API/.idea/**
 
+# No compiled classes
+*\.class
+
+# No IntelliJ files
 *\.idea*
 
+# Ignore .gradle folder but not 'build.gradle'
 *\.gradle*
 !*build.gradle
 
-./server/
+# No installed dependencies from node
+node_modules/
+node_modules/*
+node_modules/**
+
+# Ignore package-lock.json because it creates more problems
+# than it solves. (Noisy diffs, merge conflicts)
+package-lock.json
 
 
-*\.class
+
+
+

@@ -1,5 +1,7 @@
 package server.data.user;
 
+import server.data.history.HistoryEntity;
+
 import javax.persistence.*;
 
 @Entity // This tells Hibernate to make a table out of this class
@@ -10,6 +12,7 @@ public class UserEntity {
     private String email;
 	private String name;
     private String password;
+    private HistoryEntity history;
 
     public UserEntity() {}
 
@@ -40,5 +43,13 @@ public class UserEntity {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public HistoryEntity getHistory() {
+        return history;
+    }
+
+    public void setHistory(HistoryEntity history) {
+        this.history = history;
     }
 }

@@ -19,10 +19,11 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String email = authentication.getName();
         UserEntity user = userRepository.findOne(email);
+        if(authentication.getCredentials() == null || user == null) {
+            System.out.println("User or authentication.getCredentials was null, so reject");
+            return null;
+        }
         String password = authentication.getCredentials().toString();
-        System.out.println("AUTH PROVIDER");
-        System.out.println("user = " + user.getEmail() + ":" + user.getPassword());
-        System.out.println("Password inserted = " + password + " for name = " + email);
         if(user.getPassword().equals(password))
             return new UsernamePasswordAuthenticationToken(email, password, new ArrayList<>());
         return null;

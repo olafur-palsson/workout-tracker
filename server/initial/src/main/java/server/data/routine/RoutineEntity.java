@@ -10,6 +10,8 @@ public class RoutineEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	private Long creationDate;
+
 
 	@ElementCollection
 	private List<Long> exerciseIds = new ArrayList<>();
@@ -38,4 +40,12 @@ public class RoutineEntity {
 
     public List<Long> getExerciseIds() { return exerciseIds; }
     public void setExerciseIds(List<Long> exerciseIds) { this.exerciseIds = exerciseIds; }
+
+    public Long getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Long creationDate) {
+        this.creationDate = creationDate;
+    }
 }

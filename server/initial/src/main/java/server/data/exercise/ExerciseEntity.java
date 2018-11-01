@@ -17,6 +17,7 @@ public class ExerciseEntity {
     long id;
 	private String name;
 	private String description;
+	private String imgURL;
 
     public ExerciseEntity(String name) {
 	    this.name = name;
@@ -43,6 +44,14 @@ public class ExerciseEntity {
         for(String s : description)
             desc += s;
         this.description = desc;
+    }
+
+    public String getImgURL() {
+        return imgURL;
+    }
+
+    public void setImgURL(String imgURL) {
+        this.imgURL = imgURL;
     }
 }
 

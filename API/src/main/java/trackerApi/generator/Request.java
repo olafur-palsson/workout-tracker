@@ -10,6 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 
@@ -24,6 +25,13 @@ public class Request {
 		HttpURLConnection con;
 		if(paramString != null) url = new URL(url.toString() + paramString);
 		con = (HttpURLConnection) url.openConnection();
+        String basicAuth = "Basic " + new String(Base64.getEncoder().encode("admin:admin".getBytes()));
+        System.out.println(basicAuth);
+		con.setRequestProperty("Authorization", basicAuth);
+		con.setUseCaches(false);
+		con.setDoInput(true);
+        con.setDoOutput(true);
+
 		// HERE WE DEBUG!!
 		System.out.println(url.toString());
 		con.setRequestMethod("GET");

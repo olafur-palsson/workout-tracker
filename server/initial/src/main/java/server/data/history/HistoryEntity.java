@@ -12,16 +12,17 @@ public class HistoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    // routine-id
     private HashMap<Long, Long> routineIds = new HashMap<>();
     public HistoryEntity() { }
 
-    public void addRoutine(long routineId, long time) {
-        routineIds.put(routineId, time);
+    public void addRoutine(long time, long routineId) {
+        routineIds.put(time, routineId);
     }
 
     public void addRoutine(long routineId) {
         Date date = new Date();
-        addRoutine(routineId, date.getTime());
+        addRoutine(date.getTime(), routineId);
     }
 
     public Long getId() { return id; }
