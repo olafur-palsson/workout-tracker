@@ -12,9 +12,9 @@ public class HistoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    // routine-id
+    
+    // <date as long, routineId
     private HashMap<Long, Long> routineIds = new HashMap<>();
-    public HistoryEntity() { }
 
     public void addRoutine(long time, long routineId) {
         routineIds.put(time, routineId);

@@ -1,41 +1,17 @@
-
-
-# Ignore files build by spring & gradle
-./server/initial/build/
-./server/initial/build/**
-./server/initial/bin/
-./server/initial/bin/**
-
-# Ignore files built by API
-./API/jar/
-./API/jar/**
-./API/target/
-./API/target/**
-
-./API/.idea/
-./API/.idea/*
-./API/.idea/**
-
-# No compiled classes
-*\.class
-
-# No IntelliJ files
-*\.idea*
-
-# Ignore .gradle folder but not 'build.gradle'
-*\.gradle*
-!*build.gradle
-
-# No installed dependencies from node
+.DS_Store
 node_modules/
-node_modules/*
-node_modules/**
+/dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+/test/unit/coverage/
+/test/e2e/reports/
+selenium-debug.log
 
-# Ignore package-lock.json because it creates more problems
-# than it solves. (Noisy diffs, merge conflicts)
-package-lock.json
-
-
-
-
-
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln

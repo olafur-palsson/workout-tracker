@@ -12,7 +12,7 @@ public class UserEntity {
     private String email;
 	private String name;
     private String password;
-    private HistoryEntity history;
+    private String historyId;
 
     public UserEntity() {}
 
@@ -45,11 +45,11 @@ public class UserEntity {
         this.password = password;
     }
 
-    public HistoryEntity getHistory() {
-        return history;
+    public String getHistoryId() {
+        return historyId;
     }
 
-    public void setHistory(HistoryEntity history) {
-        this.history = history;
+    public void setHistoryId(String historyId) {
+        this.historyId = historyId;
     }
 }
