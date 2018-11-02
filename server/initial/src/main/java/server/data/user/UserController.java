@@ -50,9 +50,9 @@ public class UserController {
 	@GetMapping(path = {"/oneUser", "userEnabled/oneUser"})
 	public @ResponseBody
 	UserEntity getOneUser(
-		 @RequestParam String email
+		 @RequestParam String id
 	) {
-		return userRepository.findOne(email);
+		return userRepository.findOne(id);
 	}
 
 	@GetMapping(path = "/allUsers")

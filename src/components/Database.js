@@ -1,62 +1,52 @@
-import Request from "./Request"
+import RequestFactory from './Request'
+let Request = new RequestFactory()
 
 // breyta thessum ef madur aetlar ad skipta milli server og localhost
-//const baseString = "http://<ipTala>:8080/database/userEnabled/"
-const baseString = "http://localhost:8080/database/userEnabled/"
-
-const getById = (entityName, id, idKey) => {
-  idKey = idKey || "id"
-  const requestString = `${baseString}one${entityName}?${idKey}=${id}`
-  return Request.make(requestString)
-}
+// const baseString = "http://<ipTala>:8080/database/userEnabled/"
+const baseString = 'http://localhost:8080/database/userEnabled/'
 
 const requestBuilder = (methodName, requestParams) => {
   const method = `${baseString}${methodName}?`
-  const params = requestString.keys().map(key => key + "=" + requestParams[key]).join("&")
+  const params = Object.keys(requestParams).map(key => key + '=' + requestParams[key]).join('&')
   return Request.make(method + params)
 }
 
-const getAll = (pluralEntityName) => {
-  return Request.make(requestStringBuilder('all'+pluralEntityName))
+const getById = (singularEntityName, id, idKey) => {
+  const params = {}
+  params[idKey || 'id'] = id
+  return requestBuilder('one' + singularEntityName, params)
 }
 
-const makeNewEntity = (methodName, newEntityParams) => {
-  return requestBuilder(methodName, newEntityParams)
+const getAll = (pluralEntityName) => {
+  return requestBuilder('all' + pluralEntityName)
+}
+
+const makeNewEntity = (entityName, newEntityParams) => {
+  return requestBuilder('new' + entityName, newEntityParams)
 }
 
 // ef allir hlutir eru med eitthvad function tha getur madur sett thad hingad
-const createFunctions = (entityName, specificFunctions) => {
+const createFunctions = (singularEntityName, pluralEntityName, specificFunctions) => {
   const functions = {
-    getOne: (id, idkey) => getById(entityName, id, idkey),
-    getAll: () => getAll(),
-    makeNewEntity: (newEntityParams) => makeNewEntity(entityName, newEntityParams)
-    delete:
+    getOne: (id, idkey) => getById(singularEntityName, id, idkey),
+    getAll: () => getAll(pluralEntityName),
+    makeNewEntity: (newEntityParams) => makeNewEntity(singularEntityName, newEntityParams)
   }
   // specificFunctins overrides functions in the output object
   return Object.assign(functions, specificFunctions)
 }
 
-const filter = (obj, hotelId) => {
-  let array = []
-  for(let key in obj) {
-    const review = obj[key]
-    if(review.hotelId == hotelId) array.push(review)
-  }
-  console.log(array)
-  return array
-}
-
 const userFunctions = {
-  newUser: (name, email, password) => requestBuilder("newUser", { name, email, password })
+  newUser: (name, email, password) => requestBuilder('newUser', { name, email, password })
 }
 
-const user = createFunctions("User", userFunctions)
+const user = createFunctions('User', 'Users', userFunctions)
+const routine = createFunctions('Routine', 'Routines', {})
 const dataFunctions = {
-  user,
-  iconURLs
+  routine,
+  user
 }
 
-let Request = new RequestBuilder()
 const setCredentials = (username, password) => {
   Request.setCredentials(username, password)
   return dataFunctions
