@@ -17,6 +17,12 @@ public class UserController {
     @Autowired
     private HistoryRepository historyRepository;
 
+    // We can use this one to check if the user is logged in
+    @GetMapping(path = "userEnabled/check")
+    public @ResponseBody
+    String checkLoggedIn() {
+        return "logged_in";
+    }
 
     @GetMapping(path = {"/newUser", "userEnabled/newUser"})
     public @ResponseBody
@@ -25,6 +31,8 @@ public class UserController {
             @RequestParam String email,
             @RequestParam String password
     ) {
+        if(userRepository.findOne(email) != null)
+            return "Username is already taken";
         UserEntity u = new UserEntity();
         u.setEmail(email);
         u.setName(name);
@@ -33,6 +41,7 @@ public class UserController {
         return u.getEmail();
     }
 
+    /*
     @GetMapping(path = "/addUser") // Map ONLY GET Requests
     public @ResponseBody
     String addNewUser(
@@ -44,7 +53,7 @@ public class UserController {
         u.setEmail(email);
         u = userRepository.save(u);
         return u.getEmail();
-    }
+    }*/
 
     @CrossOrigin
 	@GetMapping(path = {"/oneUser", "userEnabled/oneUser"})

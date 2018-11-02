@@ -1,4 +1,5 @@
 import RequestFactory from './Request'
+
 let Request = new RequestFactory()
 
 // breyta thessum ef madur aetlar ad skipta milli server og localhost
@@ -47,9 +48,15 @@ const dataFunctions = {
   user
 }
 
-const setCredentials = (username, password) => {
+const logIn = (username, password) => {
   Request.setCredentials(username, password)
   return dataFunctions
 }
 
-export default { setCredentials }
+const logOut = () => {
+  Request.unsetCredentials()
+}
+
+const isLoggedIn = async () => Request.isLoggedIn()
+
+export default Object.assign({ logOut, logIn, isLoggedIn }, dataFunctions)

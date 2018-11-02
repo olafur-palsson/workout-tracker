@@ -3,6 +3,7 @@
   <div class="login">
     <h1> This is login </h1>
     {{ msg }}
+    <router-view/>
   </div>
 </template>
 
