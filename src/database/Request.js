@@ -3,7 +3,7 @@ import Cookies from './Cookiehandler'
 
 const printRequestOnSend = true
 
-class RequestBuilder {
+class RequestFactory {
   async isLoggedIn () {
     // return false if user is logged in
     const answer = await this.make('http://localhost:8080/database/userEnabled/check')
@@ -73,4 +73,4 @@ class RequestBuilder {
   }
 }
 
-export default RequestBuilder
+export default RequestFactory

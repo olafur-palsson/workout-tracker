@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import Database from '@/components/database/Database'
+import Database from '@/database/Database'
 
 export default {
   name: 'signup',

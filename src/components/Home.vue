@@ -1,18 +1,25 @@
 <template>
 
   <div class="hello">
+    <div class="navigation">
+      <router-link :to="{ name: 'newRoutine', params: {} }">Create new routine</router-link>
+    </div>
+
     <button v-on:click="logout()">Log out </button>
     <h1>{{ msg }}</h1>
     <h2>{{ msg2 }}</h2>
+
+    <router-view/>
+
     <p> Sem proof of concept</p>
-    <p> {{ email }}</p>
-    <p> {{ password }}   :o</p>
+    <p> Email:  {{ email }}</p>
+    <p> Password: {{ password }}   :o</p>
   </div>
 </template>
 
 <script>
-import Database from '@/components/database/Database'
-import Cookies from '@/components/database/Cookiehandler'
+import Database from '@/database/Database'
+import Cookies from '@/database/Cookiehandler'
 
 export default {
   name: 'helloThere',
@@ -20,7 +27,7 @@ export default {
     return {
       logout: () => {
         Database.logOut()
-        this.$router.push({ name: 'checklogin' })
+        this.$router.push({ name: 'checkLogin' })
       },
       msg: 'Hello there',
       msg2: 'General Kenobi',

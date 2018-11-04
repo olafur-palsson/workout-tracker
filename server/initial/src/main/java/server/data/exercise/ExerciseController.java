@@ -16,7 +16,7 @@ public class ExerciseController {
     @Autowired
 	private ExerciseRepository exerciseRepository;
 
-	@CrossOrigin
+    @CrossOrigin
 	@GetMapping(path = {"/addExercise", "/userEnabled/addExercise"})
 	public @ResponseBody
 	String addNewExercise(
@@ -31,7 +31,7 @@ public class ExerciseController {
 		return "" + ee.getId();
 	}
 
-	@CrossOrigin
+    @CrossOrigin
 	@GetMapping(path = {"/oneExercise", "/userEnabled/oneExercise"})
 	public @ResponseBody
 	ExerciseEntity getOneExercise(
@@ -40,7 +40,14 @@ public class ExerciseController {
 		return exerciseRepository.findOne(id);
 	}
 
-	@CrossOrigin
+    @CrossOrigin
+    @GetMapping(path = {"/allExercises", "/userEnabled/allExercises"})
+    public @ResponseBody
+    Iterable<ExerciseEntity> getOneExercise( ) {
+        return exerciseRepository.findAll();
+    }
+
+    @CrossOrigin
 	@GetMapping(path = {"/removeExercise", "/userEnabled/removeExercise"})
 	public @ResponseBody String removeExercise(
 		 @RequestParam Long id

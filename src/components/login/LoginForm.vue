@@ -7,20 +7,20 @@
     <input type="password" v-model='form.password' placeholder="Password"/>
     <button v-on:click='login(form.email, form.password)'>Log in</button>
     {{ msg }}
-    <router-link :to="{ name: 'signupform', params: {} }">Don't have an account?</router-link>
+    <router-link :to="{ name: 'signupForm', params: {} }">Don't have an account?</router-link>
   </div>
 </template>
 
 <script>
 
-import Database from '@/components/database/Database'
+import Database from '@/database/Database'
 
 export default {
   data () {
     return {
       login: (email, password) => {
         Database.logIn(email, password)
-        this.$router.push({ name: 'checklogin' })
+        this.$router.push({ name: 'checkLogin' })
       },
       form: {
         email: '',
