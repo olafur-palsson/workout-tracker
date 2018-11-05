@@ -1,16 +1,31 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+// Almost empty containers
 import Home from '@/components/Home'
 import CheckLogin from '@/components/CheckLogin'
 
+// Login classes
 import Login from '@/components/login/Login'
 import LoginForm from '@/components/login/LoginForm'
 import SignupForm from '@/components/login/SignupForm'
 
+// Data renderers
+import SetListView from '@/components/SetListView'
+import RoutineView from '@/components/RoutineView'
+// import ExerciseView from '@/components/ExerciseView'
+
+// Session classes
+import Session from '@/components/session/Session'
+import SelectRoutine from '@/components/session/SelectRoutine'
+
+// Create Routine Classes
 import NewRoutine from '@/components/newRoutine/NewRoutine'
 import NewRoutineMain from '@/components/newRoutine/NewRoutine_main'
 import NewRoutineAddExercise from '@/components/newRoutine/NewRoutine_addExercise'
+
+// Show the history
+import ShowHistory from '@/components/history/ShowHistory'
 
 Vue.use(Router)
 
@@ -37,9 +52,42 @@ export default new Router({
         name: 'newRoutine_addExercise',
         component: NewRoutineAddExercise
       }]
+    }, {
+      // Session
+      path: 'session',
+      component: Session,
+      children: [{
+        path: '',
+        name: 'session_selectRoutine',
+        component: SelectRoutine
+      }, {
+        path: 'routine',
+        name: 'session_routineView',
+        component: RoutineView
+      }, {
+        path: 'exercise',
+        name: 'session_setList',
+        component: SetListView
+      }]
+    }, {
+      // History
+      path: 'history',
+      component: ShowHistory,
+      children: [{
+        path: '',
+        name: 'history_calendar',
+        component: ShowHistory
+      }, {
+        path: 'routine',
+        name: 'history_routine',
+        component: RoutineView
+      }, {
+        path: 'exercise'
+
+      }]
     }]
   }, {
-    // Log in routes
+    // Login routes
     path: '/login',
     component: Login,
     children: [{

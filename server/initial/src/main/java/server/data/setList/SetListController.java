@@ -21,15 +21,19 @@ public class SetListController {
 	public @ResponseBody
 	Long addSetList(
 	        @RequestParam(required = false) Long id,
-	        @RequestParam ArrayList<Double> listOfWeights,
-            @RequestParam ArrayList<Integer> reps
+	        @RequestParam ArrayList<Double> weight,
+            @RequestParam ArrayList<Integer> reps,
+            @RequestParam(required = false) ArrayList<Boolean> setIsDone
 	) {
 		SetListEntity setList = new SetListEntity();
 		if(id != null) setList.setId(id);
-        if(listOfWeights != null)
-            for(int i = 0; i < listOfWeights.size(); i++)
-                setList.addSet(listOfWeights.get(i), reps.get(i));
-        System.out.println(listOfWeights.size());
+        if(weight != null)
+            for(int i = 0; i < weight.size(); i++) {
+                Boolean isDone = false;
+                if(setIsDone != null)
+                    isDone = setIsDone.get(i);
+                setList.addSet(weight.get(i), reps.get(i), isDone);
+            }
 		SetListEntity s = setListRepository.save(setList);
 		return s.getId();
 	}

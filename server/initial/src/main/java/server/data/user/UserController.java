@@ -56,26 +56,39 @@ public class UserController {
     }*/
 
     @CrossOrigin
-	@GetMapping(path = {"/oneUser", "userEnabled/oneUser"})
-	public @ResponseBody
-	UserEntity getOneUser(
-		 @RequestParam String id
-	) {
-		return userRepository.findOne(id);
-	}
+    @GetMapping(path = {"/oneUser", "userEnabled/oneUser"})
+    public @ResponseBody
+    UserEntity getOneUser(
+            @RequestParam String id
+    ) {
+        return userRepository.findOne(id);
+    }
 
-	@GetMapping(path = "/allUsers")
-	public @ResponseBody
-	Iterable<UserEntity> getAllUsers() {
-		// This returns a JSON or XML with the users
-		return userRepository.findAll();
-	}
+    @CrossOrigin
+    @GetMapping(path = {"/addRoutineToUser", "userEnabled/addRoutineToUser"})
+    public @ResponseBody
+    String addRoutineToUser(
+            @RequestParam String email,
+            @RequestParam Long routineId
+            ) {
+        UserEntity u = userRepository.findOne(email);
+        u.addRoutine(routineId);
+        userRepository.save(u);
+        return "Success";
+    }
 
-	@GetMapping(path = "/removeUser")
-	public @ResponseBody String removeUser(
-		 @RequestParam String email
-	) {
-		userRepository.delete(email);
-		return "Deleted";
-	}
+    @GetMapping(path = "/allUsers")
+    public @ResponseBody
+    Iterable<UserEntity> getAllUsers() {
+        // This returns a JSON or XML with the users
+        return userRepository.findAll();
+    }
+
+    @GetMapping(path = "/removeUser")
+    public @ResponseBody String removeUser(
+            @RequestParam String email
+    ) {
+        userRepository.delete(email);
+        return "Deleted";
+    }
 }

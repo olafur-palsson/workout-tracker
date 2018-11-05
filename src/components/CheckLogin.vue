@@ -15,18 +15,24 @@ export default {
     console.log(this.$router)
   },
   created: async function () {
-    const loggedIn = await Database.isLoggedIn()
-    console.log('Getting the login working here')
-    console.log(loggedIn)
-    if (loggedIn) {
-      this.$router.push({ name: 'home' })
-    } else {
-      this.$router.push({ name: 'login' })
-    }
+    this.checkLogin()
   },
   data () {
     return {
       msg: 'Checking login...'
+    }
+  },
+  methods: {
+    async checkLogin () {
+      const loggedIn = await Database.isLoggedIn()
+
+      console.log('Getting the login working here')
+      console.log(loggedIn)
+      if (loggedIn) {
+        this.$router.push({ name: 'home' })
+      } else {
+        this.$router.push({ name: 'login' })
+      }
     }
   }
 }

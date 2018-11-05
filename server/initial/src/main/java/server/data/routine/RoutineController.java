@@ -41,6 +41,18 @@ public class RoutineController {
         setListIds.forEach(setListId -> setListRepository.delete(id));
     }
 
+    @CrossOrigin
+    @GetMapping(path = {"/copyRoutine", "/userEnabled/copyRoutine"})
+    public @ResponseBody Long copyRoutine(
+            @RequestParam Long id
+    ) {
+	    RoutineEntity original = routineRepository.findOne(id);
+	    Long idOfCopy = routineRepository.save(new RoutineEntity()).getId();
+	    original.setId(idOfCopy);
+	    RoutineEntity copy = routineRepository.save(original);
+	    return copy.getId();
+    }
+
 	@CrossOrigin
 	@GetMapping(path = {"/removeRoutine", "/userEnabled/removeRoutine"})
 	public @ResponseBody String removeRoutine(
@@ -57,11 +69,14 @@ public class RoutineController {
 	public @ResponseBody
 	Long addRoutine(
 		 @RequestParam (required = false) Long id,
+		 @RequestParam (required = false) String name,
 		 @RequestParam (required = false) ArrayList<Long> exerciseIds,
          @RequestParam (required = false) ArrayList<Long> setListIds
 	) {
 		RoutineEntity routine = new RoutineEntity();
-		if(id != null)         routine.setId(id);
+		if(id != null) routine.setId(id);
+		if(name != null) routine.setName(name);
+		else routine.setName("Unnamed routine");
 		routine.setExerciseIds(exerciseIds);
 		routine.setSetListIds(setListIds);
 		routine = routineRepository.save(routine);

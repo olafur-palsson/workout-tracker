@@ -1,4 +1,5 @@
 import RequestFactory from './Request'
+import Cookies from './Cookiehandler'
 
 let Request = new RequestFactory()
 
@@ -8,7 +9,10 @@ const baseString = 'http://localhost:8080/database/userEnabled/'
 
 const requestBuilder = (methodName, requestParams = {}) => {
   const method = `${baseString}${methodName}`
-  let params = Object.keys(requestParams).map(key => key + '=' + requestParams[key]).join('&')
+  let params = requestParams
+  if (typeof requestParams === 'object') {
+    params = Object.keys(requestParams).map(key => key + '=' + requestParams[key]).join('&')
+  }
   params = params ? '?' + params : ''
   return Request.make(method + params)
 }
@@ -23,8 +27,10 @@ const getAll = (pluralEntityName) => {
   return requestBuilder('all' + pluralEntityName)
 }
 
+// This basically only works if the object is flat, like ExerciseEntitiy
+// I.e. no @ElementCollection and such
 const makeNewEntity = (entityName, newEntityParams) => {
-  return requestBuilder('new' + entityName, newEntityParams)
+  return requestBuilder('add' + entityName, newEntityParams)
 }
 
 // ef allir hlutir eru med eitthvad function tha getur madur sett thad hingad
@@ -41,35 +47,50 @@ const createFunctions = (singularEntityName, pluralEntityName, specificFunctions
 
 // Here is a specific function for 'user'
 const userFunctions = {
-  newUser: async (name, email, password) => requestBuilder('newUser', { name, email, password })
+  newUser: async (name, email, password) => requestBuilder('newUser', { name, email, password }),
+  getCurrentUserData: async () => getById('User', Cookies.getByName('email'))
+}
+
+const setListFunctions = {
+  makeNewEntity: async (setList) => {
+    // encode parameters
+    let parameters = setList.reduce((encoding, set) => {
+      return encoding + `&listOfWeights=${set.weight}&reps=${set.reps}`
+    }, '')
+    parameters = parameters.substring(1, parameters.length)
+    return makeNewEntity('SetList', parameters)
+  }
+}
+
+const routineFunctions = {
+  makeNewEntity: async (exerciseIds, setListIds) => {
+    let parameters
+    console.log(exerciseIds)
+    console.log(setListIds)
+    parameters = exerciseIds.reduce((encoding, id) => encoding + `&exerciseIds=${id}`, '')
+    parameters = setListIds.reduce((encoding, id) => encoding + `&setListIds=${id}`, parameters)
+    return makeNewEntity('Routine', parameters)
+  }
 }
 
 const user     = createFunctions('User', 'Users', userFunctions)
-const routine  = createFunctions('Routine', 'Routines', {})
+const routine  = createFunctions('Routine', 'Routines', routineFunctions)
 const history  = createFunctions('History', 'Histories', {})
 const exercise = createFunctions('Exercise', 'Exercises', {})
-const setList  = createFunctions('SetList', 'SetLists', {})
+const setList  = createFunctions('SetList', 'SetLists', setListFunctions)
 
 const logIn = (username, password) => Request.setCredentials(username, password)
 const logOut = () => Request.unsetCredentials()
 const isLoggedIn = async () => Request.isLoggedIn()
 
-/* Nota thetta til ad gera async map
-const arr = [ { key: 1 }, { key: 2 }, { key: 3 } ]
-
-const results = arr.map(async (obj) => { return obj.key; });
-// document.writeln( `Before waiting: ${results}`);
-
-Promise.all(results).then((completed) => document.writeln( `\nResult: ${completed}`));
-*/
-
 // Method to send all request first before resolving (just for speed)
 const idsToObjects = async (idsAsArray, idToObjectFunction) =>  {
-  Promise.all(idsAsArray.map(idToObjectFunction))
+  return Promise.all(idsAsArray.map(idToObjectFunction))
 }
 
+// Method to send array of objects and return array of ids
 const objectToIds = async (objects, objectToIdFunction) => {
-  console.log('TODO: Make objectToIds in Database.js')
+  return Promise.all(objects.map(objectToIdFunction))
 }
 
 const database = {

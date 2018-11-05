@@ -5,8 +5,9 @@ const printRequestOnSend = true
 
 class RequestFactory {
   async isLoggedIn () {
-    // return false if user is logged in
+    // return true if user is logged in
     const answer = await this.make('http://localhost:8080/database/userEnabled/check')
+    console.log(answer)
     return answer === 'logged_in'
   }
 

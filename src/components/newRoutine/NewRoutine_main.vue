@@ -24,7 +24,6 @@
     <button v-on:click="goToAddExcercise()">Add exercise</button>
     <button v-on:click="createRoutine(form)">Create Routine</button>
     <button v-on:click="logRoutine()">Check Routine</button>
-    <button v-on:click="checkThis()">Check This</button>
     {{ msg }}
   </div>
 </template>
@@ -39,22 +38,27 @@ const averageOfArrayOfObjectsByKey = (arrayOfObjects, key) => {
   return arrayOfObjects.reduce((sum, el) => sum + el[key], 0) / arrayOfObjects.length
 }
 
-const checkThis = () => {
-  console.log(this)
-  return 1
-}
-
 export default {
   name: 'NewRoutine_main',
   data () {
     return {
-      checkThis,
+      routine: [],
       props: ['getRoutine'],
       averageOfArrayOfObjectsByKey,
       maxOfArrayOfObjectsByKey,
-      logRoutine: () => { console.log(this.$parent.routine) },
-      goToAddExcercise: () => { this.$router.push({ name: 'newRoutine_addExercise' }) },
       msg: 'Add exercise bruh'
+    }
+  },
+  methods: {
+    addExerciseToRoutine (exercise, setList) {
+      console.log(this)
+      this.routine.push({ exercise, setList })
+    },
+    logRoutine () {
+      console.log(this.$parent.routine)
+    },
+    goToAddExcercise () {
+      this.$router.push({ name: 'newRoutine_addExercise' })
     }
   }
 }

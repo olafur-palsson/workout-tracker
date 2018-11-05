@@ -9,6 +9,7 @@ public class RoutineEntity {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+    private String name;
 	private Long id;
 	private Long creationDate;
 
@@ -47,5 +48,13 @@ public class RoutineEntity {
 
     public void setCreationDate(Long creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

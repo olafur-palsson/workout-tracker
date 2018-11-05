@@ -14,6 +14,8 @@ public class SetListEntity {
 	private List<Double> listOfWeights = new ArrayList<>();
 	@ElementCollection
 	private List<Integer> listOfReps = new ArrayList<>();
+    @ElementCollection
+	private List<Boolean> finishedSets = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -36,9 +38,17 @@ public class SetListEntity {
 	    return listOfReps;
     }
 
-	public void addSet(double weight, int reps) {
+    public void setFinishedSets(List<Boolean> finishedSets) {
+        this.finishedSets = finishedSets;
+    }
+    public List<Boolean> getFinishedSets() {
+        return finishedSets;
+    }
+
+	public void addSet(double weight, int reps, Boolean isDone) {
 	    listOfWeights.add(weight);
 	    listOfReps.add(reps);
+	    finishedSets.add(isDone);
 	}
 
 	// thad tharf ad hondla thennan error svo front-end laetur ekki serverinn

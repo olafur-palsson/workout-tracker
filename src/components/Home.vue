@@ -6,6 +6,8 @@
     </div>
 
     <button v-on:click="logout()">Log out </button>
+    <button v-on:click="gotoSession()"> Session </button>
+    <button v-on:click="gotoHistory()"> History </button>
     <h1>{{ msg }}</h1>
     <h2>{{ msg2 }}</h2>
 
@@ -33,6 +35,14 @@ export default {
       msg2: 'General Kenobi',
       email: Cookies.getByName('email'),
       password: Cookies.getByName('password')
+    }
+  },
+  methods: {
+    gotoSession () {
+      this.$router.push({ path: 'session' })
+    },
+    gotoHistory () {
+      this.$router.push({ path: 'history' })
     }
   }
 }

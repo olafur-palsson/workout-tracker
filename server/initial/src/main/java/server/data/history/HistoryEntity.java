@@ -15,7 +15,7 @@ public class HistoryEntity {
     
     // <date as long, routineId
     private HashMap<Long, Long> routineIds = new HashMap<>();
-
+    // Should be converted to sessionId before it's too late lol
     public void addRoutine(long time, long routineId) {
         routineIds.put(time, routineId);
     }

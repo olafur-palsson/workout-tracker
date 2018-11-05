@@ -1,17 +1,13 @@
 <template>
   <div class="newRoutine">
     <h1> This is New routine </h1>
-    <router-view :allExercises="allExercises" :addExerciseToRoutine="addExerciseToRoutine"/>
+    <router-view :allExercises="allExercises" />
+    <button v-on:click="saveRoutine()"> Save Routine </button>
   </div>
 </template>
 
 <script>
 import Database from '@/database/Database'
-
-const addExerciseToRoutine = (exerciseId, setList) => {
-  const exercise = exerciseId
-  this.routine.push({ exercise, setList })
-}
 
 export default {
   data () {
@@ -44,7 +40,19 @@ export default {
       this.allExercises =  allExercises
       console.log(this)
     },
-    addExerciseToRoutine: addExerciseToRoutine.bind(this)
+    addExerciseToRoutine (exerciseId, setList) {
+      const exercise = exerciseId
+      this.routine.push({ exercise, setList })
+      console.log(this.routine)
+    },
+    async saveRoutine () {
+      let exerciseIds = this.routine.map(exerciseAndSetList => exerciseAndSetList.exercise.id)
+      let setListsIds = await Database.objectToIds(this.routine, exerciseAndSetList => {
+        return Database.setList.makeNewEntity(exerciseAndSetList.setList)
+      })
+      let routineId = await Database.routine.makeNewEntity(exerciseIds, setListsIds)
+      console.log(routineId)
+    }
   }
 }
 

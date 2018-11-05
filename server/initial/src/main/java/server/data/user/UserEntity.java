@@ -3,6 +3,8 @@ package server.data.user;
 import server.data.history.HistoryEntity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class UserEntity {
@@ -13,6 +15,9 @@ public class UserEntity {
 	private String name;
     private String password;
     private String historyId;
+
+    @ElementCollection
+    private List<Long> personalRoutines = new ArrayList<Long>();
 
     public UserEntity() {}
 
@@ -51,5 +56,17 @@ public class UserEntity {
 
     public void setHistoryId(String historyId) {
         this.historyId = historyId;
+    }
+
+    public void addRoutine(Long routineId) {
+        personalRoutines.add(routineId);
+    }
+
+    private List<Long> getPersonalRoutines() {
+        return personalRoutines;
+    }
+
+    private void setPersonalRoutines(List<Long> personalRoutines) {
+        this.personalRoutines = personalRoutines;
     }
 }
