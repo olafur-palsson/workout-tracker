@@ -20,12 +20,15 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
         String email = authentication.getName();
         UserEntity user = userRepository.findOne(email);
         if(authentication.getCredentials() == null || user == null) {
-            System.out.println("User or authentication.getCredentials was null, so reject");
+            if(user == null) System.out.println("User did not exist, was null. Lookup value: " + authentication.getName());
+            else System.out.println("Credentials were null");
             return null;
         }
         String password = authentication.getCredentials().toString();
-        if(user.getPassword().equals(password))
+        if(user.getPassword().equals(password)) {
             return new UsernamePasswordAuthenticationToken(email, password, new ArrayList<>());
+        }
+        System.out.println("Password incorrect, but user did exists");
         return null;
     }
 

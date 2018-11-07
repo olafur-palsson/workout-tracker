@@ -9,10 +9,9 @@ public class RoutineEntity {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-    private String name;
 	private Long id;
 	private Long creationDate;
-
+  private String name;
 
 	@ElementCollection
 	private List<Long> exerciseIds = new ArrayList<>();

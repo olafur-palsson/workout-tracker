@@ -27,25 +27,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
-        httpSecurity.authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS, "**").permitAll()
-                .antMatchers("/database/newUser/**").permitAll()
-                .antMatchers("/database/userEnabled/newUser/**").permitAll()
-                .antMatchers("/database/userEnabled/**") .authenticated()
-                .anyRequest().hasRole("ADMIN")
-                .and()
+        httpSecurity
+                .csrf().disable()
                 .httpBasic()
                 .and()
-                .csrf().disable();
-
-
-        //.addFilterBefore(customFilter(), BasicAuthenticationFilter.class)     dno hvad thetta gerir, don't ask
-        //.fullyAuthenticated()     dno hvad thetta gerir, don't ask
-        //.antMatchers("**/rest/*")     dno hvad thetta gerir, don't ask
-
-
-
-
+                .authorizeRequests()
+                .antMatchers(HttpMethod.OPTIONS, "**").permitAll()
+                .antMatchers(HttpMethod.GET, "/database/newUser**").permitAll()
+                .antMatchers(HttpMethod.GET, "/database/userEnabled/newUser/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/database/userEnabled/**").authenticated()
+                .anyRequest().hasRole("ADMIN");
 
     }
 

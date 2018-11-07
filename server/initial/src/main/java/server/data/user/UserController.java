@@ -24,13 +24,14 @@ public class UserController {
         return "logged_in";
     }
 
-    @GetMapping(path = {"/newUser", "userEnabled/newUser"})
+    @GetMapping(path = {"/newUser", "/userEnabled/newUser"})
     public @ResponseBody
     String addNewUser(
             @RequestParam String name,
             @RequestParam String email,
             @RequestParam String password
     ) {
+        System.out.println("Lol bruh");
         if(userRepository.findOne(email) != null)
             return "Username is already taken";
         UserEntity u = new UserEntity();
@@ -38,6 +39,7 @@ public class UserController {
         u.setName(name);
         u.setPassword(password);
         u = userRepository.save(u);
+        System.out.println("Saved user with email: " + u.getEmail());
         return u.getEmail();
     }
 
@@ -56,16 +58,17 @@ public class UserController {
     }*/
 
     @CrossOrigin
-    @GetMapping(path = {"/oneUser", "userEnabled/oneUser"})
+    @GetMapping(path = {"/oneUser", "/userEnabled/oneUser"})
     public @ResponseBody
     UserEntity getOneUser(
             @RequestParam String id
     ) {
+        System.out.println("Getting one user");
         return userRepository.findOne(id);
     }
 
     @CrossOrigin
-    @GetMapping(path = {"/addRoutineToUser", "userEnabled/addRoutineToUser"})
+    @GetMapping(path = {"/addRoutineToUser", "/userEnabled/addRoutineToUser"})
     public @ResponseBody
     String addRoutineToUser(
             @RequestParam String email,
