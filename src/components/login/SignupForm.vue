@@ -28,7 +28,7 @@ export default {
       signup: (username, email, password) => {
         Database.user.newUser(username, email, password)
         Database.logIn(email, password)
-        this.$router.push({ name: 'home' })
+        this.$router.push({ name: 'checkLogin' })
       },
       msg: 'This is something'
     }

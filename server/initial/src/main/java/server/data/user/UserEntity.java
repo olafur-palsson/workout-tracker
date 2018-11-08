@@ -13,10 +13,9 @@ public class UserEntity {
   private String email;
   private String name;
   private String password;
-  private String historyId;
-
+  private Long historyId;
   @ElementCollection
-  private List<Long> personalRoutines = new ArrayList<Long>();
+  private List<Long> personalRoutines = new ArrayList<>();
 
   public String getName() {
     return name;
@@ -39,11 +38,11 @@ public class UserEntity {
     this.password = password;
   }
 
-  public String getHistoryId() {
+  public Long getHistoryId() {
     return historyId;
   }
 
-  public void setHistoryId(String historyId) {
+  public void setHistoryId(Long historyId) {
     this.historyId = historyId;
   }
 
@@ -51,11 +50,11 @@ public class UserEntity {
     personalRoutines.add(routineId);
   }
 
-  private List<Long> getPersonalRoutines() {
+  public List<Long> getPersonalRoutines() {
     return personalRoutines;
   }
 
-  private void setPersonalRoutines(List<Long> personalRoutines) {
+  public void setPersonalRoutines(List<Long> personalRoutines) {
     this.personalRoutines = personalRoutines;
   }
 }

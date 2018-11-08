@@ -18,7 +18,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        System.out.println("BLABLABALBALBAABLA");
         auth.authenticationProvider(authProvider);
         auth.inMemoryAuthentication()
                 .withUser("admin").password("admin").roles("ADMIN");
@@ -26,15 +25,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-
+        // OLI, EKKI SNERTA!!!
         httpSecurity
                 .csrf().disable()
                 .httpBasic()
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "**").permitAll()
-                .antMatchers(HttpMethod.GET, "/database/newUser**").permitAll()
-                .antMatchers(HttpMethod.GET, "/database/userEnabled/newUser/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/database/newUser/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/database/userEnabled/newUser**").permitAll()
                 .antMatchers(HttpMethod.GET, "/database/userEnabled/**").authenticated()
                 .anyRequest().hasRole("ADMIN");
 

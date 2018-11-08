@@ -21,6 +21,7 @@ class RequestFactory {
   }
 
   unsetCredentials () {
+    console.log('Logging out')
     Cookies.delete('email')
     Cookies.delete('password')
     this.email = null
@@ -41,16 +42,17 @@ class RequestFactory {
     if (email && password) {
       Cookies.set('email', email, stayLoggedIn)
       Cookies.set('password', password, stayLoggedIn)
+      this.loadCookies()
+    } else {
+      this.unsetCredentials()
     }
-    this.loadCookies()
   }
 
   make (requestString) {
+    requestString = encodeURI(requestString)
     if (printRequestOnSend) {
-      console.log('REQUEST only works for JSON')
       console.log(requestString)
     }
-
     const req = new XMLHttpRequest()
     req.open('GET', requestString, true)
     console.log(this.email, this.password)
@@ -64,6 +66,7 @@ class RequestFactory {
       req.ontimeout = () => reject(new Error('Request timed out'))
       req.onerror   = () => reject(new Error('Request status: ' + req.status))
       req.onload    = () => {
+        console.log('Success')
         try {
           resolve(JSON.parse(req.responseText))
         } catch (error) {

@@ -16,6 +16,7 @@ public class SetListController {
 	@Autowired
 	private SetListRepository setListRepository;
 
+
 	@CrossOrigin
 	@GetMapping(path = {"/addSetList", "/userEnabled/addSetList"})
 	public @ResponseBody
@@ -32,6 +33,8 @@ public class SetListController {
                 Boolean isDone = false;
                 if(setIsDone != null)
                     isDone = setIsDone.get(i);
+                else
+                    isDone = false;
                 setList.addSet(weight.get(i), reps.get(i), isDone);
             }
 		SetListEntity s = setListRepository.save(setList);

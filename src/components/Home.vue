@@ -2,12 +2,12 @@
 
   <div class="hello">
     <div class="navigation">
-      <router-link :to="{ name: 'newRoutine', params: {} }">Create new routine</router-link>
+      <router-link :to="{ name: 'newRoutine', params: {} }"> Create new routine </router-link>
+      <router-link :to="{ name: 'session', params: {} }"> Go exercise </router-link>
+      <router-link :to="{ name: 'history', params: {} }"> History </router-link>
     </div>
 
     <button v-on:click="logout()">Log out </button>
-    <button v-on:click="gotoSession()"> Session </button>
-    <button v-on:click="gotoHistory()"> History </button>
     <h1>{{ msg }}</h1>
     <h2>{{ msg2 }}</h2>
 
@@ -39,10 +39,10 @@ export default {
   },
   methods: {
     gotoSession () {
-      this.$router.push({ path: 'session' })
+      this.$router.push({ name: 'session_selectRoutine' })
     },
     gotoHistory () {
-      this.$router.push({ path: 'history' })
+      this.$router.push({ name: 'history' })
     }
   }
 }

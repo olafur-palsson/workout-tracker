@@ -3,6 +3,7 @@ package server.data.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import server.data.history.HistoryEntity;
 import server.data.history.HistoryRepository;
 import server.data.user.UserEntity;
 import server.data.user.UserRepository;
@@ -38,24 +39,13 @@ public class UserController {
         u.setEmail(email);
         u.setName(name);
         u.setPassword(password);
+        HistoryEntity history = new HistoryEntity();
+        Long historyId = historyRepository.save(history).getId();
+        u.setHistoryId(historyId);
         u = userRepository.save(u);
         System.out.println("Saved user with email: " + u.getEmail());
         return u.getEmail();
     }
-
-    /*
-    @GetMapping(path = "/addUser") // Map ONLY GET Requests
-    public @ResponseBody
-    String addNewUser(
-            @RequestParam String name,
-            @RequestParam String email
-    ) {
-        UserEntity u = new UserEntity();
-        u.setName(name);
-        u.setEmail(email);
-        u = userRepository.save(u);
-        return u.getEmail();
-    }*/
 
     @CrossOrigin
     @GetMapping(path = {"/oneUser", "/userEnabled/oneUser"})
@@ -68,6 +58,20 @@ public class UserController {
     }
 
     @CrossOrigin
+    @GetMapping(path = {"/createHistoryEntry", "/userEnabled/createHistoryEntry"})
+    public @ResponseBody
+    String createHistoryEntry(
+            @RequestParam Long routineId,
+            @RequestParam String email
+    ) {
+        UserEntity user = userRepository.findOne(email);
+        HistoryEntity history = historyRepository.findOne(user.getHistoryId());
+        history.addRoutine(routineId);
+        historyRepository.save(history);
+        return "CreatedHistoryEntry";
+    }
+
+    @CrossOrigin
     @GetMapping(path = {"/addRoutineToUser", "/userEnabled/addRoutineToUser"})
     public @ResponseBody
     String addRoutineToUser(
@@ -77,6 +81,7 @@ public class UserController {
         UserEntity u = userRepository.findOne(email);
         u.addRoutine(routineId);
         userRepository.save(u);
+
         return "Success";
     }
 

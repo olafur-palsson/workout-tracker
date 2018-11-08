@@ -6,14 +6,18 @@
 
     <div v-if="selectedExercise == null">
       Exercise is null
-      <button v-for="(exercise, i) in this.$parent.allExercises" :key="i" v-on:click="selectExercise(exercise)">
-        {{ exercise.name }}
-      </button>
+      <ul>
+        <li v-for="(exercise, i) in this.$parent.allExercises" :key="i" v-on:click="selectExercise(exercise)">
+          {{ exercise.name }}
+        </li>
+      </ul>
     </div>
 
+    <!-- DEBUG: herna er etithvad kjaftaedi, thetta renderar ekki -->
     <div v-else>
-      <div v-for="(set, i) in this.setList" :key="i">
-        {{ set }}
+      <div v-for="(unused, i) in this.setList.reps" :key="i">
+        Reps {{ this.setList.reps[i] }}
+        Weight {{ this.setList.weight[i] }}
         <button v-on:click="removeSet(i)"> X </button>
       </div>
       <div >
@@ -36,14 +40,18 @@ export default {
     return {
       currentSetListInput: { weight: 20, reps: 12 },
       selectedExercise: null,
-      setList: [],
-      goBack: () => { this.$router.go(-1) },
+      setList: {
+        weight: [],
+        reps: []
+      },
+      goBack: () => { this.$router.push({ name: 'newRoutine' }) },
       msg: 'NewRoutine_addExercise'
     }
   },
   methods: {
     removeSet (index) {
-      this.setList.splice(index, 1)
+      this.setList.reps.splice(index, 1)
+      this.setList.weight.splice(index, 1)
     },
     selectExercise (selectedExercise) {
       this.selectedExercise = selectedExercise
@@ -58,9 +66,11 @@ export default {
       this.$parent.addExerciseToRoutine(selectedExerciseCopy, this.setList)
       // setList will always be a new object
       this.setList = [Object.assign({}, this.currentSetListInput)]
+      this.selectedExercise = null
     },
     addSet () {
-      this.setList.push(Object.assign({}, this.currentSetListInput))
+      this.setList.reps.push(this.currentSetListInput.reps)
+      this.setList.weight.push(this.currentSetListInput.weight)
     }
   }
 }

@@ -1,13 +1,13 @@
 package server.data.routine;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import server.data.routine.RoutineEntity;
-import server.data.routine.RoutineRepository;
+import server.data.setList.SetListEntity;
 import server.data.setList.SetListRepository;
 
 @RestController    // This means that this class is a Controller
@@ -41,21 +41,39 @@ public class RoutineController {
         setListIds.forEach(setListId -> setListRepository.delete(id));
     }
 
+    public Long copySetList(Long idOfOriginal) {
+        SetListEntity original = setListRepository.findOne(idOfOriginal);
+        SetListEntity copy = new SetListEntity();
+        copy.setFinishedSets(new ArrayList<>(original.getFinishedSets()));
+        copy.setListOfReps(new ArrayList<>(original.getListOfReps()));
+        copy.setListOfWeights(new ArrayList<>(original.getListOfWeights()));
+        return setListRepository.save(copy).getId();
+    }
+
     @CrossOrigin
-    @GetMapping(path = {"/copyRoutine", "/userEnabled/copyRoutine"})
-    public @ResponseBody Long copyRoutine(
+    @GetMapping(path = {"/deepCopyRoutine", "/userEnabled/deepCopyRoutine"})
+    public @ResponseBody
+    RoutineEntity copyRoutine(
             @RequestParam Long id
     ) {
 	    RoutineEntity original = routineRepository.findOne(id);
-	    Long idOfCopy = routineRepository.save(new RoutineEntity()).getId();
-	    original.setId(idOfCopy);
-	    RoutineEntity copy = routineRepository.save(original);
-	    return copy.getId();
+	    RoutineEntity copy = new RoutineEntity();
+	    copy.setExerciseIds(new ArrayList<>(original.getExerciseIds()));
+	    copy.setName(original.getName());
+	    copy.setSetListIds(original.getSetListIds());
+	    copy.setCreationDate(new Date().getTime());
+	    List<Long> originalSetListIds = original.getSetListIds();
+	    List<Long> newSetListIds = new ArrayList<>();
+	    for (Long setListId : originalSetListIds)
+	        newSetListIds.add(setListId);
+        copy.setSetListIds(newSetListIds);
+	    return routineRepository.save(copy);
     }
 
 	@CrossOrigin
 	@GetMapping(path = {"/removeRoutine", "/userEnabled/removeRoutine"})
-	public @ResponseBody String removeRoutine(
+	public @ResponseBody
+    String removeRoutine(
 		 @RequestParam Long id
 	) {
 	    RoutineEntity routine = routineRepository.findOne(id);

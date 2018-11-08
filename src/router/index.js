@@ -10,14 +10,12 @@ import Login from '@/components/login/Login'
 import LoginForm from '@/components/login/LoginForm'
 import SignupForm from '@/components/login/SignupForm'
 
-// Data renderers
-import SetListView from '@/components/SetListView'
-import RoutineView from '@/components/RoutineView'
-// import ExerciseView from '@/components/ExerciseView'
-
 // Session classes
 import Session from '@/components/session/Session'
 import SelectRoutine from '@/components/session/SelectRoutine'
+// Data renderers
+import SetListView from '@/components/session/SetListView'
+import RoutineView from '@/components/session/RoutineView'
 
 // Create Routine Classes
 import NewRoutine from '@/components/newRoutine/NewRoutine'
@@ -31,12 +29,12 @@ Vue.use(Router)
 
 export default new Router({
   routes: [{
-    path: '/',
+    path: '',
     name: 'checkLogin',
     component: CheckLogin
   }, {
     // Home
-    path: '/home',
+    path: 'home',
     name: 'home',
     component: Home,
     children: [{
@@ -48,7 +46,7 @@ export default new Router({
         name: 'newRoutine',
         component: NewRoutineMain
       }, {
-        path: '/newRoutine_addExercise',
+        path: 'newRoutine_addExercise',
         name: 'newRoutine_addExercise',
         component: NewRoutineAddExercise
       }]
@@ -58,14 +56,14 @@ export default new Router({
       component: Session,
       children: [{
         path: '',
-        name: 'session_selectRoutine',
+        name: 'session',
         component: SelectRoutine
       }, {
-        path: 'routine',
+        path: 'session_routine',
         name: 'session_routineView',
         component: RoutineView
       }, {
-        path: 'exercise',
+        path: 'session_exercise',
         name: 'session_setList',
         component: SetListView
       }]
@@ -88,7 +86,7 @@ export default new Router({
     }]
   }, {
     // Login routes
-    path: '/login',
+    path: 'login',
     component: Login,
     children: [{
       path: 'signup',

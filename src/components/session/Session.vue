@@ -1,13 +1,16 @@
 
 <template>
   <div class="blank">
-    <h1> This is blank </h1>
-    {{ msg }}
+
+    <h1> Session </h1>
     <router-view/>
   </div>
 </template>
 
 <script>
+
+import Database from '@/database/Database'
+
 export default {
   name: 'Session',
   data () {
@@ -18,7 +21,12 @@ export default {
   },
   methods: {
     selectRoutine (selectedRoutine) {
-      this.routine = selectedRoutine
+    },
+    async newSession (selectedRoutine) {
+      const copiedRoutine = await Database.routine.deepCopyRoutine(selectedRoutine.id)
+      this.routine = copiedRoutine
+      await Database.user.createHistoryEntry(this.routine.id)
+      this.$router.push({ name: 'session_routineView' })
     }
   }
 }

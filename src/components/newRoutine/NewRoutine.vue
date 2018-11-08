@@ -17,17 +17,7 @@ export default {
         console.log('Create routine not implemented @ newRoutine')
         console.log(params)
       },
-      routine: [{
-        exercise: {
-          id: 0,
-          name: 'Olafur P',
-          description: 'Lol yolo'
-        },
-        setList: [{
-          reps: 12,
-          weight: 50
-        }]
-      }],
+      routine: [],
       msg: 'This is something'
     }
   },
@@ -48,10 +38,11 @@ export default {
     async saveRoutine () {
       let exerciseIds = this.routine.map(exerciseAndSetList => exerciseAndSetList.exercise.id)
       let setListsIds = await Database.objectToIds(this.routine, exerciseAndSetList => {
-        return Database.setList.makeNewEntity(exerciseAndSetList.setList)
+        return Database.setList.saveEntity(exerciseAndSetList.setList)
       })
-      let routineId = await Database.routine.makeNewEntity(exerciseIds, setListsIds)
-      console.log(routineId)
+      let routineId = await Database.routine.saveEntity(exerciseIds, setListsIds)
+      await Database.user.addRoutineToUser(routineId)
+      Database.routine.saveRoutineToUser()
     }
   }
 }

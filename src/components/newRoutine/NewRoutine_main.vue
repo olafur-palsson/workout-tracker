@@ -13,12 +13,13 @@
     -->
 
     <div v-for="(exerciseAndSetList, index) in this.$parent.routine" :key="index">
-      <ol>
-        <li> {{ exerciseAndSetList.exercise.name }},
+      <div>
+        {{ index }}
+        <div> {{ exerciseAndSetList.exercise.name }},
           Avg. reps {{ averageOfArrayOfObjectsByKey(exerciseAndSetList.setList, 'reps') }}
           Max. weight {{ maxOfArrayOfObjectsByKey(exerciseAndSetList.setList, 'weight')}}
-        </li>
-      </ol>
+        </div>
+      </div>
     </div>
 
     <button v-on:click="goToAddExcercise()">Add exercise</button>
@@ -35,7 +36,8 @@ const maxOfArrayOfObjectsByKey = (arrayOfObjects, key) => {
 }
 
 const averageOfArrayOfObjectsByKey = (arrayOfObjects, key) => {
-  return arrayOfObjects.reduce((sum, el) => sum + el[key], 0) / arrayOfObjects.length
+  let sumOfReps =  arrayOfObjects.reduce((sum, el) => sum + parseInt(el[key]), 0)
+  return Math.round(sumOfReps / arrayOfObjects.length)
 }
 
 export default {

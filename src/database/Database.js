@@ -5,7 +5,9 @@ let Request = new RequestFactory()
 
 // breyta thessum ef madur aetlar ad skipta milli server og localhost
 // const baseString = "http://<ipTala>:8080/database/userEnabled/"
+
 const baseString = 'http://localhost:8080/database/userEnabled/'
+const newUserMethod = 'http://localhost:8080/database/newUser'
 
 const requestBuilder = (methodName, requestParams = {}) => {
   const method = `${baseString}${methodName}`
@@ -29,7 +31,7 @@ const getAll = (pluralEntityName) => {
 
 // This basically only works if the object is flat, like ExerciseEntitiy
 // I.e. no @ElementCollection and such
-const makeNewEntity = (entityName, newEntityParams) => {
+const saveEntity = (entityName, newEntityParams) => {
   return requestBuilder('add' + entityName, newEntityParams)
 }
 
@@ -39,7 +41,7 @@ const createFunctions = (singularEntityName, pluralEntityName, specificFunctions
     // We put these methdos on all entity types
     getOne: async (id, idkey) => getById(singularEntityName, id, idkey),
     getAll: async () => getAll(pluralEntityName),
-    makeNewEntity: async (newEntityParams) => makeNewEntity(singularEntityName, newEntityParams)
+    saveEntity: async (newEntityParams) => saveEntity(singularEntityName, newEntityParams)
   }
   // specificFunctins overrides functions in the output object
   return Object.assign(functions, specificFunctions)
@@ -47,29 +49,56 @@ const createFunctions = (singularEntityName, pluralEntityName, specificFunctions
 
 // Here is a specific function for 'user'
 const userFunctions = {
-  newUser: async (name, email, password) => requestBuilder('newUser', { name, email, password }),
-  getCurrentUserData: async () => getById('User', Cookies.getByName('email'))
+  newUser: async (name, email, password) => {
+    return Request.make(`${newUserMethod}?name=${name}&email=${email}&password=${password}`)
+  },
+  getCurrentUserData: async () => getById('User', Cookies.getByName('email')),
+  addRoutineToUser: async routineId => {
+    const email = Cookies.getByName('email')
+    requestBuilder('addRoutineToUser', { routineId, email })
+  },
+  createHistoryEntry: async routineId => {
+    const email = Cookies.getByName('email')
+    requestBuilder('createHistoryEntry', { routineId, email })
+  }
+}
+
+const arrayToParameters = (parameterName, arrayOfElements) => {
+  return arrayOfElements.reduce((encoding, element) => {
+    return encoding + `${parameterName}=${element}`
+  }, '')
 }
 
 const setListFunctions = {
-  makeNewEntity: async (setList) => {
+  saveEntity: async (setList) => {
     // encode parameters
-    let parameters = setList.reduce((encoding, set) => {
-      return encoding + `&listOfWeights=${set.weight}&reps=${set.reps}`
-    }, '')
+    console.log(setList)
+    let parameters = ''
+    console.log(setList.listOfWeights)
+    parameters += arrayToParameters('weight', setList.listOfWeights)
+    console.log(2)
+    parameters += arrayToParameters('reps', setList.listOfReps)
+    console.log(3)
+    parameters += arrayToParameters('setIsDone', setList.finishedSets)
+
+    if (setList.id) {
+      parameters += `&id=${setList.id}`
+    }
     parameters = parameters.substring(1, parameters.length)
-    return makeNewEntity('SetList', parameters)
+    return saveEntity('SetList', parameters)
   }
 }
 
 const routineFunctions = {
-  makeNewEntity: async (exerciseIds, setListIds) => {
+  saveEntity: async (exerciseIds, setListIds) => {
     let parameters
-    console.log(exerciseIds)
-    console.log(setListIds)
     parameters = exerciseIds.reduce((encoding, id) => encoding + `&exerciseIds=${id}`, '')
     parameters = setListIds.reduce((encoding, id) => encoding + `&setListIds=${id}`, parameters)
-    return makeNewEntity('Routine', parameters)
+    return saveEntity('Routine', parameters)
+  },
+  deepCopyRoutine: async routineId => {
+    const id = routineId
+    return requestBuilder('deepCopyRoutine', { id })
   }
 }
 

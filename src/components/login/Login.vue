@@ -1,7 +1,7 @@
 
 <template>
   <div class="login">
-    <h1> This is login </h1>
+    <h1> WHAAAAAAA </h1>
     {{ msg }}
     <router-view/>
   </div>
