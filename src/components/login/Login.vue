@@ -1,4 +1,8 @@
+<!--
 
+    Login compenent, uses LoginForm and SignupForm
+
+-->
 <template>
   <div class="login">
     <h1> WHAAAAAAA </h1>
@@ -12,7 +16,7 @@ export default {
   name: 'Login',
   data () {
     return {
-      msg: 'This is something'
+      msg: 'This is login'
     }
   }
 }

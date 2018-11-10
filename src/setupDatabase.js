@@ -30,6 +30,7 @@ const setup = async () => {
   await Database.exercise.saveEntity(squat)
   Database.exercise.saveEntity(dead)
   Database.exercise.saveEntity(curl)
+  return 'nothing'
 }
 
 export default setup

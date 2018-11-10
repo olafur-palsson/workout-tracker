@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <h1> Simple workout </h1>
+    <img src="https://i.pinimg.com/474x/40/74/60/407460925c9e419d82b93313f0b42f71.jpg">
     <router-link :to="{ name: 'login', params: {} }">Login</router-link>
     <router-view/>
   </div>

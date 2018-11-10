@@ -15,6 +15,8 @@ import java.util.ArrayList;
 public class UserAuthenticationProvider implements AuthenticationProvider {
     @Autowired
     UserRepository userRepository;
+    // Basically looks up the the user by the email provided and
+    // Matches the password with the password stored in the database
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String email = authentication.getName();

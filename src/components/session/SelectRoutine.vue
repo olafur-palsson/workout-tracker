@@ -1,10 +1,15 @@
+<!--
 
+    Renders the list of routines available to the user
+    TOOD: allow for editing the routine
+
+-->
 <template>
   <div>
     <h1> {{ msg }} </h1>
     <h1> What the... </h1>
     <button v-on:click="logAllRoutines()"> Log routines </button>
-    <div v-if="allRoutines">
+    <div v-if="allRoutines.length != 0">
       Not empty
       <div v-for="(routine, index) in allRoutines" :key="index">
         {{ routine.name }}
@@ -34,31 +39,19 @@ export default {
     }
   },
   created () {
-    console.log('DING')
     this.getAllRoutines()
   },
   methods: {
     async getAllRoutines () {
-      console.log('Triggered getAllRoutines')
       const userData = await Database.user.getCurrentUserData()
-      console.log(userData)
       this.allRoutines = await Database.idsToObjects(userData.personalRoutines, id => {
         return Database.routine.getOne(id)
       })
-      console.log(this.allRoutines)
     },
-    viewRoutine (routine) {
-      console.log('View routine is not implemented')
+    async createSession (routine) {
       console.log(routine)
-      throw Error('viewRoutine <-- SelectRoutine is not implemented yet')
-    },
-    logAllRoutines () {
-      console.log('All routines:')
-      console.log(this.allRoutines)
-    },
-    createSession (routine) {
-      this.$parent.newSession(routine)
-      this.$router.go(-1)
+      let string = await this.$parent.newSession(routine)
+      console.log(string)
     },
     gotoNewRoutine () {
       this.$router.push({ name: 'newRoutine' })
@@ -68,6 +61,7 @@ export default {
       if (this.allRoutines === undefined) return true
       if (this.allRoutines === null) return true
       if (this.allRoutines.length < 1) return true
+      console.log('went through all tests')
       return false
     }
   }

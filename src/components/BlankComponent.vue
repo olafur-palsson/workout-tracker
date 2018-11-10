@@ -1,4 +1,10 @@
+<!--
 
+    Blank compenent to use as a template when creating new components
+    (it's a basic 'hello world' compenent that has Blankynes instead of
+    hello world)
+
+-->
 <template>
   <div class="blank">
     <h1> This is blank </h1>

@@ -1,8 +1,13 @@
+<!--
+
+    Container for the Routine creation process, keeps the routine and
+    handles the saving of the routine to database
+
+-->
 <template>
   <div class="newRoutine">
     <h1> This is New routine </h1>
     <router-view :allExercises="allExercises" />
-    <button v-on:click="saveRoutine()"> Save Routine </button>
   </div>
 </template>
 
@@ -13,10 +18,6 @@ export default {
   data () {
     return {
       allExercises: 'Not what I want',
-      createRoutine: (params) => {
-        console.log('Create routine not implemented @ newRoutine')
-        console.log(params)
-      },
       routine: [],
       msg: 'This is something'
     }
@@ -28,12 +29,10 @@ export default {
     async loadExercises () {
       const allExercises = await Database.exercise.getAll()
       this.allExercises =  allExercises
-      console.log(this)
     },
     addExerciseToRoutine (exerciseId, setList) {
       const exercise = exerciseId
       this.routine.push({ exercise, setList })
-      console.log(this.routine)
     },
     async saveRoutine () {
       let exerciseIds = this.routine.map(exerciseAndSetList => exerciseAndSetList.exercise.id)
@@ -42,7 +41,6 @@ export default {
       })
       let routineId = await Database.routine.saveEntity(exerciseIds, setListsIds)
       await Database.user.addRoutineToUser(routineId)
-      Database.routine.saveRoutineToUser()
     }
   }
 }

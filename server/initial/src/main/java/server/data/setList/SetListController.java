@@ -10,7 +10,7 @@ import server.data.setList.SetListRepository;
 
 
 @RestController    // This means that this class is a Controller
-@RequestMapping(path="/database") // This means URL's start with /demo (after Application path)
+@RequestMapping(path="/database") // This means URL's start with /database (after Application path)
 public class SetListController {
 
 	@Autowired
@@ -30,11 +30,7 @@ public class SetListController {
 		if(id != null) setList.setId(id);
         if(weight != null)
             for(int i = 0; i < weight.size(); i++) {
-                Boolean isDone = false;
-                if(setIsDone != null)
-                    isDone = setIsDone.get(i);
-                else
-                    isDone = false;
+                Boolean isDone = setIsDone == null ? false : setIsDone.get(i);
                 setList.addSet(weight.get(i), reps.get(i), isDone);
             }
 		SetListEntity s = setListRepository.save(setList);

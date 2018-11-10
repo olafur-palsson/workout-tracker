@@ -31,10 +31,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .authorizeRequests()
+                // Allow all OPTIONS requests
                 .antMatchers(HttpMethod.OPTIONS, "**").permitAll()
-                .antMatchers(HttpMethod.GET, "/database/newUser/**").permitAll()
+                // Make sure newUser method is available also when not signed in
+                .antMatchers("/database/newUser/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/database/userEnabled/newUser**").permitAll()
+                // Make all methods with path userEnabled have to be authenticated with a user + password
                 .antMatchers(HttpMethod.GET, "/database/userEnabled/**").authenticated()
+                // Rest of the methods are only available to Username: admin, Password: admin
                 .anyRequest().hasRole("ADMIN");
 
     }

@@ -5,8 +5,14 @@ import org.springframework.web.bind.annotation.*;
 
 import server.data.history.HistoryEntity;
 import server.data.history.HistoryRepository;
+import server.data.routine.RoutineEntity;
+import server.data.routine.RoutineRepository;
 import server.data.user.UserEntity;
 import server.data.user.UserRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController    // This means that this class is a Controller
@@ -16,15 +22,20 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
     @Autowired
+    private RoutineRepository routineRepository;
+    @Autowired
     private HistoryRepository historyRepository;
 
     // We can use this one to check if the user is logged in
+    // It usually gives us a 400 ~ 500 error if the user is not logged in
+    // The front-end check string-equivalence
     @GetMapping(path = "userEnabled/check")
     public @ResponseBody
     String checkLoggedIn() {
         return "logged_in";
     }
 
+    // Create a new user, this is the only method permitted to everyone
     @GetMapping(path = {"/newUser", "/userEnabled/newUser"})
     public @ResponseBody
     String addNewUser(
@@ -32,7 +43,6 @@ public class UserController {
             @RequestParam String email,
             @RequestParam String password
     ) {
-        System.out.println("Lol bruh");
         if(userRepository.findOne(email) != null)
             return "Username is already taken";
         UserEntity u = new UserEntity();
@@ -43,8 +53,45 @@ public class UserController {
         Long historyId = historyRepository.save(history).getId();
         u.setHistoryId(historyId);
         u = userRepository.save(u);
-        System.out.println("Saved user with email: " + u.getEmail());
         return u.getEmail();
+    }
+
+    // A simple remote getter for tidy front-end
+    @CrossOrigin
+    @GetMapping(path = {"/getActiveRoutine", "/userEnabled/getActiveRoutine"})
+    public @ResponseBody
+    RoutineEntity getActiveRoutine(
+            @RequestParam String email
+    ) {
+        Long routineId = userRepository.findOne(email).getActiveRoutine();
+        if (routineId.intValue() < 0) return null;
+        return routineRepository.findOne(routineId);
+    }
+
+    // A simple remote setter for tidy front-end
+    @CrossOrigin
+    @GetMapping(path = {"/setActiveRoutine", "/userEnabled/setActiveRoutine"})
+    public @ResponseBody
+    String setActiveRoutine(
+            @RequestParam String email,
+            @RequestParam Long routineId
+    ) {
+        UserEntity user = userRepository.findOne(email);
+        user.setActiveRoutine(routineId);
+        userRepository.save(user);
+        return "Active routine set to " + routineId;
+    }
+
+    @CrossOrigin
+    @GetMapping(path = {"/getAllPersonalRoutines", "/userEnabled/getAllPersonalRoutines"})
+    public @ResponseBody
+    List<RoutineEntity> getAllPersonalRoutines(
+            @RequestParam String email
+    ) {
+        List<Long> routineIds = userRepository.findOne(email).getPersonalRoutines();
+        return routineIds.stream().map(
+                id -> routineRepository.findOne(id)
+        ).collect(Collectors.toList());
     }
 
     @CrossOrigin
@@ -53,12 +100,11 @@ public class UserController {
     UserEntity getOneUser(
             @RequestParam String id
     ) {
-        System.out.println("Getting one user");
         return userRepository.findOne(id);
     }
 
     @CrossOrigin
-    @GetMapping(path = {"/createHistoryEntry", "/userEnabled/createHistoryEntry"})
+    @GetMapping(path = "/createHistoryEntry")
     public @ResponseBody
     String createHistoryEntry(
             @RequestParam Long routineId,
@@ -71,6 +117,7 @@ public class UserController {
         return "CreatedHistoryEntry";
     }
 
+    // A service that takes the two ids of user and routine and adds the routine to user's collection of routines
     @CrossOrigin
     @GetMapping(path = {"/addRoutineToUser", "/userEnabled/addRoutineToUser"})
     public @ResponseBody

@@ -1,4 +1,12 @@
+/*
 
+    A class that contains the credentials of the user
+    it also manages setting the cookie to have a global access
+    to user's email.
+
+    This class always returns a promise when making requests
+
+*/
 import Cookies from './Cookiehandler'
 
 const printRequestOnSend = true
@@ -68,7 +76,8 @@ class RequestFactory {
       req.onload    = () => {
         console.log('Success')
         try {
-          resolve(JSON.parse(req.responseText))
+          const json = JSON.parse(req.responseText)
+          resolve(json)
         } catch (error) {
           resolve(req.responseText)
         }

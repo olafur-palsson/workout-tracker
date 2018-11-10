@@ -1,44 +1,34 @@
+<!--
 
+    Renders the overview of the routine being created,
+    has the button for creating the routine (saving it to database)
+
+-->
 <template>
   <div class="blank">
     <h1> This is blank </h1>
     {{ msg }}
-    <!--
-    <div>
-      <ol>
-        <li> {{ this.$parent.routine}},
-        </li>
-      </ol>
-    </div>
-    -->
 
     <div v-for="(exerciseAndSetList, index) in this.$parent.routine" :key="index">
       <div>
         {{ index }}
         <div> {{ exerciseAndSetList.exercise.name }},
-          Avg. reps {{ averageOfArrayOfObjectsByKey(exerciseAndSetList.setList, 'reps') }}
-          Max. weight {{ maxOfArrayOfObjectsByKey(exerciseAndSetList.setList, 'weight')}}
+          Avg. reps {{ averageOf(exerciseAndSetList.setList.listOfReps) }}
+          Max. weight {{ maxOf(exerciseAndSetList.setList.listOfWeights) }}
         </div>
       </div>
     </div>
 
     <button v-on:click="goToAddExcercise()">Add exercise</button>
-    <button v-on:click="createRoutine(form)">Create Routine</button>
-    <button v-on:click="logRoutine()">Check Routine</button>
+    <button v-on:click="createRoutine()">Create Routine</button>
     {{ msg }}
   </div>
 </template>
 
 <script>
 
-const maxOfArrayOfObjectsByKey = (arrayOfObjects, key) => {
-  return arrayOfObjects.reduce((max, el) => max > el[key] ? max : el[key], 0)
-}
-
-const averageOfArrayOfObjectsByKey = (arrayOfObjects, key) => {
-  let sumOfReps =  arrayOfObjects.reduce((sum, el) => sum + parseInt(el[key]), 0)
-  return Math.round(sumOfReps / arrayOfObjects.length)
-}
+const maxOf = array => array.reduce((max, el) => max > el ? max : el, 0)
+const averageOf = array => array.reduce((sum, el) => sum + el) / array.length
 
 export default {
   name: 'NewRoutine_main',
@@ -46,18 +36,17 @@ export default {
     return {
       routine: [],
       props: ['getRoutine'],
-      averageOfArrayOfObjectsByKey,
-      maxOfArrayOfObjectsByKey,
+      maxOf,
+      averageOf,
       msg: 'Add exercise bruh'
     }
   },
   methods: {
-    addExerciseToRoutine (exercise, setList) {
-      console.log(this)
-      this.routine.push({ exercise, setList })
+    createRoutine () {
+      this.$parent.saveRoutine()
     },
-    logRoutine () {
-      console.log(this.$parent.routine)
+    addExerciseToRoutine (exercise, setList) {
+      this.routine.push({ exercise, setList })
     },
     goToAddExcercise () {
       this.$router.push({ name: 'newRoutine_addExercise' })

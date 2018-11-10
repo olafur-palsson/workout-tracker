@@ -14,8 +14,7 @@ import SignupForm from '@/components/login/SignupForm'
 import Session from '@/components/session/Session'
 import SelectRoutine from '@/components/session/SelectRoutine'
 // Data renderers
-import SetListView from '@/components/session/SetListView'
-import RoutineView from '@/components/session/RoutineView'
+import TrainingView from '@/components/session/TrainingView'
 
 // Create Routine Classes
 import NewRoutine from '@/components/newRoutine/NewRoutine'
@@ -34,51 +33,47 @@ export default new Router({
     component: CheckLogin
   }, {
     // Home
-    path: 'home',
+    path: '/home',
     name: 'home',
     component: Home,
     children: [{
       // newRoutine
-      path: 'newRoutine',
+      path: '/newRoutine',
       component: NewRoutine,
       children: [{
         path: '',
         name: 'newRoutine',
         component: NewRoutineMain
       }, {
-        path: 'newRoutine_addExercise',
+        path: '/newRoutine_addExercise',
         name: 'newRoutine_addExercise',
         component: NewRoutineAddExercise
       }]
     }, {
       // Session
-      path: 'session',
+      path: '/session',
       component: Session,
       children: [{
         path: '',
         name: 'session',
         component: SelectRoutine
       }, {
-        path: 'session_routine',
-        name: 'session_routineView',
-        component: RoutineView
-      }, {
-        path: 'session_exercise',
-        name: 'session_setList',
-        component: SetListView
+        path: '/session_routine',
+        name: 'session_trainingView',
+        component: TrainingView
       }]
     }, {
       // History
-      path: 'history',
+      path: '/history',
       component: ShowHistory,
       children: [{
         path: '',
-        name: 'history_calendar',
+        name: 'history',
         component: ShowHistory
       }, {
-        path: 'routine',
+        path: '/routine',
         name: 'history_routine',
-        component: RoutineView
+        component: TrainingView
       }, {
         path: 'exercise'
 
@@ -86,10 +81,10 @@ export default new Router({
     }]
   }, {
     // Login routes
-    path: 'login',
+    path: '/login',
     component: Login,
     children: [{
-      path: 'signup',
+      path: '/signup',
       name: 'signupForm',
       component: SignupForm
     }, {

@@ -1,3 +1,12 @@
+<!--
+
+    Check if the user is logged in
+    If logged in:
+      Go to home
+    Else:
+      Go to login component
+
+-->
 <template>
   <h1> Something went wrong when checking if the user was logged in. Sorry. :(</h1>
 </template>
@@ -8,26 +17,18 @@ import Database from '@/database/Database'
 
 export default {
   name: 'CheckLogin',
-  checkRouter: () => {
-    console.log(this.$router)
-  },
-  checkRouter2: function () {
-    console.log(this.$router)
-  },
-  created: async function () {
-    this.checkLogin()
-  },
   data () {
     return {
       msg: 'Checking login...'
     }
   },
+  created: async function () {
+    this.checkLogin()
+  },
   methods: {
     async checkLogin () {
       const loggedIn = await Database.isLoggedIn()
-
-      console.log('Getting the login working here')
-      console.log(loggedIn)
+      console.log('Login status: ' + loggedIn)
       if (loggedIn) {
         this.$router.push({ name: 'home' })
       } else {

@@ -4,6 +4,27 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/*
+
+    This class has the role of making a routine (think of an hour lifting in the gym).
+    It has a list of exercises for each exercise a corresponding list of sets.
+
+    For example, if we expand the Routine into it's components we have
+        RoutineId --Ref--> ExerciseIds and SetListIds
+        ExerciseId --Ref--> A flat object with name of the exercise, description etc.
+        SetListId --Ref--> List of reps and list of weights
+
+    A routine with one pair of exerciseId and setListId can look like this:
+        Benchpress:
+            5x7 50kg
+                        or
+        Benchpress:
+            5 50kg - unfinished,
+            3 40kg - done and
+            12 666kg - done
+
+ */
 @Entity // This tells Hibernate to make a table out of this class
 public class RoutineEntity {
 
@@ -11,7 +32,7 @@ public class RoutineEntity {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	private Long creationDate;
-  private String name;
+    private String name;
 
 	@ElementCollection
 	private List<Long> exerciseIds = new ArrayList<>();

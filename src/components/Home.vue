@@ -1,3 +1,10 @@
+<!--
+
+    Home screen, renders the outermost container of the application,
+    such as the login and logout buttons and the basic routes to
+    different components of the application
+
+-->
 <template>
 
   <div class="hello">

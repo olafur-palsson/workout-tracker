@@ -9,7 +9,6 @@ import server.data.history.HistoryEntity;
 import server.data.history.HistoryRepository;
 
 
-
 @RestController    // This means that this class is a Controller
 @RequestMapping(path="/database") // This means URL's start with /demo (after Application path)
 public class HistoryController {
@@ -22,6 +21,8 @@ public class HistoryController {
 	public @ResponseBody
 	Long addNewHistory(
 		 @RequestParam(required = false) Long id,
+         // Preference of ArrayList<> over the obvious hashmap since ArrayList is slice-able and holds
+         // also information about the last added exercises.
          @RequestParam(required = false) ArrayList<Long> routineIds,
          @RequestParam(required = false) ArrayList<Long> timeStamps
 	) {

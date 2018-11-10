@@ -1,4 +1,10 @@
+<!--
 
+    SignupForm, uses the information provided to sign the user in
+    then logs the user in and does a check just in case to make
+    sure the user has access to relevant data in the database
+
+-->
 <template>
   <div class="login">
 
@@ -24,13 +30,14 @@ export default {
         email: '',
         user: '',
         password: ''
-      },
-      signup: (username, email, password) => {
-        Database.user.newUser(username, email, password)
-        Database.logIn(email, password)
-        this.$router.push({ name: 'checkLogin' })
-      },
-      msg: 'This is something'
+      }
+    }
+  },
+  methods: {
+    async signup (username, email, password) {
+      await Database.user.newUser(username, email, password)
+      Database.logIn(email, password)
+      this.$router.push({ name: 'checkLogin' })
     }
   }
 }

@@ -1,4 +1,8 @@
+/*
 
+    A simple tool to set and get cookies of the browser
+
+*/
 const setCookie = (name, value, days) => {
   let expires = ''
   if (days) {

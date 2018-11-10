@@ -3,12 +3,21 @@ package server.data.routine;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import server.data.exercise.ExerciseEntity;
+import server.data.exercise.ExerciseRepository;
 import server.data.setList.SetListEntity;
 import server.data.setList.SetListRepository;
+
+/**
+ * History is nothing but a list of pairs where each pair is
+ * a tuple of (time, routine)
+ */
 
 @RestController    // This means that this class is a Controller
 @RequestMapping(path="/database") // This means URL's start with /demo (after Application path)
@@ -18,6 +27,8 @@ public class RoutineController {
     private RoutineRepository routineRepository;
     @Autowired
     private SetListRepository setListRepository;
+    @Autowired
+    private ExerciseRepository exerciseRepository;
 
 	@CrossOrigin
 	@GetMapping(path = {"/allRoutines", "/userEnabled/allRoutines"})
@@ -25,6 +36,49 @@ public class RoutineController {
 	Iterable<RoutineEntity> getAllRoutines() {
 		return routineRepository.findAll();
 	}
+
+    @CrossOrigin
+    @GetMapping(path = {"/getAllExercisesOfRoutine", "/userEnabled/getAllExercisesOfRoutine"})
+    public @ResponseBody
+    List<ExerciseEntity> allExercisesOfRoutine(
+            @RequestParam Long routineId
+    ) {
+        RoutineEntity routine = routineRepository.findOne(routineId);
+        List<Long> exerciseIds = routine.getExerciseIds();
+        return exerciseIds.stream().map(
+                id -> exerciseRepository.findOne(id)
+        ).collect(Collectors.toList());
+    }
+
+	@CrossOrigin
+    @GetMapping(path = {"/getAllSetListsOfRoutine", "/userEnabled/getAllSetListsOfRoutine"})
+    public @ResponseBody
+    List<SetListEntity> allSetListsOfRoutine(
+            @RequestParam Long routineId
+    ) {
+	    List<Long> setListIds = routineRepository.findOne(routineId).getSetListIds();
+	    return setListIds.stream().map(
+	            id -> setListRepository.findOne(id)
+        ).collect(Collectors.toList());
+    }
+
+    @CrossOrigin
+    @GetMapping(path = {"/markAllSetsAsDone", "/userEnabled/markAllSetsAsDone"})
+    public @ResponseBody
+    String markAllSetsAsDone(
+            @RequestParam Long routineId
+    ) {
+	    RoutineEntity routine = routineRepository.findOne(routineId);
+	    List<Long> setListIds = routine.getSetListIds();
+	    setListIds.forEach(
+	            id -> {
+	                SetListEntity setList = setListRepository.findOne(id);
+	                List<Boolean> finishedSets = setList.getFinishedSets().stream().map(setStatus -> true).collect(Collectors.toList());
+	                setList.setFinishedSets(finishedSets);
+	                setListRepository.save(setList);
+	            });
+	    return "Marked all as done for setList " + routineId;
+    }
 
 	@CrossOrigin
 	@GetMapping(path = {"/oneRoutine", "/userEnabled/oneRoutine"})
@@ -35,18 +89,22 @@ public class RoutineController {
 		return routineRepository.findOne(id);
 	}
 
+	// Function to remove all SetLists from database when the Routine is deleted
 	private void removeData(Long id) {
         RoutineEntity routine = routineRepository.findOne(id);
         List<Long> setListIds = routine.getSetListIds();
         setListIds.forEach(setListId -> setListRepository.delete(id));
     }
 
+    // Makes a new setList from the id of the original, returns id of the copy
     public Long copySetList(Long idOfOriginal) {
         SetListEntity original = setListRepository.findOne(idOfOriginal);
         SetListEntity copy = new SetListEntity();
+        // Get and set data manually
         copy.setFinishedSets(new ArrayList<>(original.getFinishedSets()));
         copy.setListOfReps(new ArrayList<>(original.getListOfReps()));
         copy.setListOfWeights(new ArrayList<>(original.getListOfWeights()));
+        // Save and return the id of the copy
         return setListRepository.save(copy).getId();
     }
 
@@ -58,14 +116,17 @@ public class RoutineController {
     ) {
 	    RoutineEntity original = routineRepository.findOne(id);
 	    RoutineEntity copy = new RoutineEntity();
-	    copy.setExerciseIds(new ArrayList<>(original.getExerciseIds()));
+
+	    // FIrst get data from original and put on the copy
 	    copy.setName(original.getName());
+        copy.setExerciseIds(new ArrayList<>(original.getExerciseIds()));
 	    copy.setSetListIds(original.getSetListIds());
 	    copy.setCreationDate(new Date().getTime());
+	    // Take all the SetLists, copy the setLists, and put the id into newSetListIds
 	    List<Long> originalSetListIds = original.getSetListIds();
 	    List<Long> newSetListIds = new ArrayList<>();
 	    for (Long setListId : originalSetListIds)
-	        newSetListIds.add(setListId);
+	        newSetListIds.add(copySetList(setListId));
         copy.setSetListIds(newSetListIds);
 	    return routineRepository.save(copy);
     }

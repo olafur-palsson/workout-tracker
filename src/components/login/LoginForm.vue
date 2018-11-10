@@ -1,4 +1,9 @@
+<!--
 
+    LoginForm, logs the user-in using the 'Database' compenent
+    Renders the LoginForm
+
+-->
 <template>
   <div class="login">
 

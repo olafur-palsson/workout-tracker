@@ -1,8 +1,13 @@
+<!--
+
+    Renders a form to add an exercise to the routine being created
+    upon pressing Confirm it pushes the changes to the routine object
+    on NewRoutine
+
+-->
 <template>
   <div class="undefined">
     <h1> {{ msg }} </h1>
-
-    <button v-on:click="logAllExercises()"> Print exercises </button>
 
     <div v-if="selectedExercise == null">
       Exercise is null
@@ -15,9 +20,9 @@
 
     <!-- DEBUG: herna er etithvad kjaftaedi, thetta renderar ekki -->
     <div v-else>
-      <div v-for="(unused, i) in this.setList.reps" :key="i">
-        Reps {{ this.setList.reps[i] }}
-        Weight {{ this.setList.weight[i] }}
+      <div v-for="(unused, i) in setList.listOfReps" :key="i">
+        Reps {{ setList.listOfReps[i] }}
+        Weight {{ setList.listOfWeights[i] }}
         <button v-on:click="removeSet(i)"> X </button>
       </div>
       <div >
@@ -38,26 +43,25 @@ export default {
   // name: 'CreateRoutine_addexercise',
   data () {
     return {
-      currentSetListInput: { weight: 20, reps: 12 },
+      currentSetListInput: { weight: 20, reps: 8 },
       selectedExercise: null,
       setList: {
-        weight: [],
-        reps: []
+        listOfWeights: [],
+        listOfReps: []
       },
-      goBack: () => { this.$router.push({ name: 'newRoutine' }) },
       msg: 'NewRoutine_addExercise'
     }
   },
   methods: {
+    goBack () {
+      this.$router.push({ name: 'newRoutine' })
+    },
     removeSet (index) {
       this.setList.reps.splice(index, 1)
       this.setList.weight.splice(index, 1)
     },
     selectExercise (selectedExercise) {
       this.selectedExercise = selectedExercise
-    },
-    logAllExercises () {
-      console.log(this.$parent.allExercises)
     },
     sendToParent () {
       // exercise will always be the same object, so we copy to send it
@@ -66,11 +70,12 @@ export default {
       this.$parent.addExerciseToRoutine(selectedExerciseCopy, this.setList)
       // setList will always be a new object
       this.setList = [Object.assign({}, this.currentSetListInput)]
-      this.selectedExercise = null
+      this.selectedExercise = { listOfReps: [], listOfWeights: [] }
+      this.goBack()
     },
     addSet () {
-      this.setList.reps.push(this.currentSetListInput.reps)
-      this.setList.weight.push(this.currentSetListInput.weight)
+      this.setList.listOfReps.push(this.currentSetListInput.reps)
+      this.setList.listOfWeights.push(this.currentSetListInput.weight)
     }
   }
 }
