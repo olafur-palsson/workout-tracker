@@ -26,6 +26,18 @@ export default {
     setTimeout(() => {
       this.transparent = false
     }, 1500)
+  },
+  methods: {
+
+    transition (routeName) {
+      this.transparent = true
+      setTimeout(() => {
+        this.$router.push({ name: routeName })
+        setTimeout(() => {
+          this.transparent = false
+        }, 50)
+      }, 1500)
+    }
   }
 }
 </script>
@@ -59,7 +71,7 @@ export default {
   align-items: center;
   padding-top: 10vh;
   height: 100vh;
-  background-image: url('../../assets/login_jumbo.jpg');
+  background-image: url('../../assets/login_jumbo2.jpg');
   background-size: cover;
   background-position: center;
 }
@@ -76,7 +88,7 @@ export default {
   width: 400px;
   padding: 2rem;
   border-radius: 3px;
-  transition: opacity 1.5s ease;
+  transition: opacity 0.5s ease-in;
 }
 
 @media screen and (max-width: 600px) {
@@ -85,5 +97,4 @@ export default {
     margin: 10px;
   }
 }
-
 </style>

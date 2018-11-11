@@ -26,8 +26,7 @@
         <button v-on:click="signup(form.user, form.email, form.password)">Sign up</button>
       </div>
     </div>
-    {{ msg }}
-    <router-link :to="{ name: 'login', params: {} }">Already have an account?</router-link>
+    <a class="pointer" v-on:click="toLoginForm()"> Already have an account? </a>
   </div>
 </template>
 
@@ -50,6 +49,9 @@ export default {
       await Database.user.newUser(username, email, password)
       Database.logIn(email, password)
       this.$router.push({ name: 'checkLogin' })
+    },
+    toLoginForm () {
+      this.$parent.transition('login')
     }
   }
 }
@@ -60,6 +62,7 @@ export default {
 
 h1 {
   font-size: 2rem;
+  margin-bottom: 20px;
 }
 
 button {
@@ -78,4 +81,7 @@ input {
   padding: 2px;
 }
 
+.pointer {
+  cursor: pointer;
+}
 </style>

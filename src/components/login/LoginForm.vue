@@ -19,7 +19,7 @@
     <div class="input">
       <button v-on:click='login(form.email, form.password)'>Log in</button>
     </div>
-    <router-link :to="{ name: 'signupForm', params: {} }">Don't have an account?</router-link>
+    <a class="pointer" v-on:click="toSignupForm()">Don't have an account?</a>
   </div>
 </template>
 
@@ -40,6 +40,11 @@ export default {
       },
       msg: 'This is something'
     }
+  },
+  methods: {
+    toSignupForm () {
+      this.$parent.transition('signupForm')
+    }
   }
 }
 </script>
@@ -49,6 +54,7 @@ export default {
 
 h1 {
   font-size: 2rem;
+  margin-bottom: 20px;
 }
 
 button {
@@ -67,4 +73,7 @@ input {
   padding: 2px;
 }
 
+.pointer {
+  cursor: pointer;
+}
 </style>

@@ -22,4 +22,10 @@ export default {
   box-sizing: border-box;
 }
 
+button {
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid black;
+  background-color: #5BB0D8;
+}
 </style>

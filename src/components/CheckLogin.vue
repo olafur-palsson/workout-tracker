@@ -8,7 +8,7 @@
 
 -->
 <template>
-  <h1> Something went wrong when checking if the user was logged in. Sorry. :(</h1>
+  <h1 v-if="somethingIsWrong"> Something went wrong :( </h1>
 </template>
 
 <script>
@@ -19,7 +19,8 @@ export default {
   name: 'CheckLogin',
   data () {
     return {
-      msg: 'Checking login...'
+      msg: 'Checking login...',
+      somethingIsWrong: false
     }
   },
   created: async function () {
@@ -34,6 +35,9 @@ export default {
       } else {
         this.$router.push({ name: 'login' })
       }
+      setTimeout(() => {
+        this.somethingIsWrong = true
+      }, 1000)
     }
   }
 }
