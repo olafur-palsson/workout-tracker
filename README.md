@@ -122,7 +122,7 @@ Maven
 
 (Ubuntu)
 
-npm install (coming soon)
+npm install
 
 ---
 
@@ -142,13 +142,17 @@ Google er betri ad utskyra en eg.
 
   Setja upp allt front-end
 
-`npm start`
+`npm run dev`
 
   Keyrir upp dev server
 
 ---
 
 #### ./server/initial/
+
+`gradle wrapper`
+
+  Nota gradle til ad bua til wrapper (meira stable)
 
 `./gradlew build`   
 
@@ -168,20 +172,9 @@ Google er betri ad utskyra en eg.
              test/              --  auto  --
              setup/             install files
              initial/           --  auto fyrir utan... --
-                     src/       *Source code*
-			API/                      API/test home dir
-			    jar/classname.jar     output af 'mvn package'
-					src/                  *Source code*
-					pom.xml               setup file
+                     src/       *Source code back*
+      src/                      *Source code front*
 
 
 
 ---
-
-# Todo listinn
-
-## API build tool
-
-1. Bua til eitthvad shellscript sem auto-buildar nyjan klasa
-
-2. Og sidan update API sem smidar API-inn og byr til test
