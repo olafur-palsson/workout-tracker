@@ -21,6 +21,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authProvider);
         auth.inMemoryAuthentication()
                 .withUser("admin").password("admin").roles("ADMIN");
+        auth.inMemoryAuthentication()
+                .withUser("anonymous").password("anonymous").roles("ANON");
     }
 
     @Override
@@ -31,15 +33,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .authorizeRequests()
+                // Make all methods with path userEnabled have to be authenticated with a user + password
                 // Allow all OPTIONS requests
                 .antMatchers(HttpMethod.OPTIONS, "**").permitAll()
                 // Make sure newUser method is available also when not signed in
-                .antMatchers("/database/newUser/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/database/userEnabled/newUser**").permitAll()
-                // Make all methods with path userEnabled have to be authenticated with a user + password
+                .antMatchers(HttpMethod.GET, "/database/newUser/**").hasRole("ANON")
+                .antMatchers(HttpMethod.GET, "/database/userEnabled/newUser**").hasRole("ANON")
                 .antMatchers(HttpMethod.GET, "/database/userEnabled/**").authenticated()
-                // Rest of the methods are only available to Username: admin, Password: admin
                 .anyRequest().hasRole("ADMIN");
+                // Rest of the methods are only available to Username: admin, Password: admin
 
     }
 

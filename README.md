@@ -71,7 +71,15 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 #### Personal record
 
-####
+#### Loading screen
+
+#### Sja rutinur hja odrum
+
+#### Popular on the app
+
+#### Location based noto sem segir ther ad skra aefingu
+
+## Liklega aldrei
 
 #### Aldrei hitta sjukro?
 
@@ -83,17 +91,11 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 #### Prevention aefingar (physio verified)
 
-#### Sja rutinur hja odrum
-
 #### Social Feed
 
 #### Social Follow
 
-#### Popular on the app
-
 #### Public/Private profile
-
-#### Location based noto sem segir ther ad skra aefingu
 
 #### Time based notification based on regular workout times
 
@@ -122,7 +124,7 @@ Maven
 
 (Ubuntu)
 
-npm install
+npm install (coming soon)
 
 ---
 
@@ -142,17 +144,13 @@ Google er betri ad utskyra en eg.
 
   Setja upp allt front-end
 
-`npm run dev`
+`npm start`
 
   Keyrir upp dev server
 
 ---
 
 #### ./server/initial/
-
-`gradle wrapper`
-
-  Nota gradle til ad bua til wrapper (meira stable)
 
 `./gradlew build`   
 
@@ -172,9 +170,20 @@ Google er betri ad utskyra en eg.
              test/              --  auto  --
              setup/             install files
              initial/           --  auto fyrir utan... --
-                     src/       *Source code back*
-      src/                      *Source code front*
+                     src/       *Source code*
+			API/                      API/test home dir
+			    jar/classname.jar     output af 'mvn package'
+					src/                  *Source code*
+					pom.xml               setup file
 
 
 
 ---
+
+# Todo listinn
+
+## API build tool
+
+1. Bua til eitthvad shellscript sem auto-buildar nyjan klasa
+
+2. Og sidan update API sem smidar API-inn og byr til test

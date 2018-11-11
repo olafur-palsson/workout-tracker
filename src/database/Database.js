@@ -66,7 +66,11 @@ const userFunctions = {
     return requestBuilder('getActiveRoutine', { email })
   },
   newUser: async (name, email, password) => {
-    return Request.make(`${newUserMethod}?name=${name}&email=${email}&password=${password}`)
+    logOut()
+    Request.setCredentials("anonymous", "anonymous")
+    let response = Request.make(`${newUserMethod}?name=${name}&email=${email}&password=${password}`)
+    logOut()
+    return response
   },
   getCurrentUserData: async () => getById('User', Cookies.getByName('email')),
   addRoutineToUser: async routineId => {

@@ -10,7 +10,6 @@ import server.data.routine.RoutineRepository;
 import server.data.user.UserEntity;
 import server.data.user.UserRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,21 +29,23 @@ public class UserController {
     // It usually gives us a 400 ~ 500 error if the user is not logged in
     // The front-end check string-equivalence
     @GetMapping(path = "userEnabled/check")
-    public @ResponseBody
-    String checkLoggedIn() {
+    public @ResponseBody String checkLoggedIn() {
         return "logged_in";
     }
 
     // Create a new user, this is the only method permitted to everyone
     @GetMapping(path = {"/newUser", "/userEnabled/newUser"})
-    public @ResponseBody
-    String addNewUser(
+    public @ResponseBody String addNewUser(
             @RequestParam String name,
             @RequestParam String email,
             @RequestParam String password
     ) {
-        if(userRepository.findOne(email) != null)
+        System.out.println("Creating user");
+        if(userRepository.findOne(email) != null) {
+            System.out.println("Username taken");
             return "Username is already taken";
+        }
+
         UserEntity u = new UserEntity();
         u.setEmail(email);
         u.setName(name);
@@ -53,14 +54,14 @@ public class UserController {
         Long historyId = historyRepository.save(history).getId();
         u.setHistoryId(historyId);
         u = userRepository.save(u);
+        System.out.println("Successfully save user " + email);
         return u.getEmail();
     }
 
     // A simple remote getter for tidy front-end
     @CrossOrigin
     @GetMapping(path = {"/getActiveRoutine", "/userEnabled/getActiveRoutine"})
-    public @ResponseBody
-    RoutineEntity getActiveRoutine(
+    public @ResponseBody RoutineEntity getActiveRoutine(
             @RequestParam String email
     ) {
         Long routineId = userRepository.findOne(email).getActiveRoutine();
@@ -71,8 +72,7 @@ public class UserController {
     // A simple remote setter for tidy front-end
     @CrossOrigin
     @GetMapping(path = {"/setActiveRoutine", "/userEnabled/setActiveRoutine"})
-    public @ResponseBody
-    String setActiveRoutine(
+    public @ResponseBody String setActiveRoutine(
             @RequestParam String email,
             @RequestParam Long routineId
     ) {
@@ -84,8 +84,7 @@ public class UserController {
 
     @CrossOrigin
     @GetMapping(path = {"/getAllPersonalRoutines", "/userEnabled/getAllPersonalRoutines"})
-    public @ResponseBody
-    List<RoutineEntity> getAllPersonalRoutines(
+    public @ResponseBody List<RoutineEntity> getAllPersonalRoutines(
             @RequestParam String email
     ) {
         List<Long> routineIds = userRepository.findOne(email).getPersonalRoutines();
@@ -96,8 +95,7 @@ public class UserController {
 
     @CrossOrigin
     @GetMapping(path = {"/oneUser", "/userEnabled/oneUser"})
-    public @ResponseBody
-    UserEntity getOneUser(
+    public @ResponseBody UserEntity getOneUser(
             @RequestParam String id
     ) {
         return userRepository.findOne(id);
@@ -105,8 +103,7 @@ public class UserController {
 
     @CrossOrigin
     @GetMapping(path = "/createHistoryEntry")
-    public @ResponseBody
-    String createHistoryEntry(
+    public @ResponseBody String createHistoryEntry(
             @RequestParam Long routineId,
             @RequestParam String email
     ) {
@@ -120,8 +117,7 @@ public class UserController {
     // A service that takes the two ids of user and routine and adds the routine to user's collection of routines
     @CrossOrigin
     @GetMapping(path = {"/addRoutineToUser", "/userEnabled/addRoutineToUser"})
-    public @ResponseBody
-    String addRoutineToUser(
+    public @ResponseBody String addRoutineToUser(
             @RequestParam String email,
             @RequestParam Long routineId
             ) {
@@ -133,8 +129,7 @@ public class UserController {
     }
 
     @GetMapping(path = "/allUsers")
-    public @ResponseBody
-    Iterable<UserEntity> getAllUsers() {
+    public @ResponseBody Iterable<UserEntity> getAllUsers() {
         // This returns a JSON or XML with the users
         return userRepository.findAll();
     }
