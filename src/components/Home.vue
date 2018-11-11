@@ -9,9 +9,18 @@
 
   <div class="hello">
     <div class="navigation">
-      <router-link :to="{ name: 'newRoutine', params: {} }"> Create new routine </router-link>
-      <router-link :to="{ name: 'session', params: {} }"> Go exercise </router-link>
-      <router-link :to="{ name: 'history', params: {} }"> History </router-link>
+      <div class="logo"> </div>
+      <img src="">
+      <router-link :to="{ name: 'newRoutine', params: {} }">
+         Create new routine
+       </router-link>
+      <router-link :to="{ name: 'session', params: {} }">
+        <button type="button" name="button"> Go exercise </button>
+
+      </router-link>
+      <router-link :to="{ name: 'history', params: {} }">
+        History
+      </router-link>
     </div>
 
     <button v-on:click="logout()">Log out </button>
@@ -57,6 +66,22 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.logo {
+  background-image: url('../assets/logo2.png');
+}
+
+.navigation {
+  display: flex;
+  min-height: 10vh
+}
+
+button {
+  padding: 10px;
+  background-color: #5bb0d8;
+  border-radius: 3px;
+  border-width: 0px;
+}
+
 h1, h2 {
   font-weight: normal;
 }

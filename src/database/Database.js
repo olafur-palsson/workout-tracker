@@ -123,7 +123,7 @@ const routineFunctions = {
   // Two helper methods to minimize the requests made to the databas
   getAllSetListsOfRoutine: async routineId => requestBuilder('getAllSetListsOfRoutine', { routineId }),
   getAllExercisesOfRoutine: async routineId => requestBuilder('getAllExercisesOfRoutine', { routineId }),
-  markAllAsDone: async routineId => requestBuilder('markAllSetsAsDone', routineId)
+  markAllAsDone: async routineId => requestBuilder('markAllSetsAsDone', { routineId })
 }
 
 // Here we compile the object indexed by entityName

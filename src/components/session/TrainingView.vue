@@ -21,8 +21,8 @@
         </button>
       </div>
     </div>
-    <button> Mark all as done </button>
-    <button> Finish routine </button>
+    <button v-on:click="markAllAsDone()"> Mark all as done </button>
+    <button v-on:click="finishRoutine()"> Finish routine </button>
   </div>
 </template>
 
@@ -40,7 +40,6 @@ export default {
     }
   },
   created () {
-    console.log('Ding')
     this.$parent.checkIfActiveRoutine().then(() => {
       this.loadExercisesAndSets()
     })
@@ -54,6 +53,12 @@ export default {
         this.loadExercisesAndSets()
       })
     },
+    finishRoutine () {
+      console.log('hello there')
+      Database.user.setActiveRoutine(-1)
+      this.$parent.routine = null
+      this.$router.go(-1)
+    },
     async loadExercisesAndSets () {
       const routineId = this.$parent.routine.id
       let setLists = await Database.routine.getAllSetListsOfRoutine(routineId)
@@ -66,7 +71,6 @@ export default {
         console.log('loaded')
       })
     },
-
     toggleSet (numberOfExercise, i, lastValue) {
       this.setLists[numberOfExercise].finishedSets[i] = !lastValue
       this.setLists = this.setLists.map(x => x)

@@ -6,14 +6,26 @@
 
 -->
 <template>
-  <div class="login">
+  <div class="login__form">
 
     <h1> This is signupform </h1>
-    <input type="text" placeholder="Username" v-model="form.user"/>
-    <input type="text" placeholder="Email" v-model="form.email"/>
-    <input type="password" placeholder="Password" v-model="form.password" />
-    <button v-on:click="signup(form.user, form.email, form.password)">Sign up</button>
+    <div class="form">
+      <div class="input">
+        <input type="text" placeholder="Username" v-model="form.user"/>
+      </div>
 
+      <div class="input">
+        <input type="text" placeholder="Email" v-model="form.email"/>
+      </div>
+
+      <div class="input">
+        <input type="password" placeholder="Password" v-model="form.password" />
+      </div>
+
+      <div class="input">
+        <button v-on:click="signup(form.user, form.email, form.password)">Sign up</button>
+      </div>
+    </div>
     {{ msg }}
     <router-link :to="{ name: 'login', params: {} }">Already have an account?</router-link>
   </div>
@@ -45,5 +57,25 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+h1 {
+  font-size: 2rem;
+}
+
+button {
+  width: 100%;
+  margin-top: 20px;
+}
+
+input {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+}
+
+.input {
+  width: 100%;
+  padding: 2px;
+}
 
 </style>
