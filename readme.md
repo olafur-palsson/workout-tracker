@@ -1,19 +1,11 @@
-# Naesta verkefni
 
-## Gera tvo requirements vel.
+# Fyrir log-in sem virkar alltaf nota:
 
-Gaejinn sagdi ad vid verdum ad utlista requirements vel. Thad a ekki ad vera neitt
-UML en hins vegar vill hann definitely:
+## Username: admin
 
-1. Nakvaema lysingu a hvada data vantar / er sent.
-
-2. Look-and-feel lysingu
-
-En samt sem adur lagdi hann mjog mikla aherslu ad thetta se abstract-detailed lysing
-thvi hvernig thetta virkar.
+## Password: admin
 
 
----
 
 # Hugmyndir ur fyrsta tima
 
