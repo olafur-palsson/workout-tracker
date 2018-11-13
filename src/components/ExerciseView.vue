@@ -4,9 +4,6 @@
 
 -->
 <template>
-  <div class="header">
-    Simple Workout
-  </div>
   <div class="blank">
     <h1> This is blank </h1>
     {{ msg }}
@@ -14,6 +11,8 @@
 </template>
 
 <script>
+import Checkmark from '@/components/checkmark'
+
 export default {
   name: 'ExerciseView',
   data () {

@@ -35,49 +35,46 @@ export default new Router({
     // Home
     path: '/home',
     name: 'home',
-    component: Home,
+    component: Home
+  }, {
+    path: '/newRoutine',
+    component: NewRoutine,
     children: [{
-      // newRoutine
-      path: '/newRoutine',
-      component: NewRoutine,
-      children: [{
-        path: '',
-        name: 'newRoutine',
-        component: NewRoutineMain
-      }, {
-        path: '/newRoutine_addExercise',
-        name: 'newRoutine_addExercise',
-        component: NewRoutineAddExercise
-      }]
+      path: '',
+      name: 'newRoutine',
+      component: NewRoutineMain
     }, {
-      // Session
-      path: '/session',
-      component: Session,
-      children: [{
-        path: '',
-        name: 'session',
-        component: SelectRoutine
-      }, {
-        path: '/session_routine',
-        name: 'session_trainingView',
-        component: TrainingView
-      }]
+      path: '/newRoutine_addExercise',
+      name: 'newRoutine_addExercise',
+      component: NewRoutineAddExercise
+    }]
+  }, {
+    // Session
+    path: '/session',
+    component: Session,
+    children: [{
+      path: '',
+      name: 'session',
+      component: SelectRoutine
     }, {
-      // History
-      path: '/history',
-      component: ShowHistory,
-      children: [{
-        path: '',
-        name: 'history',
-        component: ShowHistory
-      }, {
-        path: '/routine',
-        name: 'history_routine',
-        component: TrainingView
-      }, {
-        path: 'exercise'
-
-      }]
+      path: '/session_routine',
+      name: 'session_trainingView',
+      component: TrainingView
+    }]
+  }, {
+    // History
+    path: '/history',
+    component: ShowHistory,
+    children: [{
+      path: '',
+      name: 'history',
+      component: ShowHistory
+    }, {
+      path: '/routine',
+      name: 'history_routine',
+      component: TrainingView
+    }, {
+      path: 'exercise'
     }]
   }, {
     // Login routes

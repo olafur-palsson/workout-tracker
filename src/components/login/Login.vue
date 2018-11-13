@@ -5,9 +5,6 @@
 -->
 <template>
   <div class="login">
-    <div class="header">
-      Simple Workout
-    </div>
     <div class="login__main">
       <router-view v-bind:class="{ transparency: transparent, container: true }"/>
     </div>

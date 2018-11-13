@@ -44,6 +44,7 @@ export default {
   methods: {
     createRoutine () {
       this.$parent.saveRoutine()
+      this.$router.push({ name: 'home' })
     },
     addExerciseToRoutine (exercise, setList) {
       this.routine.push({ exercise, setList })

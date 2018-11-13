@@ -11,7 +11,7 @@ import Cookies from './Cookiehandler'
 let Request = new RequestFactory()
 
 // breyta thessum ef madur aetlar ad skipta milli server og localhost
-// const baseString = "http://<ipTala>:8080/database/userEnabled/"
+// const baseString = 'http://<ipTala>:8080/database/userEnabled/'
 
 const baseString = 'http://localhost:8080/database/userEnabled/'
 const newUserMethod = 'http://localhost:8080/database/newUser'
@@ -66,11 +66,7 @@ const userFunctions = {
     return requestBuilder('getActiveRoutine', { email })
   },
   newUser: async (name, email, password) => {
-    logOut()
-    Request.setCredentials("anonymous", "anonymous")
-    let response = Request.make(`${newUserMethod}?name=${name}&email=${email}&password=${password}`)
-    logOut()
-    return response
+    return Request.make(`${newUserMethod}?name=${name}&email=${email}&password=${password}`)
   },
   getCurrentUserData: async () => getById('User', Cookies.getByName('email')),
   addRoutineToUser: async routineId => {
