@@ -7,19 +7,19 @@
 -->
 <template>
   <div class="undefined">
-    <h1> {{ msg }} </h1>
 
     <div v-if="selectedExercise == null">
-      Exercise is null
-      <ul>
-        <li v-for="(exercise, i) in this.$parent.allExercises" :key="i" v-on:click="selectExercise(exercise)">
+      <h1>Select exercise</h1>
+      <div class="button__container">
+        <button class="button exercise" v-for="(exercise, i) in this.$parent.allExercises" :key="i" v-on:click="selectExercise(exercise)">
           {{ exercise.name }}
-        </li>
-      </ul>
+        </button>
+      </div>
     </div>
 
-    <!-- DEBUG: herna er etithvad kjaftaedi, thetta renderar ekki -->
     <div v-else>
+      <h1> {{ selectedExercise.name }} </h1>
+      <h1>Reps Weight</h1>
       <div v-for="(unused, i) in setList.listOfReps" :key="i">
         Reps {{ setList.listOfReps[i] }}
         Weight {{ setList.listOfWeights[i] }}
@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     goBack () {
-      this.$router.push({ name: 'newRoutine' })
+      this.$router.go(-1)
     },
     removeSet (index) {
       this.setList.reps.splice(index, 1)
@@ -83,5 +83,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.button.exercise {
+  width: 100px;
+}
 
 </style>

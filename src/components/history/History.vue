@@ -1,7 +1,7 @@
 
 <template>
   <div class="blank">
-    <h1> This is blank </h1>
+    <h1> This is History </h1>
     {{ msg }}
     <router-view/>
   </div>

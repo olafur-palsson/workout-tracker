@@ -53,9 +53,9 @@ export default {
         this.loadExercisesAndSets()
       })
     },
-    finishRoutine () {
+    async finishRoutine () {
       console.log('hello there')
-      Database.user.setActiveRoutine(-1)
+      await Database.user.setActiveRoutine(-1)
       this.$parent.routine = null
       this.$router.go(-1)
     },

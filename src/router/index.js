@@ -15,14 +15,16 @@ import Session from '@/components/session/Session'
 import SelectRoutine from '@/components/session/SelectRoutine'
 // Data renderers
 import TrainingView from '@/components/session/TrainingView'
+import RoutineView from '@/components/RoutineView'
+import AddExercise from '@/components/AddExercise'
 
 // Create Routine Classes
 import NewRoutine from '@/components/newRoutine/NewRoutine'
 import NewRoutineMain from '@/components/newRoutine/NewRoutine_main'
-import NewRoutineAddExercise from '@/components/newRoutine/NewRoutine_addExercise'
 
 // Show the history
-import ShowHistory from '@/components/history/ShowHistory'
+import History from '@/components/history/History'
+import Calendar from '@/components/history/CalendarView'
 
 Vue.use(Router)
 
@@ -46,7 +48,7 @@ export default new Router({
     }, {
       path: '/newRoutine_addExercise',
       name: 'newRoutine_addExercise',
-      component: NewRoutineAddExercise
+      component: AddExercise
     }]
   }, {
     // Session
@@ -57,22 +59,36 @@ export default new Router({
       name: 'session',
       component: SelectRoutine
     }, {
-      path: '/session_routine',
+      path: '/session_training',
       name: 'session_trainingView',
       component: TrainingView
+    }, {
+      path: '/session_routine',
+      name: 'session_routineView',
+      component: RoutineView,
+      children: [{
+        path: 'addExercise',
+        name: 'session_routine_addExercise',
+        component: AddExercise
+      }]
     }]
   }, {
     // History
     path: '/history',
-    component: ShowHistory,
+    component: History,
     children: [{
       path: '',
       name: 'history',
-      component: ShowHistory
+      component: Calendar
     }, {
       path: '/routine',
       name: 'history_routine',
-      component: TrainingView
+      component: RoutineView,
+      children: [{
+        path: 'addExercise',
+        name: 'history_routine_addExercise',
+        component: AddExercise
+      }]
     }, {
       path: 'exercise'
     }]

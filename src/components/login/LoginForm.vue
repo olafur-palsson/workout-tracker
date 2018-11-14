@@ -16,15 +16,14 @@
         <input type="password" v-model='form.password' placeholder="Password"/>
       </div>
     </div>
-    <div class="input">
-      <button v-on:click='login(form.email, form.password)'>Log in</button>
+    <div class="button__container">
+      <button class="button" v-on:click='login(form.email, form.password)'>Log in</button>
     </div>
     <a class="pointer" v-on:click="toSignupForm()">Don't have an account?</a>
   </div>
 </template>
 
 <script>
-
 import Database from '@/database/Database'
 
 export default {
@@ -58,7 +57,6 @@ h1 {
 }
 
 button {
-  width: 100%;
   margin-top: 20px;
 }
 

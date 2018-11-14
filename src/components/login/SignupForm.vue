@@ -22,8 +22,8 @@
         <input type="password" placeholder="Password" v-model="form.password" />
       </div>
 
-      <div class="input">
-        <button v-on:click="signup(form.user, form.email, form.password)">Sign up</button>
+      <div class="button__container">
+        <button class="button" v-on:click="signup(form.user, form.email, form.password)">Sign up</button>
       </div>
     </div>
     <a class="pointer" v-on:click="toLoginForm()"> Already have an account? </a>

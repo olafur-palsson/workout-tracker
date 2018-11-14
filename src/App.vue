@@ -1,13 +1,11 @@
 <template>
-
   <div class="application">
-
-    <div class="header">
+    <div class="header" v-on:click="goHome()">
       Simple Workout
     </div>
     <div v-bind:class="backgroundClassObject">
       <div id="app">
-        <router-view class="padding-top"/>
+        <router-view />
       </div>
     </div>
   </div>
@@ -29,11 +27,20 @@ export default {
     const className = 'gym' + imageNumber
     classObject[className] = true
     this.backgroundClassObject = Object.assign({}, classObject)
+  },
+  methods: {
+    goHome () {
+      this.$router.push({ name: 'home' })
+    }
   }
 }
 </script>
 
 <style>
+* {
+  text-decoration: none;
+}
+
 .application {
   font-family: 'Questrial', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -43,6 +50,35 @@ export default {
   max-width: 100vw;
   width: 100%;
   box-sizing: border-box;
+}
+
+#app {
+  padding-top: 10vh;
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10vh;
+  height: 100vh;
+  width: 100%;
+}
+
+.navigation__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+@media screen and (max-width: 400px) {
+  .navigation__container {
+    max-width: 100%;
+  }
 }
 
 .padding-top {
@@ -67,6 +103,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 600px) {
@@ -75,13 +112,51 @@ export default {
   }
 }
 
-button {
+.button__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.button {
+  width: 100%;
+  margin: 3px;
+  padding: 5px;
+  color: #000;
+  background-color: #5BB0D8;
+  border: none;
+  box-sizing: border-box;
+  border-radius: 3px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  border: 1px solid black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button:hover {
+  background-color: #fff;
+  box-shadow: 0px 15px 20px rgba(255, 255, 255, 0.4);
+  transform: translateY(-3px);
+}
+
+/*
+.button:hover {
+  background-color: #E2EEF6;
+}
+
+.button {
   padding: 5px;
   border-radius: 3px;
   border: 1px solid black;
   background-color: #5BB0D8;
   cursor: pointer;
 }
+*/
 
 /* background images */
 .gym1 {

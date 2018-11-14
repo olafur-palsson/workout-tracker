@@ -8,23 +8,25 @@ different components of the application
 <template>
   <div class="navigation">
     <div class="navigation__container">
-      <router-link class="button" :to="{ name: 'newRoutine', params: {} }">
-        <button> Create new routine </button>
+      <router-link class="button__container" :to="{ name: 'newRoutine', params: {} }">
+        <button class="button"> Create new routine </button>
       </router-link>
 
-      <router-link class="button" :to="{ name: 'session', params: {} }">
-        <button> Train </button>
+      <router-link class="button__container" :to="{ name: 'session', params: {} }">
+        <button class="button"> Routines </button>
       </router-link>
 
-      <router-link class="button" :to="{ name: 'history', params: {} }">
-        <button> History (coming soon) </button>
+      <router-link class="button__container" :to="{ name: 'history', params: {} }">
+        <button class="button"> History (coming soon) </button>
       </router-link>
-      <div class="button logoutButton__container">
-        <button class="logoutButton" v-on:click="logout()">Log out </button>
+      <div class="button__container logoutButton__container">
+        <button class="button logoutButton" v-on:click="logout()">Log out </button>
       </div>
       <h1>{{ msg }}</h1>
       <h2>{{ msg2 }}</h2>
-      <GoodCheck class="checkmark" :message="'Yolo'"></GoodCheck>
+      <div v-if="displayCheckmark" v-bind:class="{ checkmark__box: true, transparent: checkmarkTransparent }">
+        <GoodCheck class="checkmark" :size="100" :message="'Yolo'"></GoodCheck>
+      </div>
     </div>
   </div>
 </template>
@@ -51,7 +53,9 @@ export default {
       msg: 'Hello there',
       msg2: 'General Kenobi',
       email: Cookies.getByName('email'),
-      password: Cookies.getByName('password')
+      password: Cookies.getByName('password'),
+      displayCheckmark: true,
+      checkmarkTransparent: false
     }
   },
 
@@ -62,6 +66,14 @@ export default {
     gotoHistory () {
       this.$router.push({ name: 'history' })
     }
+  },
+  created () {
+    setTimeout(() => {
+      this.checkmarkTransparent = true
+      setTimeout(() => {
+        this.displayCheckmark = false
+      }, 3000)
+    }, 1000)
   }
 }
 </script>
@@ -69,14 +81,21 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-.checkmark {
-  width: 200px;
-  height: 200px;
+.checkmark__box.transparent {
+  background-color: rgba(0, 0, 0, 0);
 }
 
-.button {
-  width: 100%;
-  padding: 5px;
+.checkmark__box {
+  width: 100vw;
+  height: 110vh;
+  top: -20px;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  background-color: rgba(0, 0, 0, 0.6);
+  transition: background-color 0.5s;
 }
 
 .logoutButton__container {
@@ -89,47 +108,11 @@ export default {
 }
 
 .logoutButton:hover {
-  background-color: #2d383f;
+  background-color: #fff;
+  box-shadow: 0px 15px 20px rgba(255, 255, 255, 0.4);
+  transform: translateY(-3px);
+  color: #000;
 }
-
-.navigation {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 10vh;
-  height: 100vh;
-  width: 100%;
-}
-
-.navigation__container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  max-width: 400px;
-  width: 100%;
-}
-
-@media screen and (max-width: 400px) {
-  .navigation__container {
-    max-width: 100%;
-  }
-}
-
-button {
-  padding: 10px;
-  background-color: #5bb0d8;
-  border-radius: 3px;
-  border-width: 1px;
-  width: 90%;
-  transition: background-color 0.2s ease-in;
-}
-
-button:hover {
-  background-color: #E2EEF6;
-}
-
 h1, h2 {
   font-weight: normal;
 }

@@ -49,9 +49,7 @@ export default {
       })
     },
     async createSession (routine) {
-      console.log(routine)
-      let string = await this.$parent.newSession(routine)
-      console.log(string)
+      this.$parent.newSession(routine)
     },
     gotoNewRoutine () {
       this.$router.push({ name: 'newRoutine' })
@@ -63,6 +61,10 @@ export default {
       if (this.allRoutines.length < 1) return true
       console.log('went through all tests')
       return false
+    },
+    viewRoutine (routine) {
+      this.$parent.routine = routine
+      this.$router.push({ name: 'session_routineView' })
     }
   }
 }

@@ -63,6 +63,21 @@ public class RoutineController {
     }
 
     @CrossOrigin
+    @GetMapping(path = {"/removeExerciseFromRoutine", "/userEnabled/removeExerciseFromRoutine"})
+    public @ResponseBody
+    String removeExerciseFromRoutine(
+            @RequestParam Long routineId,
+            @RequestParam Integer index
+    ) {
+      RoutineEntity routine = routineRepository.findOne(routineId);
+      Long setListId = routine.getSetListIds().get(index);
+      routine.removeExercise(index);
+      setListRepository.delete(setListId);
+      routineRepository.save(routine);
+      return "Successfully removed exercise at index " + index;
+    }
+
+    @CrossOrigin
     @GetMapping(path = {"/markAllSetsAsDone", "/userEnabled/markAllSetsAsDone"})
     public @ResponseBody
     String markAllSetsAsDone(

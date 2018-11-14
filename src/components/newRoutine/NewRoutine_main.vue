@@ -1,27 +1,29 @@
 <!--
 
-    Renders the overview of the routine being created,
-    has the button for creating the routine (saving it to database)
+Renders the overview of the routine being created,
+has the button for creating the routine (saving it to database)
 
 -->
 <template>
-  <div class="blank">
-    <h1> This is blank </h1>
-    {{ msg }}
-
-    <div v-for="(exerciseAndSetList, index) in this.$parent.routine" :key="index">
-      <div>
-        {{ index }}
-        <div> {{ exerciseAndSetList.exercise.name }},
-          Avg. reps {{ averageOf(exerciseAndSetList.setList.listOfReps) }}
-          Max. weight {{ maxOf(exerciseAndSetList.setList.listOfWeights) }}
+  <div class="navigation">
+    <div class="navigation__container newroutine">
+      <div v-for="(exerciseAndSetList, index) in this.$parent.routine" :key="index">
+        <div>
+          {{ index }}
+          <div> {{ exerciseAndSetList.exercise.name }},
+            Avg. reps {{ averageOf(exerciseAndSetList.setList.listOfReps) }}
+            Max. weight {{ maxOf(exerciseAndSetList.setList.listOfWeights) }}
+          </div>
         </div>
       </div>
+      <div class="button__container">
+        <button class="button" v-on:click="goToAddExcercise()">Add exercise</button>
+      </div>
+      <div v-if="routineHasExercise" class="button__container">
+        <button class="button" v-on:click="createRoutine()">Create Routine</button>
+      </div>
+      {{ msg }}
     </div>
-
-    <button v-on:click="goToAddExcercise()">Add exercise</button>
-    <button v-on:click="createRoutine()">Create Routine</button>
-    {{ msg }}
   </div>
 </template>
 
@@ -38,7 +40,8 @@ export default {
       props: ['getRoutine'],
       maxOf,
       averageOf,
-      msg: 'Add exercise bruh'
+      msg: 'Add exercise bruh',
+      routineHasExercise: true
     }
   },
   methods: {
@@ -48,6 +51,8 @@ export default {
     },
     addExerciseToRoutine (exercise, setList) {
       this.routine.push({ exercise, setList })
+      this.routineHasExercise = true
+      console.log(this.routineHasExercise)
     },
     goToAddExcercise () {
       this.$router.push({ name: 'newRoutine_addExercise' })
@@ -58,5 +63,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.newroutine.navigation__container {
+  max-width: 600px;
+  flex-wrap: wrap;
+}
 
 </style>

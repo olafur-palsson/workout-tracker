@@ -4,6 +4,8 @@ Blank compenent to use as a template when creating new components
 (it's a basic 'hello world' compenent that has Blankynes instead of
 hello world)
 
+DEBUG: Make like checkmark-good before use
+
 -->
 <template>
   <div class="checkmark">

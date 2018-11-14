@@ -66,7 +66,9 @@ const userFunctions = {
     return requestBuilder('getActiveRoutine', { email })
   },
   newUser: async (name, email, password) => {
-    return Request.make(`${newUserMethod}?name=${name}&email=${email}&password=${password}`)
+    Request.setCredentials('anonymous', 'anonymous')
+    await Request.make(`${newUserMethod}?name=${name}&email=${email}&password=${password}`)
+    Request.setCredentials(email, password)
   },
   getCurrentUserData: async () => getById('User', Cookies.getByName('email')),
   addRoutineToUser: async routineId => {
@@ -110,10 +112,11 @@ const setListFunctions = {
 // Specific functions to the routine entity
 const routineFunctions = {
   // A saveEntity function for the routine object
-  saveEntity: async (exerciseIds, setListIds) => {
+  saveEntity: async (exerciseIds, setListIds, id = undefined) => {
     let parameters
     parameters = exerciseIds.reduce((encoding, id) => encoding + `&exerciseIds=${id}`, '')
     parameters = setListIds.reduce((encoding, id) => encoding + `&setListIds=${id}`, parameters)
+    if (id) parameters += `&id=${id}`
     return saveEntity('Routine', parameters)
   },
   // Make the database deepCopy a routine, used to make a new session
@@ -123,7 +126,8 @@ const routineFunctions = {
   // Two helper methods to minimize the requests made to the databas
   getAllSetListsOfRoutine: async routineId => requestBuilder('getAllSetListsOfRoutine', { routineId }),
   getAllExercisesOfRoutine: async routineId => requestBuilder('getAllExercisesOfRoutine', { routineId }),
-  markAllAsDone: async routineId => requestBuilder('markAllSetsAsDone', { routineId })
+  markAllAsDone: async routineId => requestBuilder('markAllSetsAsDone', { routineId }),
+  removeExerciseFromRoutine: async (routineId, index) => requestBuilder('removeExerciseFromRoutine', { routineId, index })
 }
 
 // Here we compile the object indexed by entityName

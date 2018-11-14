@@ -6,7 +6,6 @@
 -->
 <template>
   <div class="newRoutine">
-    <h1> This is New routine </h1>
     <router-view :allExercises="allExercises" />
   </div>
 </template>
@@ -30,8 +29,7 @@ export default {
       const allExercises = await Database.exercise.getAll()
       this.allExercises =  allExercises
     },
-    addExerciseToRoutine (exerciseId, setList) {
-      const exercise = exerciseId
+    addExerciseToRoutine (exercise, setList) {
       this.routine.push({ exercise, setList })
     },
     async saveRoutine () {
