@@ -78,6 +78,10 @@ const userFunctions = {
   createHistoryEntry: async routineId => {
     const email = Cookies.getByName('email')
     requestBuilder('createHistoryEntry', { routineId, email })
+  },
+  getHistoryOfUser: async () => {
+    const email = Cookies.getByName('email')
+    requestBuilder('getHistoryOfUser', { email })
   }
 }
 
