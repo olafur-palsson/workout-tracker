@@ -1,17 +1,13 @@
 <!--
 
-    A container to handle the session, if no active session is
-    detected then the user is provided with an option to make
-    one from the list of routines he has collected/created.
+A container to handle the session, if no active session is
+detected then the user is provided with an option to make
+one from the list of routines he has collected/created.
 
 -->
 <template>
-  <div class="blank">
-
-    <h1> Session </h1>
-    <div>
-      <router-view/>
-    </div>
+  <div class="session">
+    <router-view/>
   </div>
 </template>
 
@@ -61,5 +57,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.session {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: auto
 
+}
 </style>

@@ -128,7 +128,7 @@ public class RoutineController {
     copy.setName(original.getName());
     copy.setExerciseIds(new ArrayList<>(original.getExerciseIds()));
     copy.setSetListIds(original.getSetListIds());
-    copy.setCreationDate(new Date().getTime());
+    copy.setTimestamp(new Date().getTime());
     // Take all the SetLists, copy the setLists, and put the id into newSetListIds
     List<Long> originalSetListIds = original.getSetListIds();
     List<Long> newSetListIds = new ArrayList<>();
@@ -155,16 +155,16 @@ public class RoutineController {
     @RequestParam (required = false) String name,
     @RequestParam (required = false) ArrayList<Long> exerciseIds,
     @RequestParam (required = false) ArrayList<Long> setListIds,
-    @RequestParam (required = false) Long timeStamp
+    @RequestParam (required = false) Long timestamp
   ) {
     RoutineEntity routine = new RoutineEntity();
     if(id != null) routine.setId(id);
 
     if(name != null) routine.setName(name);
-    else             routine.setName("Unnamed routine");
+    else             routine.setName("Not named");
 
-    if(timeStamp != null) routine.setTimeStamp(timeStamp);
-    else                  routine.setTimeStamp(System.currentTimeMillis());
+    if(timestamp != null) routine.setTimestamp(timestamp);
+    else                  routine.setTimestamp(System.currentTimeMillis());
 
     routine.setExerciseIds(exerciseIds);
     routine.setSetListIds(setListIds);

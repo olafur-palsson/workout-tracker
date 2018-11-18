@@ -24,6 +24,7 @@ import NewRoutineMain from '@/components/newRoutine/NewRoutine_main'
 
 // Show the history
 import History from '@/components/history/History'
+import Calendar from '@/components/history/CalendarView'
 
 Vue.use(Router)
 
@@ -75,8 +76,11 @@ export default new Router({
     // History
     path: '/history',
     component: History,
-    name: 'history',
     children: [{
+      path: '',
+      name: 'history',
+      component: Calendar
+    }, {
       path: '/routine',
       name: 'history_routine',
       component: RoutineView,

@@ -6,7 +6,13 @@
 -->
 <template>
   <div class="newRoutine">
-    <router-view :allExercises="allExercises" />
+    <router-view v-if="routineName" :allExercises="allExercises" />
+    <div class="routineNameInput" v-else>
+      <input class="input routine__name" v-model="routineNameInput" placeholder="Pick a name">
+      <div class="button__container">
+        <button class="button" v-on:click="setName()"> OK </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -17,6 +23,8 @@ export default {
   data () {
     return {
       allExercises: 'Not what I want',
+      routineName: null,
+      routineNameInput: null,
       routine: [],
       msg: 'This is something'
     }
@@ -29,6 +37,10 @@ export default {
       const allExercises = await Database.exercise.getAll()
       this.allExercises =  allExercises
     },
+    setName () {
+      if (this.routineNameInput === '') return
+      this.routineName = this.routineNameInput
+    },
     addExerciseToRoutine (exercise, setList) {
       this.routine.push({ exercise, setList })
     },
@@ -37,36 +49,24 @@ export default {
       let setListsIds = await Database.objectToIds(this.routine, exerciseAndSetList => {
         return Database.setList.saveEntity(exerciseAndSetList.setList)
       })
-      let routineId = await Database.routine.saveEntity(exerciseIds, setListsIds)
+      let routineId = await Database.routine.saveEntity(this.routineName, exerciseIds, setListsIds)
       await Database.user.addRoutineToUser(routineId)
     }
   }
 }
-
-/* Steypa, en madur tharf ad redda svona ut ur einhverju
-easily filled formi
-routine: [
-{
-exercise: object,
-setlist: [
-{
-reps: 12,
-weight: 50
-},
-{...},
-...,
-{...}
-]
-},
-{...},
-...
-{...},
-],
-*/
-
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.input.routine__name {
+  background-color: rgba(0, 0, 0, 0.3);
+  font-size: 4rem;
+  max-width: 90vw;
+  border-width: 0;
+  color: #CEDAE2;
+  display: flex;
+  justify-content: center;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  text-align: center;
+}
 </style>

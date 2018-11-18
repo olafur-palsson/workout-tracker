@@ -11,16 +11,8 @@ import setup from './setupDatabase'
 
 setup()
 
-const icons = {
-  'info': 'mdi-dropbox',
-  'left': 'mdi-chevron-left'
-}
-
 Vue.config.productionTip = false
-Vue.use(Vuetify, {
-  iconfont: 'mdi'
-})
-
+Vue.use(Vuetify)
 
 /* eslint-disable no-new */
 new Vue({

@@ -3,8 +3,8 @@ package server.data.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import server.data.history.HistoryEntity;
-import server.data.history.HistoryRepository;
+// import server.data.history.HistoryEntity;
+// import server.data.history.HistoryRepository;
 import server.data.routine.RoutineEntity;
 import server.data.routine.RoutineRepository;
 import server.data.user.UserEntity;
@@ -22,8 +22,8 @@ public class UserController {
   private UserRepository userRepository;
   @Autowired
   private RoutineRepository routineRepository;
-  @Autowired
-  private HistoryRepository historyRepository;
+  // @Autowired
+  // private HistoryRepository historyRepository;
 
   // We can use this one to check if the user is logged in
   // It usually gives us a 400 ~ 500 error if the user is not logged in
@@ -50,9 +50,9 @@ public class UserController {
     u.setEmail(email);
     u.setName(name);
     u.setPassword(password);
-    HistoryEntity history = new HistoryEntity();
-    Long historyId = historyRepository.save(history).getId();
-    u.setHistoryId(historyId);
+    // HistoryEntity history = new HistoryEntity();
+    // Long historyId = historyRepository.save(history).getId();
+    // u.setHistoryId(historyId);
     u = userRepository.save(u);
     System.out.println("Successfully save user " + email);
     return u.getEmail();
@@ -78,6 +78,7 @@ public class UserController {
   ) {
     UserEntity user = userRepository.findOne(email);
     user.setActiveRoutine(routineId);
+    if (routineId > 0) user.addTrainingRoutine(routineId);
     userRepository.save(user);
     return "Active routine set to " + routineId;
   }
@@ -89,7 +90,7 @@ public class UserController {
   ) {
     List<Long> routineIds = userRepository.findOne(email).getPersonalRoutines();
     return routineIds.stream().map(
-    id -> routineRepository.findOne(id)
+      id -> routineRepository.findOne(id)
     ).collect(Collectors.toList());
   }
 
@@ -100,6 +101,21 @@ public class UserController {
   ) {
     return userRepository.findOne(id);
   }
+
+  @CrossOrigin
+  @GetMapping(path = {"/getAllTrainingRoutines", "userEnabled/getAllTrainingRoutines"})
+  public @ResponseBody List<RoutineEntity> getAllTrainingRoutines(
+    @RequestParam String email
+  ) {
+    List<Long> routineIds = userRepository.findOne(email).getTrainingRoutines();
+    return routineIds.stream().map(
+      id -> routineRepository.findOne(id)
+    ).collect(Collectors.toList());
+  }
+
+  /*
+
+  DEPRECATED!
 
   @CrossOrigin
   @GetMapping(path = "/createHistoryEntry")
@@ -123,6 +139,7 @@ public class UserController {
     System.out.println(user.getHistoryId());
     return historyRepository.findOne(user.getHistoryId());
   }
+  */
 
   // A service that takes the two ids of user and routine and adds the routine to user's collection of routines
   @CrossOrigin

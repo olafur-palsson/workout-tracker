@@ -8,7 +8,7 @@ hello world)
 <template>
   <div class="calendar__component">
     <div class="calendar__container">
-      <div v-bind:class="{ calendar: true, transformed: transformationState > 1, transformed2: transformationState === 3 }">
+      <div v-bind:class="{ calendar: true, transformed: transformationState > 1 }">
 
         <!-- UNTRANSFORMED -->
         <div
@@ -256,7 +256,7 @@ export default {
   flex-direction: column;
   align-items: center;
   width: 600px;
-  height: 100%;
+  height: 330px;
 }
 
 .calendar__description {
@@ -276,25 +276,16 @@ export default {
   align-items: center;
   flex-direction: column;
   width: 600px;
-  height: 300px;
+  height: 90%;
   padding: 30px;
   padding-top: 20px;
   margin: 10px 0px 10px 10px;
   border-radius: 6px;
-  border-width: 2px;
-  border-style: solid;
-  border-color: #151F26;
-  transition: border-color 1.5s;
   transition: height 0.5s;
 }
 
 .calendar.transformed {
   height: 100%;
-}
-
-.calendar.transformed2 {
-  border-color: #5BB0D8;
-  transition: border-color 1.5s;
 }
 
 .calendar__row {
@@ -305,8 +296,8 @@ export default {
 
 .monthName {
   margin-bottom: 5px;
-  margin-right: 200px;
-  width: 75%;
+  margin-right: 100px;
+  width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;

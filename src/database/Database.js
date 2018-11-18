@@ -59,7 +59,7 @@ const createFunctions = (singularEntityName, pluralEntityName, specificFunctions
 const userFunctions = {
   setActiveRoutine: async (routineId) => {
     const email = Cookies.getByName('email')
-    requestBuilder('setActiveRoutine', { email, routineId })
+    return requestBuilder('setActiveRoutine', { email, routineId })
   },
   getActiveRoutine: async () => {
     const email = Cookies.getByName('email')
@@ -73,15 +73,15 @@ const userFunctions = {
   getCurrentUserData: async () => getById('User', Cookies.getByName('email')),
   addRoutineToUser: async routineId => {
     const email = Cookies.getByName('email')
-    requestBuilder('addRoutineToUser', { routineId, email })
+    return requestBuilder('addRoutineToUser', { routineId, email })
   },
   createHistoryEntry: async routineId => {
     const email = Cookies.getByName('email')
-    requestBuilder('createHistoryEntry', { routineId, email })
+    return requestBuilder('createHistoryEntry', { routineId, email })
   },
-  getHistoryOfUser: async () => {
+  getAllTrainingRoutines: async () => {
     const email = Cookies.getByName('email')
-    requestBuilder('getHistoryOfUser', { email })
+    return requestBuilder('getAllTrainingRoutines', { email })
   }
 }
 
@@ -116,7 +116,7 @@ const setListFunctions = {
 // Specific functions to the routine entity
 const routineFunctions = {
   // A saveEntity function for the routine object
-  saveEntity: async (exerciseIds, setListIds, id = undefined) => {
+  saveEntity: async (name, exerciseIds, setListIds, id = undefined) => {
     let parameters
     parameters = exerciseIds.reduce((encoding, id) => encoding + `&exerciseIds=${id}`, '')
     parameters = setListIds.reduce((encoding, id) => encoding + `&setListIds=${id}`, parameters)

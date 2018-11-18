@@ -2,7 +2,6 @@
 package server.data.history;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +12,7 @@ IMPORTANT:
 Since Routine got a timestamp now and most people don't exercise more 20 times
 per day then this class is essentially useless.
 
-TODO: Refactor this bullshit
+TODO: Refactor out this bullshit
 
 **/
 

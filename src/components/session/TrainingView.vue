@@ -6,23 +6,39 @@
 
 -->
 <template>
-  <div class="blank">
-    {{ msg }}
-    <button v-on:click="logExercises()"> Log exercises </button>
-    <div v-for="(exercise, numberOfExercise) in this.exercises" :key="numberOfExercise">
-      {{ exercise.name }}
-      <div v-for="(reps, i) in setLists[numberOfExercise].listOfReps" :key="i">
-        Weight {{ setLists[numberOfExercise].listOfWeights[i] }}
-        Reps   {{ setLists[numberOfExercise].listOfReps[i]    }}
-        Done   {{ setLists[numberOfExercise].finishedSets[i]  }}
-        <div v-if="setLists[numberOfExercise].finishedSets[i]"> DONE :D </div>
-        <button v-on:click="toggleSet(numberOfExercise, i, setLists[numberOfExercise].finishedSets[i])">
-          Mark as done
-        </button>
+  <div class="trainingView">
+    <div class="icon__numbers">
+
+    </div>
+    <div class="trainingView__container" v-for="(exercise, numberOfExercise) in this.exercises" :key="numberOfExercise">
+      <p class="trainingView__exerciseName">{{ exercise.name }}</p>
+      <div class="trainingView__set" v-for="(reps, i) in setLists[numberOfExercise].listOfReps" :key="i">
+        <div class="set__item">
+          <div class="icon__weight icon"></div>
+          {{ setLists[numberOfExercise].listOfWeights[i] }}
+        </div>
+        <div class="set__item">
+          <span class="alegreyasans"> Reps: </span>
+          {{ setLists[numberOfExercise].listOfReps[i]    }}
+        </div>
+        <div class="button__container">
+          <button
+            v-bind:class="{
+              button: true,
+              button__green: setLists[numberOfExercise].finishedSets[i]
+            }"
+            v-on:click="toggleSet(numberOfExercise, i, setLists[numberOfExercise].finishedSets[i])">
+            {{ setLists[numberOfExercise].finishedSets[i] ? 'Done' : 'Undone' }}
+          </button>
+        </div>
       </div>
     </div>
-    <button v-on:click="markAllAsDone()"> Mark all as done </button>
-    <button v-on:click="finishRoutine()"> Finish routine </button>
+    <div class="button__container">
+      <button class="button" v-on:click="markAllAsDone()"> Mark all as done </button>
+    </div>
+    <div class="button__container">
+      <button class="button button__green" v-on:click="finishRoutine()"> Finish routine </button>
+    </div>
   </div>
 </template>
 
@@ -83,5 +99,56 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.set__item {
+  width: 3.3rem;
+  display: flex;
+  justify-content: space-between;
+}
 
+.trainingView {
+  display: flex;
+  flex-direction: column;
+  max-height: 90%;
+  overflow: auto;
+}
+
+.trainingView__exerciseName {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+v-icon {
+  height: 3rem;
+  width: 3rem;
+}
+
+.trainingView__set {
+  display: flex;
+  height: 1.7rem;
+  width: 500px;
+  justify-content: space-around;
+}
+
+.trainingView__set .button__container {
+  max-width: 20%;
+}
+
+.button.button__green {
+  background-color: #73AF55;
+}
+
+.trainingView__container {
+  background-color: #151f26;
+  margin: 5px;
+  border: 2px solid #5BB0D8;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.icon.icon__weight {
+  background-position: center;
+  background-size: cover;
+  width: 1.5rem;
+  height: 1.5rem;
+}
 </style>

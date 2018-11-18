@@ -5,20 +5,22 @@
 
 -->
 <template>
-  <div>
-    <h1> {{ msg }} </h1>
-    <h1> What the... </h1>
-    <button v-on:click="logAllRoutines()"> Log routines </button>
-    <div v-if="allRoutines.length != 0">
-      Not empty
-      <div v-for="(routine, index) in allRoutines" :key="index">
-        {{ routine.name }}
-        <button v-on:click="createSession(routine)"> Train </button>
-        <button v-on:click="viewRoutine(routine)"> View </button>
+  <div class="session__select__routine">
+    <div class="session__routine__chooser" v-if="allRoutines.length != 0">
+      <p class="heading"> Pick a routine </p>
+      <div class="session__routine" v-for="(routine, index) in allRoutines" :key="index">
+        <p class="session__routine__name">{{ routine.name }}</p>
+        <div class="button__container">
+          <button class="button" v-on:click="createSession(routine)"> Train </button>
+        </div>
+        <div class="button__container">
+          <button class="button" v-on:click="viewRoutine(routine)"> View </button>
+        </div>
       </div>
     </div>
     <div v-else>
       <h1> You don't have any routines yet.</h1>
+
       <button v-on:click="gotoNewRoutine()"> Go make one </button>
       <h3> or </h3>
       <button> Browser for one (does nothing) </button>
@@ -72,5 +74,38 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.session__select__routine {
+  width: 100%;
+  max-width: 600px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
+.session__routine__chooser {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.session__routine__name {
+  font-size: 1.25rem;
+  width: 100%;
+  flex-grow: 2;
+}
+
+.session__routine {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.button__container {
+  max-width: 33%;
+}
 </style>

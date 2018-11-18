@@ -31,7 +31,7 @@ public class RoutineEntity {
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO)
   private Long id;
-  private Long timeStamp;
+  private Long timestamp;
   private String name;
 
   @ElementCollection
@@ -62,12 +62,12 @@ public class RoutineEntity {
   public List<Long> getExerciseIds() { return exerciseIds; }
   public void setExerciseIds(List<Long> exerciseIds) { this.exerciseIds = exerciseIds; }
 
-  public Long getTimeStamp() {
-    return timeStamp;
+  public Long getTimestamp() {
+    return timestamp;
   }
 
-  public void setTimeStamp(Long timeStamp) {
-    this.timeStamp = timeStamp;
+  public void setTimestamp(Long timestamp) {
+    this.timestamp = timestamp;
   }
 
   public String getName() {

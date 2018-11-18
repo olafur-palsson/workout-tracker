@@ -36,7 +36,6 @@ export default {
   name: 'NewRoutine_main',
   data () {
     return {
-      routine: [],
       props: ['getRoutine'],
       maxOf,
       averageOf,
@@ -44,15 +43,13 @@ export default {
       routineHasExercise: true
     }
   },
+  created () {
+
+  },
   methods: {
     createRoutine () {
       this.$parent.saveRoutine()
       this.$router.push({ name: 'home' })
-    },
-    addExerciseToRoutine (exercise, setList) {
-      this.routine.push({ exercise, setList })
-      this.routineHasExercise = true
-      console.log(this.routineHasExercise)
     },
     goToAddExcercise () {
       this.$router.push({ name: 'newRoutine_addExercise' })

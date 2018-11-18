@@ -40,6 +40,10 @@ export default {
 * {
   text-decoration: none;
 }
+.heading {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
 
 .application {
   font-family: 'Questrial', Helvetica, Arial, sans-serif;
@@ -48,12 +52,17 @@ export default {
   text-align: center;
   color: #e5f1f9;
   max-width: 100vw;
+  height: 100%;
   width: 100%;
   box-sizing: border-box;
 }
 
 #app {
   padding-top: 10vh;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .navigation {
@@ -144,19 +153,10 @@ export default {
   transform: translateY(-3px);
 }
 
-/*
-.button:hover {
-  background-color: #E2EEF6;
+.alegreyasans {
+  font-family: 'Alegreya Sans SC';
+  font-weight: 700;
 }
-
-.button {
-  padding: 5px;
-  border-radius: 3px;
-  border: 1px solid black;
-  background-color: #5BB0D8;
-  cursor: pointer;
-}
-*/
 
 /* background images */
 .gym1 {
@@ -209,5 +209,13 @@ export default {
 
 .logo {
   background-image: url('assets/logo2.png');
+}
+
+.icon__weight {
+  background-image: url('assets/weight.png')
+}
+
+.icon__numbers {
+  background-image: url('assets/numbers.png')
 }
 </style>

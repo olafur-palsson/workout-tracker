@@ -7,24 +7,37 @@ hello world)
 -->
 <template>
   <div class="routineView">
-    <h1> RoutineView </h1>
-    <br/>
-    <br/>
-    <br/>
+    <h1 class="routine__name"> {{ routine.name }} </h1>
     <div class="exercise" v-for="(unused, i) in routine.exercises" :key="i">
-      {{ routine.exercises[i].name }}
-      <div class="button__container">
-        <button class="button" v-on:click="selectExercise(i)" > Show details / Edit </button>
-        <button v-on:click="removeExercise(i)"> X </button>
+      <div class="exercise__info">
+        <div class="safe__buttons">
+          <p class="exercise__name">{{ routine.exercises[i].name }}</p>
+          <div class="button__container">
+            <button class="button" v-on:click="selectExercise(i)" > Show details / Edit </button>
+          </div>
+        </div>
+        <div class="button__container red">
+          <button class="button button__red" v-on:click="removeExercise(i)"> X </button>
+        </div>
       </div>
-      <div v-if="selectedExercise == i" class="set" v-for="(unused, j) in routine.setLists[i].listOfWeights" :key="j">
-        {{ routine.setLists[i].listOfWeights[j] }}
-        {{ routine.setLists[i].listOfReps[j] }}
-        <button v-on:click="removeSet(i, j)"> X </button>
+      <div v-if="selectedExercise == i" class="routineView__set" v-for="(unused, j) in routine.setLists[i].listOfWeights" :key="j">
+        <div class="set__item">
+          <div class="icon__weight icon"></div>
+          {{ routine.setLists[i].listOfWeights[j] }}
+        </div>
+        <div class="set__item">
+          <span class="alegreyasans"> Reps: </span>
+          {{ routine.setLists[i].listOfReps[j] }}
+        </div>
+        <div class="button__container">
+          <button class="button button__red" v-on:click="removeSet(i, j)"> X </button>
+        </div>
       </div>
       <button v-if="selectedExercise == i"> Add/edit set (not implementad)</button>
     </div>
-    <button v-on:click="gotoAddExercise()"> Add Exercise </button>
+    <div class="button__container addExercise__button">
+      <button class="button" v-on:click="gotoAddExercise()"> Add Exercise </button>
+    </div>
     <router-view/>
   </div>
 </template>
@@ -105,7 +118,83 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.set__item {
+  width: 3.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
+.routineView__set {
+  display: flex;
+  height: 1.8rem;
+  width: 500px;
+  justify-content: space-around;
+}
+
+.routineView__set .button__container {
+  max-width: 20%;
+}
+
+.icon.icon__weight {
+  background-position: center;
+  background-size: cover;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.routineView {
+  width: 100%;
+  max-width: 600px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10%;
+  max-height: 100%;
+}
+
+.routine__name {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.exercise {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.exercise__info {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.exercise__name {
+  min-width: 25%;
+}
+
+.safe__buttons {
+  display: flex;
+  align-items: center;
+  max-width: 75%;
+  width: 100%;
+}
+
+.addExercise__button {
+  padding-top: 20px;
+}
+
+.button__container.red {
+  max-width: 2rem;
+  align-self: flex-end;
+}
+
+.button__red {
+  background-color: #D06079;
+}
 </style>
