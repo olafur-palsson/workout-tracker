@@ -151,7 +151,6 @@ export default {
   margin-top: 40px;
 }
 
-
 .icon.icon__weight {
   background-position: center;
   background-size: cover;
