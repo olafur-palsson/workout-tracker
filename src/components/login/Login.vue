@@ -42,6 +42,12 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.login {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
 @media screen and (max-width: 600px) {
   .header {
     font-size: 1.5rem;
@@ -52,6 +58,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 100%;
   align-items: center;
   height: 90vh;
   background-image: url('../../assets/login_jumbo2.jpg');
