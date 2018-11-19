@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 @SpringBootApplication
 @ComponentScan
+@Configuration
 @EnableAutoConfiguration
 @EnableCaching
 public class Application {
