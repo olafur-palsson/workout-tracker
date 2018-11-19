@@ -21,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authProvider);
         auth.inMemoryAuthentication()
                 .withUser("admin").password("admin").roles("ADMIN")
-                .auth().inMemoryAuthentication()
+              .and()
                 .withUser("anonymous").password("anonymous").roles("ANON");
     }
 
