@@ -69,6 +69,7 @@ public class UserEntity {
   }
 
   public Long getActiveRoutine() {
+    int a = 0;
     return activeRoutine;
   }
 
