@@ -13,8 +13,8 @@ let Request = new RequestFactory()
 // breyta thessum ef madur aetlar ad skipta milli server og localhost
 // const baseString = 'http://<ipTala>:8080/database/userEnabled/'
 
-const baseString = 'http://localhost:8080/database/userEnabled/'
-const newUserMethod = 'http://localhost:8080/database/newUser'
+const baseString = 'http://68.183.127.104:8080/database/userEnabled/'
+const newUserMethod = 'http://68.183.127.104:8080/database/newUser'
 
 const requestBuilder = (methodName, requestParams = {}) => {
   const method = `${baseString}${methodName}`

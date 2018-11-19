@@ -24,12 +24,14 @@ public class UserController {
   // We can use this one to check if the user is logged in
   // It usually gives us a 400 ~ 500 error if the user is not logged in
   // The front-end check string-equivalence
+  @CrossOrigin
   @GetMapping(path = "userEnabled/check")
   public @ResponseBody String checkLoggedIn() {
     return "logged_in";
   }
 
   // Create a new user, this is the only method permitted to everyone
+  @CrossOrigin
   @GetMapping(path = {"/newUser", "/userEnabled/newUser"})
   public @ResponseBody String addNewUser(
     @RequestParam String name,
