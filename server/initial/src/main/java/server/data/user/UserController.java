@@ -3,8 +3,6 @@ package server.data.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-// import server.data.history.HistoryEntity;
-// import server.data.history.HistoryRepository;
 import server.data.routine.RoutineEntity;
 import server.data.routine.RoutineRepository;
 import server.data.user.UserEntity;
@@ -22,8 +20,6 @@ public class UserController {
   private UserRepository userRepository;
   @Autowired
   private RoutineRepository routineRepository;
-  // @Autowired
-  // private HistoryRepository historyRepository;
 
   // We can use this one to check if the user is logged in
   // It usually gives us a 400 ~ 500 error if the user is not logged in
@@ -50,9 +46,6 @@ public class UserController {
     u.setEmail(email);
     u.setName(name);
     u.setPassword(password);
-    // HistoryEntity history = new HistoryEntity();
-    // Long historyId = historyRepository.save(history).getId();
-    // u.setHistoryId(historyId);
     u = userRepository.save(u);
     System.out.println("Successfully save user " + email);
     return u.getEmail();
@@ -112,34 +105,6 @@ public class UserController {
       id -> routineRepository.findOne(id)
     ).collect(Collectors.toList());
   }
-
-  /*
-
-  DEPRECATED!
-
-  @CrossOrigin
-  @GetMapping(path = "/createHistoryEntry")
-  public @ResponseBody String createHistoryEntry(
-    @RequestParam Long routineId,
-    @RequestParam String email
-  ) {
-    UserEntity user = userRepository.findOne(email);
-    HistoryEntity history = historyRepository.findOne(user.getHistoryId());
-    history.addRoutine(routineId);
-    historyRepository.save(history);
-    return "CreatedHistoryEntry";
-  }
-
-  @CrossOrigin
-  @GetMapping(path = { "/getHistoryOfUser", "userEnabled/getHistoryOfUser" })
-  public @ResponseBody HistoryEntity getHistoryOfUser(
-    @RequestParam String email
-  ) {
-    UserEntity user = userRepository.findOne(email);
-    System.out.println(user.getHistoryId());
-    return historyRepository.findOne(user.getHistoryId());
-  }
-  */
 
   // A service that takes the two ids of user and routine and adds the routine to user's collection of routines
   @CrossOrigin

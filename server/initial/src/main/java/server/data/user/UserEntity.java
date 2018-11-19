@@ -16,7 +16,6 @@ public class UserEntity {
   private String email;
   private String name;
   private String password;
-  private Long historyId;
   // 0 means no active routine since -1 is never an ID
   private Long activeRoutine = -1L;
   @ElementCollection
@@ -43,14 +42,6 @@ public class UserEntity {
   }
   public void setPassword(String password) {
     this.password = password;
-  }
-
-  public Long getHistoryId() {
-    return historyId;
-  }
-
-  public void setHistoryId(Long historyId) {
-    this.historyId = historyId;
   }
 
   public void addRoutine(Long routineId) {
