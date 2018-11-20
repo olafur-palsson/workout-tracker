@@ -1,3 +1,4 @@
+/*
 package server.security;
 
 import org.springframework.context.annotation.Configuration;
@@ -15,3 +16,4 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addMapping("/**");
     }
 }
+*/

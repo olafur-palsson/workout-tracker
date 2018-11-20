@@ -19,8 +19,7 @@ public class SetListController {
 
 	@CrossOrigin
 	@GetMapping(path = {"/addSetList", "/userEnabled/addSetList"})
-	public @ResponseBody
-	Long addSetList(
+	public @ResponseBody Long addSetList(
 	        @RequestParam(required = false) Long id,
 	        @RequestParam ArrayList<Double> weight,
             @RequestParam ArrayList<Integer> reps,

@@ -11,7 +11,6 @@ import server.data.user.UserRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin
 @RestController    // This means that this class is a Controller
 @RequestMapping(path="/database") // This means URL's start with /demo (after Application path)
 public class UserController {
