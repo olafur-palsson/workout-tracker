@@ -14,7 +14,7 @@ const printRequestOnSend = true
 class RequestFactory {
   async isLoggedIn () {
     // return true if user is logged in
-    const answer = await this.make('http://localhost:8080/database/userEnabled/check')
+    const answer = await this.make('http://68.183.127.104:8080/database/userEnabled/check')
     console.log(answer)
     return answer === 'logged_in'
   }
@@ -62,7 +62,7 @@ class RequestFactory {
       console.log(requestString)
     }
     const req = new XMLHttpRequest()
-    req.timeout = 2000
+    req.timeout = 10000
     req.open('GET', requestString, true)
     console.log(this.email, this.password)
     if (this.email && this.password) {
