@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // Make sure newUser method is available also when not signed in
                 .antMatchers(HttpMethod.GET, "/database/userEnabled/*").authenticated()
                 .antMatchers(HttpMethod.GET, "/database/newUser*").hasAnyRole("ANON", "ADMIN")
-                .anyRequest().hasRole("ADMIN");
+                .anyRequest().hasRole("ADMIN", "ANON");
                 // Rest of the methods are only available to Username: admin, Password: admin
 
     }
