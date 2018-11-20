@@ -7,7 +7,7 @@ hello world)
 -->
 <template>
   <div class="calendar__component">
-    <div class="calendar__container">
+    <div v-bind:class="{ calendar__container: true, transformed: transformationState > 1 }">
       <div v-bind:class="{ calendar: true, transformed: transformationState > 1, transformed2: transformationState === 3 }">
 
         <!-- UNTRANSFORMED -->
@@ -248,6 +248,8 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100%;
+  width: 600px;
+  max-width: 100%;
 }
 
 .calendar__container {
@@ -255,7 +257,7 @@ export default {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  width: 600px;
+  width: 100%;
   height: 100%;
 }
 
@@ -288,6 +290,52 @@ export default {
   transition: height 0.5s;
 }
 
+@media screen and (max-width: 600px) {
+  .calendar__container {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    max-width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    padding-top: 20vh;
+    transition: padding-top 0.5s;
+  }
+
+  .calendar__row, .monthName {
+    width: 300px;
+    max-width: 300px;
+    min-width: 0px;
+    margin: 0px 0px 0px 0px;
+  }
+
+  .monthName {
+    margin-right: 0px;
+  }
+
+  .calendar__container.transformed {
+    padding-top: 10px;
+  }
+
+  .calendar {
+    width: 100%;
+    margin: 0px;
+    align-items: center;
+  }
+
+  .calendar__description {
+    align-self: flex-start;
+    border-radius: 0px;
+    top: 10vh;
+    left: 0px;
+    width: 100%;
+    max-width: 100%;
+    height: 25vh;
+  }
+}
+
 .calendar.transformed {
   height: 100%;
 }
@@ -305,12 +353,17 @@ export default {
 
 .monthName {
   margin-bottom: 5px;
-  margin-right: 200px;
   width: 75%;
   display: flex;
   justify-content: space-around;
   align-items: center;
   transition: opacity 0.5s;
+}
+
+@media screen and (min-width: 601px) {
+  .monthName {
+    margin-right: 200px;
+  }
 }
 
 .monthName__text {

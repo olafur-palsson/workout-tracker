@@ -51,15 +51,17 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #e5f1f9;
-  max-width: 100vw;
   height: 100%;
   width: 100%;
   box-sizing: border-box;
 }
 
 #app {
-  padding-top: 10vh;
+  padding-top: 12vh;
   height: 100%;
+  max-height: 100%;
+  width: 100%;
+  overflow: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -70,7 +72,6 @@ export default {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  padding-top: 10vh;
   height: 100vh;
   width: 100%;
 }
@@ -106,13 +107,23 @@ export default {
   background-color: #151f26;
   border-bottom:  3px solid black;
   height: 10vh;
-  min-height: 50px;
+  max-height: 10vh;
   position: fixed;
   font-size: 2.7rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+
+@media screen and (max-height: 500px) {
+  .header {
+    min-height: 50px;
+  }
+
+  #app {
+    padding-top: 50px;
+  }
 }
 
 @media screen and (max-width: 600px) {

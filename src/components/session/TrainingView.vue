@@ -7,9 +7,6 @@
 -->
 <template>
   <div class="trainingView">
-    <div class="icon__numbers">
-
-    </div>
     <div class="trainingView__container" v-for="(exercise, numberOfExercise) in this.exercises" :key="numberOfExercise">
       <p class="trainingView__exerciseName">{{ exercise.name }}</p>
       <div class="trainingView__set" v-for="(reps, i) in setLists[numberOfExercise].listOfReps" :key="i">
@@ -28,7 +25,7 @@
               button__green: setLists[numberOfExercise].finishedSets[i]
             }"
             v-on:click="toggleSet(numberOfExercise, i, setLists[numberOfExercise].finishedSets[i])">
-            {{ setLists[numberOfExercise].finishedSets[i] ? 'Done' : 'Undone' }}
+            {{ setLists[numberOfExercise].finishedSets[i] ? '✓' : 'X' }}
           </button>
         </div>
       </div>
@@ -108,8 +105,19 @@ export default {
 .trainingView {
   display: flex;
   flex-direction: column;
-  max-height: 90%;
+  max-height: 100%;
+  max-width: 100%;
+  margin-top: 5vh;
+  width: 500px;
   overflow: auto;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 500px) {
+  .trainingView {
+    width: 100%;
+    padding: 10px;
+  }
 }
 
 .trainingView__exerciseName {
@@ -125,12 +133,12 @@ v-icon {
 .trainingView__set {
   display: flex;
   height: 1.7rem;
-  width: 500px;
+  width: 100%;
   justify-content: space-around;
 }
 
 .trainingView__set .button__container {
-  max-width: 20%;
+  max-width: 30%;
 }
 
 .button.button__green {
@@ -138,11 +146,13 @@ v-icon {
 }
 
 .trainingView__container {
+  max-width: 100%;
+  width: 100%;
   background-color: #151f26;
-  margin: 5px;
   border: 2px solid #5BB0D8;
   border-radius: 5px;
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .icon.icon__weight {

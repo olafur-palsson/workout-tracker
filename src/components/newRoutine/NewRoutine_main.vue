@@ -7,12 +7,12 @@ has the button for creating the routine (saving it to database)
 <template>
   <div class="navigation">
     <div class="navigation__container newroutine">
-      <div v-for="(exerciseAndSetList, index) in this.$parent.routine" :key="index">
+      <div class="exercise__li" v-for="(exerciseAndSetList, index) in this.$parent.routine" :key="index">
         <div>
-          {{ index }}
-          <div> {{ exerciseAndSetList.exercise.name }},
+          <div>
+            <p class="hint">{{ exerciseAndSetList.exercise.name }}</p>
             Avg. reps {{ averageOf(exerciseAndSetList.setList.listOfReps) }}
-            Max. weight {{ maxOf(exerciseAndSetList.setList.listOfWeights) }}
+            - Max. weight {{ maxOf(exerciseAndSetList.setList.listOfWeights) }}
           </div>
         </div>
       </div>
@@ -30,7 +30,7 @@ has the button for creating the routine (saving it to database)
 <script>
 
 const maxOf = array => array.reduce((max, el) => max > el ? max : el, 0)
-const averageOf = array => array.reduce((sum, el) => sum + el) / array.length
+const averageOf = array => array.reduce((sum, el) => sum + el, 0) / array.length
 
 export default {
   name: 'NewRoutine_main',
@@ -66,4 +66,11 @@ export default {
   flex-wrap: wrap;
 }
 
+.exercise__li {
+  margin-bottom: 10px;
+}
+
+.hint {
+  font-size: 1.2rem;
+}
 </style>

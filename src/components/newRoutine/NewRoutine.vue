@@ -8,7 +8,9 @@
   <div class="newRoutine">
     <router-view v-if="routineName" :allExercises="allExercises" />
     <div class="routineNameInput" v-else>
-      <input class="input routine__name" v-model="routineNameInput" placeholder="Pick a name">
+      <div class="routineInputContainer">
+        <input class="input routine__name" v-model="routineNameInput" placeholder="Pick a name">
+      </div>
       <div class="button__container">
         <button class="button" v-on:click="setName()"> OK </button>
       </div>
@@ -57,10 +59,30 @@ export default {
 </script>
 
 <style scoped>
+.routineInputContainer {
+  width: 100%;
+}
+
+.routineNameInput {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.newRoutine {
+  max-width: 100%;
+  width: 400px;
+  height: 100%;
+  max-height: 100%;
+}
+
 .input.routine__name {
   background-color: rgba(0, 0, 0, 0.3);
   font-size: 4rem;
-  max-width: 90vw;
+  max-width: 100%;
+  margin-top: 30vh;
   border-width: 0;
   color: #CEDAE2;
   display: flex;
@@ -68,5 +90,11 @@ export default {
   border-radius: 6px;
   margin-bottom: 20px;
   text-align: center;
+}
+
+@media screen and (max-width: 400px) {
+  .input.routine__name {
+    font-size: 2rem;
+  }
 }
 </style>

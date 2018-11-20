@@ -10,7 +10,7 @@
 
     <div v-if="selectedExercise == null">
       <h1 class="hint">Select exercise</h1>
-      <div class="button__container ">
+      <div class="button__container select__exercise">
         <button class="button exercise" v-for="(exercise, i) in this.$parent.allExercises" :key="i" v-on:click="selectExercise(exercise)">
           {{ exercise.name }}
         </button>
@@ -123,6 +123,12 @@ export default {
   padding-bottom: 100px;
 }
 
+.select__exercise {
+  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .button.exercise {
   width: 100px;
 }
@@ -158,11 +164,15 @@ export default {
   height: 1.5rem;
 }
 
+.button__container.select__exercise {
+}
+
 .button__red.button {
   background-color: #D06079;
 }
 
 .button__green.button {
+  margin-top: 30px;
   background-color: #73AF55;
 }
 
