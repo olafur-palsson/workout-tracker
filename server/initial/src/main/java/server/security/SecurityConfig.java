@@ -29,7 +29,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         // OLI, EKKI SNERTA!!!
         httpSecurity
-                .csrf().disable()
                 .httpBasic()
                 .and()
                 .authorizeRequests()

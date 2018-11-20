@@ -62,6 +62,7 @@ class RequestFactory {
       console.log(requestString)
     }
     const req = new XMLHttpRequest()
+    req.timeout = 2000
     req.open('GET', requestString, true)
     console.log(this.email, this.password)
     if (this.email && this.password) {
@@ -73,6 +74,7 @@ class RequestFactory {
     return new Promise((resolve, reject) => {
       req.ontimeout = () => reject(new Error('Request timed out'))
       req.onerror   = () => reject(new Error('Request status: ' + req.status))
+      req.ontimeout = () => reject(new Error('Server timeout after 2 seconds'))
       req.onload    = () => {
         console.log('Success')
         try {
