@@ -338,6 +338,7 @@ export default {
 
 .calendar.transformed {
   height: 100%;
+  margin-right: 0px;
 }
 
 .calendar.transformed2 {

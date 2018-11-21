@@ -33,25 +33,36 @@ hello world)
           <button class="button button__red" v-on:click="removeSet(i, j)"> X </button>
         </div>
       </div>
-      <button v-if="selectedExercise == i"> Add/edit set (not implementad)</button>
+      <!-- button v-if="selectedExercise == i"> Add/edit set (not implementad)</button -->
     </div>
     <div class="button__container addExercise__button">
-      <button class="button" v-on:click="gotoAddExercise()"> Add Exercise </button>
+      <button class="button" v-on:click="show_addExercise()"> Add Exercise </button>
     </div>
-    <router-view/>
+    <div v-if="addingExercise">
+      <AddExercise/>
+    </div>
+    <div class="button__container">
+      <button class="button" v-on:click="updateRoutine()"> Confirm changes </button>
+    </div>
   </div>
+
 </template>
 
 <script>
 import Database from '@/database/Database'
+import AddExercise from '@/components/AddExercise'
 
 export default {
   name: 'RoutineView',
+  components : {
+    AddExercise
+  },
   data () {
     return {
       msg: 'RoutineView',
       routineFrame: this.$parent.routine,
       routine: null,
+      addingExercise: false,
       selectedExercise: null,
       allExercises: null,
       notAddingExercise: true,
@@ -66,7 +77,7 @@ export default {
     async addExerciseToRoutine (exercise, setList) {
       this.routine.exercises.push(exercise)
       this.routine.setLists.push(setList)
-      this.notAddingExercise = false
+      this.addingExercise = false
     },
     async loadExercises () {
       const allExercises = await Database.exercise.getAll()
@@ -74,7 +85,7 @@ export default {
     },
     selectExercise (index) {
       console.log(index)
-      this.selectedExercise = index
+      this.selectedExercise = index == this.selectedExercise ? null : index
     },
     async load () {
       const exercises = await Database.routine.getAllExercisesOfRoutine(this.routineFrame.id)
@@ -102,17 +113,19 @@ export default {
       this.routine.setLists.push(setList)
       this.routine.exercises.push(exercise)
     },
-    gotoAddExercise () {
-      this.notAddingExercise = false
-      this.$router.push({ name: 'session_routine_addExercise' })
+    show_addExercise () {
+      console.log('whit')
+      this.addingExercise = true;
     },
     async updateRoutine () {
       let exerciseIds = this.routine.exercises.map(exercise => exercise.id)
+      console.log(this.routine.setLists)
       let setListsIds = await Database.objectToIds(this.routine.setLists, setList => {
         return Database.setList.saveEntity(setList)
       })
-      // BUG: routineId er ekki latid fylgja med
-      await Database.routine.saveEntity(exerciseIds, setListsIds)
+      let routineId
+      if (this.routine.id) routineId = this.routine.id
+      await Database.routine.saveEntity(this.routine.name, exerciseIds, setListsIds, this.routine.id)
     }
   }
 }

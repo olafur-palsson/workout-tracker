@@ -66,7 +66,7 @@ export default new Router({
       name: 'session_routineView',
       component: RoutineView,
       children: [{
-        path: 'addExercise',
+        path: '/addExercise',
         name: 'session_routine_addExercise',
         component: AddExercise
       }]
@@ -77,16 +77,9 @@ export default new Router({
     component: History,
     name: 'history',
     children: [{
-      path: '/routine',
-      name: 'history_routine',
-      component: RoutineView,
-      children: [{
-        path: 'addExercise',
-        name: 'history_routine_addExercise',
-        component: AddExercise
-      }]
-    }, {
-      path: 'exercise'
+      path: '/addExercise',
+      name: 'history_routine_addExercise',
+      component: AddExercise
     }]
   }, {
     // Login routes

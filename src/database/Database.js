@@ -121,6 +121,7 @@ const routineFunctions = {
     parameters = exerciseIds.reduce((encoding, id) => encoding + `&exerciseIds=${id}`, '')
     parameters = setListIds.reduce((encoding, id) => encoding + `&setListIds=${id}`, parameters)
     if (id) parameters += `&id=${id}`
+    if (name) parameters += `&name=${name}`
     return saveEntity('Routine', parameters)
   },
   // Make the database deepCopy a routine, used to make a new session

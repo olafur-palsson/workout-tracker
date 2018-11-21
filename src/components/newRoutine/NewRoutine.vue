@@ -45,6 +45,7 @@ export default {
     },
     addExerciseToRoutine (exercise, setList) {
       this.routine.push({ exercise, setList })
+      this.$router.back()
     },
     async saveRoutine () {
       let exerciseIds = this.routine.map(exerciseAndSetList => exerciseAndSetList.exercise.id)
@@ -54,6 +55,19 @@ export default {
       let routineId = await Database.routine.saveEntity(this.routineName, exerciseIds, setListsIds)
       await Database.user.addRoutineToUser(routineId)
     }
+    /*
+    async saveRoutine () {
+      console.log(this.routine[0])
+      let exerciseIds = this.routine.exercises.map(exercise => exercise.id)
+      console.log(this.routine.setLists)
+      let setListsIds = await Database.objectToIds(this.routine.setLists, setList => {
+        return Database.setList.saveEntity(setList)
+      })
+      let routineId
+      if (this.routine.id) routineId = this.routine.id
+      await Database.routine.saveEntity(this.routine.name, exerciseIds, setListsIds, this.routine.id)
+    }
+    */
   }
 }
 </script>

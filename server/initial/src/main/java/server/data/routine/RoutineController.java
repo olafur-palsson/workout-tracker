@@ -159,12 +159,12 @@ public class RoutineController {
   ) {
     RoutineEntity routine = new RoutineEntity();
     if(id != null) routine.setId(id);
+    else if(timestamp != null) routine.setTimestamp(timestamp);
+    else routine.setTimestamp(System.currentTimeMillis());
 
     if(name != null) routine.setName(name);
     else             routine.setName("Not named");
 
-    if(timestamp != null) routine.setTimestamp(timestamp);
-    else                  routine.setTimestamp(System.currentTimeMillis());
 
     routine.setExerciseIds(exerciseIds);
     routine.setSetListIds(setListIds);

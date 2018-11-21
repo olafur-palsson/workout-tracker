@@ -54,7 +54,7 @@
       <button class="button button__green" v-on:click="sendToParent()"> Confirm </button>
     </div>
     <div class="button__container">
-      <button class="button button__red" v-on:click="goBack()"> Cancel </button>
+      <button class="button button__red" v-on:click="cancel()"> Cancel </button>
     </div>
   </div>
 </template>
@@ -75,8 +75,8 @@ export default {
     }
   },
   methods: {
-    goBack () {
-      this.$router.go(-1)
+    cancel () {
+      this.$parent.addingExercise = false
     },
     removeSet (index) {
       this.setList.reps.splice(index, 1)
@@ -93,7 +93,6 @@ export default {
       // setList will always be a new object
       this.setList = [Object.assign({}, this.currentSetListInput)]
       this.selectedExercise = { listOfReps: [], listOfWeights: [] }
-      this.goBack()
     },
     addSet () {
       this.setList.listOfReps.push(this.currentSetListInput.reps)
