@@ -104,6 +104,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.button.exercise {
+  min-width: 150px;
+  min-height: 50px;
+}
+
 .addExercise {
   width: 100%;
 }

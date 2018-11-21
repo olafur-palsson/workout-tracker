@@ -54,7 +54,7 @@ import AddExercise from '@/components/AddExercise'
 
 export default {
   name: 'RoutineView',
-  components : {
+  components: {
     AddExercise
   },
   data () {
@@ -85,7 +85,7 @@ export default {
     },
     selectExercise (index) {
       console.log(index)
-      this.selectedExercise = index == this.selectedExercise ? null : index
+      this.selectedExercise = index === this.selectedExercise ? null : index
     },
     async load () {
       const exercises = await Database.routine.getAllExercisesOfRoutine(this.routineFrame.id)
@@ -115,7 +115,7 @@ export default {
     },
     show_addExercise () {
       console.log('whit')
-      this.addingExercise = true;
+      this.addingExercise = true
     },
     async updateRoutine () {
       let exerciseIds = this.routine.exercises.map(exercise => exercise.id)
@@ -123,8 +123,6 @@ export default {
       let setListsIds = await Database.objectToIds(this.routine.setLists, setList => {
         return Database.setList.saveEntity(setList)
       })
-      let routineId
-      if (this.routine.id) routineId = this.routine.id
       await Database.routine.saveEntity(this.routine.name, exerciseIds, setListsIds, this.routine.id)
     }
   }
